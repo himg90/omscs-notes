@@ -1,6 +1,6 @@
-baseURL = 'http://example.org/'
+baseURL = 'http://localhost'
 languageCode = 'en-us'
-title = 'cs7210 - Distributed Computing'
+title = 'CS7210 - Distributed Computing'
 theme = "hugo-geekdoc"
 
 pluralizeListTitles = false
@@ -10,6 +10,9 @@ pygmentsUseClasses = true
 pygmentsCodeFences = true
 disablePathToLower = true
 
+# Required if you want to render robots.txt template
+enableRobotsTXT = true
+
 # Needed for mermaid shortcodes
 [markup]
   [markup.goldmark.renderer]
@@ -18,3 +21,6 @@ disablePathToLower = true
   [markup.tableOfContents]
     startLevel = 1
     endLevel = 9
+
+[taxonomies]
+   tag = "tags"
