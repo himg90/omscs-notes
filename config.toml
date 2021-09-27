@@ -1,4 +1,5 @@
 baseURL = 'https://himg90.github.io/omscs-notes'
+canonifyurls = true
 languageCode = 'en-us'
 title = 'CS7210 - Distributed Computing'
 theme = "hugo-geekdoc"
