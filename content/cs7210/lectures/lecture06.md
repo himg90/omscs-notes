@@ -1,9 +1,8 @@
 ---
-title: "Replication"
-draft: false
+title: "06 Replication"
+geekdocDescription: ""
+keywords: ["replication", "distributed system", "consistency", "omscs"]
 ---
-
-# Replication
 
 ### Goals of Replication
 

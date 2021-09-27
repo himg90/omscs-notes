@@ -1,6 +1,6 @@
 ---
-title: "Fault Tolerance"
-draft: false
+title: "07 Fault Tolerance"
+keywords: ["fault tolerance", "distributed system", "omscs"]
 ---
 
 # Fault Tolerance
