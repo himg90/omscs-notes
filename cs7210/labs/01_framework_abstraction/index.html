@@ -3,8 +3,8 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Fault Tolerance    Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
-<title>Fault Tolerance | CS7210 - Distributed Computing</title>
+<meta name=description content="The system consists of a number of nodes which have addresses A Node can send() a message to another node. The receiving node has to handle() the message. Some nodes expose a client interface. An external user can interact with the distributed system by send()ing commandsand gettting results back. Application: Some nodes (server nodes) have contain an application object. An example of an application would be key-value in-memory store. Application is what the users of the distributed system want to access.">
+<title>DSLabs Abstract Interface | CS7210 - Distributed Computing</title>
 <link rel=icon href=/favicon/favicon-32x32.png type=image/x-icon>
 <script src=/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -54,14 +54,14 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=/cs7210/labs/01_framework_abstraction/ class="gdoc-nav__entry is-active">
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=/cs7210/lectures/lecture07/ class="gdoc-nav__entry is-active">
+<a href=/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
 Fault Tolerance
 </a>
 </span>
@@ -101,119 +101,19 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Fault Tolerance</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>DSLabs Abstract Interface</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Fault Tolerance</h1>
-<div class=gdoc-page__anchorwrap>
-<h1 id=fault-tolerance>
-Fault Tolerance
-<a data-clipboard-text=http://localhost/cs7210/lectures/lecture07/#fault-tolerance class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Fault Tolerance" href=#fault-tolerance><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h1>
-</div><div class=gdoc-page__anchorwrap>
-<h2 id=some-taxonomy>
-Some Taxonomy
-<a data-clipboard-text=http://localhost/cs7210/lectures/lecture07/#some-taxonomy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Some Taxonomy" href=#some-taxonomy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Fault-Error-Failure
+<h1>DSLabs Abstract Interface</h1>
+<p><img src=/cs7210/labs/dslabs_abstract_interface.png alt=dslabs_abstract_interface></p>
 <ul>
-<li>Fault is the problem (software bug, hardware failure)</li>
-<li>When fault is activated (because buggy part of code is executed), it causes errors</li>
-<li>Failure is the resulting behaviour</li>
-</ul>
-</li>
-<li>Faults: Transient / Intermittent / Permanent</li>
-<li>Failures: Fail-stop / Timing / Omission / Byzantine
-<ul>
-<li>Timing: System becomes &ldquo;slow&rdquo;</li>
-<li>Omission: some actions are missing like msg drops due to memory constraints</li>
-</ul>
-</li>
-<li>Managing Failures: Avoidance / Detection / Recovery / Removal
-<ul>
-<li>Detected failues are either <em>removed</em> by rollback or <em>recovered</em> from.</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=rollback-recovery>
-Rollback-Recovery
-<a data-clipboard-text=http://localhost/cs7210/lectures/lecture07/#rollback-recovery class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Rollback-Recovery" href=#rollback-recovery><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Rollback the system to a state before the failure</li>
-<li>Rolledback state may not be a real past state. It just needs to be consistent.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=basic-mechanisms>
-Basic Mechanisms
-<a data-clipboard-text=http://localhost/cs7210/lectures/lecture07/#basic-mechanisms class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Basic Mechanisms" href=#basic-mechanisms><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Checkpointing: Save the (full or incremental) state periodically</li>
-<li>Logging: Log individual write operations.
-<ul>
-<li>Undo Log: Log includes original values of variables. This makes it possible to undo an operation. System state can move backward.</li>
-<li>Redo Log: Log includes new values. To obtain a state, start from beginning and keep applying operations. System state can move forward.</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=checkpointing-approaches>
-Checkpointing Approaches
-<a data-clipboard-text=http://localhost/cs7210/lectures/lecture07/#checkpointing-approaches class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Checkpointing Approaches" href=#checkpointing-approaches><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><p><strong>System Model</strong></p>
-<ul>
-<li>Network is non-partitionable. <strong>Why ??</strong></li>
-<li>FIFO / communication channel reliability and num of failures will vary with protocol.</li>
-</ul>
-<p><strong>Uncoordinated Approach</strong></p>
-<ul>
-<li>Processes take checkpoints independently.</li>
-<li>Problems
-<ul>
-<li>The failed node rollbacks to previous checkpoint. If the state of the whole system becomes inconsistent, more rollbacks may have to be performed at several nodes => Domino effect.</li>
-<li>Leads to multiple useless checkpoints.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Coordinated Checkpoint</strong></p>
-<ul>
-<li>Processes coordinate to take a consistent snapshot.</li>
-<li>Problems
-<ul>
-<li>How to coordinate?</li>
-<li>No synchronous clock guarantee ie no global clock. (Everybody take snapshot at 5pm)</li>
-<li>If msg delivery was reliable with bounded delay, some approach could be created.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Communication induced Checkpoint</strong></p>
-<ul>
-<li>Use a consensus protocol: All nodes should reach a consensus that a snapshot will be taken and that they will not send any msg till it&rsquo;s complete. In a way, it&rsquo;s a blocking protocol.</li>
-<li>A non-blocking algo will be similar to Global Snapshot algo but it requires FIFO communication channel.</li>
-</ul>
-<p><strong>Logging</strong></p>
-<ul>
-<li>When reconstructing state we must ensure that it&rsquo;s not a inconsistent state. A crashed process might not log the last event it sent. We might apply events in wrong order.</li>
-<li>Pessimistic: First log the event then send it.</li>
-<li>Optimistic: Assume log will be persisted but make it possible to remove it&rsquo;s effect if aborted</li>
-<li>Causalty-tracking: ensure causality related events are deterministically recorded</li>
-</ul>
-<p><strong>Which Method to Use?</strong></p>
-<ul>
-<li>Workload characteristics: Frequency of updatss, size of updates,</li>
-<li>Failures characteristics:</li>
-<li>System Characteristics: cost of communication/stoage, system scale,</li>
+<li>The system consists of a number of <code>node</code>s which have <code>addresse</code>s</li>
+<li>A <code>Node</code> can <code>send()</code> a <code>message</code> to another <code>node</code>. The receiving <code>node</code> has to <code>handle()</code> the message.</li>
+<li>Some <code>nodes</code> expose a <code>client</code> interface. An external user can interact with the distributed system by <code>send()</code>ing <code>commands</code>and gettting <code>results</code> back.</li>
+<li><code>Application</code>: Some nodes (server nodes) have contain an <code>application</code> object. An example of an application would be key-value in-memory store. Application is what the users of the distributed system want to access. An application takes a <code>command</code> as input and produces <code>result</code> as output.</li>
+<li>Communication is one way i.e. when a node is sending a message, it is not expecting a reply message. Request/Response semantics are implemented at client-server level.</li>
 </ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">

@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
 <meta name=description content="Replication    Goals of Replication     State available at more than one node => Fault-tolerance, Availability Service can be provided from more than one node => Scalability  Replication Modes     Active Replication (all replicas read, write and update each other) Stand-by (Primary-backup) Replication (Only one replica reads and writes, rest just follow updates from primary)  Replication Techniques       State Replication Replicated State Machine     Change in state is sent to other replicas The operation (event) is executed(applied) to every replica   + No need to execute operation again + No need to transmit large state delta   - Determining change in state can be complex and large - Operation needs to be executed and must be deterministic    Replication and Consensus    &mldr;">
-<title>Lecture06 | cs7210 - Distributed Computing</title>
+<title>Replication | CS7210 - Distributed Computing</title>
 <link rel=icon href=/favicon/favicon-32x32.png type=image/x-icon>
 <script src=/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -26,10 +26,10 @@
 <div class="container flex align-center justify-between">
 <label for=menu-control class=gdoc-nav__control><svg class="icon gdoc_menu"><title>Open Nav Menu</title><use xlink:href="#gdoc_menu"/></svg><svg class="icon gdoc_arrow_back"><title>Close Nav Menu</title><use xlink:href="#gdoc_arrow_back"/></svg>
 </label>
-<a class=gdoc-header__link href=http://example.org/>
+<a class=gdoc-header__link href=http://localhost>
 <span class="gdoc-brand flex align-center">
 <img class=gdoc-brand__img src=/brand.svg alt>
-<span class=gdoc-brand__title>cs7210 - Distributed Computing</span>
+<span class=gdoc-brand__title>CS7210 - Distributed Computing</span>
 </span>
 </a>
 <div class=gdoc-menu-header>
@@ -54,15 +54,36 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=/cs7210/lectures/lecture06/ class="gdoc-nav__entry is-active">
-Lecture06
+<a href=/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
-Lecture07
+Fault Tolerance
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=/cs7210/labs/02_packets/ class=gdoc-nav__entry>
+Message Wrappers
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=/cs7210/lectures/lecture06/ class="gdoc-nav__entry is-active">
+Replication
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+WIP
 </a>
 </span>
 </li>
@@ -80,22 +101,22 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=/><span itemprop=name>cs7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Lecture06</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Replication</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Lecture06</h1>
+<h1>Replication</h1>
 <div class=gdoc-page__anchorwrap>
 <h1 id=replication>
 Replication
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication" href=#replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication" href=#replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
 </div><div class=gdoc-page__anchorwrap>
 <h3 id=goals-of-replication>
 Goals of Replication
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#goals-of-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Goals of Replication" href=#goals-of-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#goals-of-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Goals of Replication" href=#goals-of-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><ul>
@@ -105,7 +126,7 @@ Goals of Replication
 <div class=gdoc-page__anchorwrap>
 <h3 id=replication-modes>
 Replication Modes
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#replication-modes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Modes" href=#replication-modes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#replication-modes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Modes" href=#replication-modes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><ul>
@@ -115,7 +136,7 @@ Replication Modes
 <div class=gdoc-page__anchorwrap>
 <h3 id=replication-techniques>
 Replication Techniques
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#replication-techniques class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Techniques" href=#replication-techniques><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#replication-techniques class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Techniques" href=#replication-techniques><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><div class=table-wrap> <table>
@@ -143,14 +164,14 @@ Replication Techniques
 <div class=gdoc-page__anchorwrap>
 <h3 id=replication-and-consensus>
 Replication and Consensus
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#replication-and-consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication and Consensus" href=#replication-and-consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#replication-and-consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication and Consensus" href=#replication-and-consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>&mldr;</p>
 <div class=gdoc-page__anchorwrap>
 <h3 id=chain-replication>
 Chain Replication
-<a data-clipboard-text=http://example.org/cs7210/lectures/lecture06/#chain-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Chain Replication" href=#chain-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=http://localhost/cs7210/lectures/lecture06/#chain-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Chain Replication" href=#chain-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><ul>
