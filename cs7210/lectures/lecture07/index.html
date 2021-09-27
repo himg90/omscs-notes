@@ -4,7 +4,8 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
 <meta name=description content="Fault Tolerance    Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
-<title>Fault Tolerance | CS7210 - Distributed Computing</title>
+<meta name=keywords content="fault tolerance,distributed system,omscs">
+<title>07 Fault Tolerance | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://himg90.github.io/omscs-notes/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://himg90.github.io/omscs-notes/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://himg90.github.io/omscs-notes/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -50,19 +51,26 @@
 <h2>Navigation</h2>
 <ul class=gdoc-nav__list>
 <li>
-<span class=flex>Cs7210</span>
+<input type=checkbox id=navtree-225fa3b1 class=gdoc-nav__toggle checked>
+<label for=navtree-225fa3b1 class="flex justify-between">
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/ class=gdoc-nav__entry>
+CS7210 - Distributed Computing
+</a>
+</span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
+</label>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/labs/ class=gdoc-nav__entry>
+Labs
+</a>
+</span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
 <a href=https://himg90.github.io/omscs-notes/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class="gdoc-nav__entry is-active">
-Fault Tolerance
 </a>
 </span>
 </li>
@@ -75,17 +83,35 @@ Message Wrappers
 </li>
 <li>
 <span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+WIP
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/ class=gdoc-nav__entry>
+Lectures
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
 <a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture06/ class=gdoc-nav__entry>
-Replication
+06 Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
-WIP
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class="gdoc-nav__entry is-active">
+07 Fault Tolerance
 </a>
 </span>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -101,12 +127,12 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Fault Tolerance</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://himg90.github.io/omscs-notes/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>07 Fault Tolerance</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Fault Tolerance</h1>
+<h1>07 Fault Tolerance</h1>
 <div class=gdoc-page__anchorwrap>
 <h1 id=fault-tolerance>
 Fault Tolerance

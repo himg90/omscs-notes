@@ -3,8 +3,9 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Replication    Goals of Replication     State available at more than one node => Fault-tolerance, Availability Service can be provided from more than one node => Scalability  Replication Modes     Active Replication (all replicas read, write and update each other) Stand-by (Primary-backup) Replication (Only one replica reads and writes, rest just follow updates from primary)  Replication Techniques       State Replication Replicated State Machine     Change in state is sent to other replicas The operation (event) is executed(applied) to every replica   + No need to execute operation again + No need to transmit large state delta   - Determining change in state can be complex and large - Operation needs to be executed and must be deterministic    Replication and Consensus    &mldr;">
-<title>Replication | CS7210 - Distributed Computing</title>
+<meta name=description content="Goals of Replication     State available at more than one node => Fault-tolerance, Availability Service can be provided from more than one node => Scalability  Replication Modes     Active Replication (all replicas read, write and update each other) Stand-by (Primary-backup) Replication (Only one replica reads and writes, rest just follow updates from primary)  Replication Techniques       State Replication Replicated State Machine     Change in state is sent to other replicas The operation (event) is executed(applied) to every replica   + No need to execute operation again + No need to transmit large state delta   - Determining change in state can be complex and large - Operation needs to be executed and must be deterministic    Replication and Consensus    &mldr;">
+<meta name=keywords content="replication,distributed system,consistency,omscs">
+<title>06 Replication | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://himg90.github.io/omscs-notes/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://himg90.github.io/omscs-notes/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://himg90.github.io/omscs-notes/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -50,19 +51,26 @@
 <h2>Navigation</h2>
 <ul class=gdoc-nav__list>
 <li>
-<span class=flex>Cs7210</span>
+<input type=checkbox id=navtree-225fa3b1 class=gdoc-nav__toggle checked>
+<label for=navtree-225fa3b1 class="flex justify-between">
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/ class=gdoc-nav__entry>
+CS7210 - Distributed Computing
+</a>
+</span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
+</label>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/labs/ class=gdoc-nav__entry>
+Labs
+</a>
+</span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
 <a href=https://himg90.github.io/omscs-notes/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
-Fault Tolerance
 </a>
 </span>
 </li>
@@ -75,17 +83,35 @@ Message Wrappers
 </li>
 <li>
 <span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+WIP
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/ class=gdoc-nav__entry>
+Lectures
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
 <a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture06/ class="gdoc-nav__entry is-active">
-Replication
+06 Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
-WIP
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
+07 Fault Tolerance
 </a>
 </span>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -101,19 +127,13 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>Cs7210</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Replication</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://himg90.github.io/omscs-notes/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>06 Replication</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Replication</h1>
+<h1>06 Replication</h1>
 <div class=gdoc-page__anchorwrap>
-<h1 id=replication>
-Replication
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture06/#replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication" href=#replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h1>
-</div><div class=gdoc-page__anchorwrap>
 <h3 id=goals-of-replication>
 Goals of Replication
 <a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture06/#goals-of-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Goals of Replication" href=#goals-of-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
