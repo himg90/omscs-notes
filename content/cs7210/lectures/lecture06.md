@@ -1,3 +1,8 @@
+---
+title: "Replication"
+draft: false
+---
+
 # Replication
 
 ### Goals of Replication

@@ -1,3 +1,8 @@
+---
+title: "Fault Tolerance"
+draft: false
+---
+
 # Fault Tolerance
 
 ## Some Taxonomy
