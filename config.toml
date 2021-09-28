@@ -1,4 +1,4 @@
-baseURL = 'https://www.digestnotes.com/'
+baseURL = 'https://digestnotes.com/'
 canonifyurls = true
 languageCode = 'en-us'
 title = 'CS7210 - Distributed Computing'
