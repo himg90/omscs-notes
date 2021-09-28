@@ -3,9 +3,11 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Fault Tolerance    Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
-<meta name=keywords content="fault tolerance,distributed system,omscs">
-<title>07 Fault Tolerance | CS7210 - Distributed Computing</title>
+<meta name=description content="Link to Lecture Slides
+Paper Trail: A Brief Tour of FLP Impossibility
+Consensus     What is Consensus?  Ability of processes in a distributed processes to agree on something like  the value of a variable current timestamp or point of computation taking an action etc.     Why is it important?  Important to make forward progress in distributed system. Reaching a consensus makes it possible for the system to be correct.">
+<meta name=keywords content="distributed computing,omscs,consensus">
+<title>05 Consensus in Distributed Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://himg90.github.io/omscs-notes/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://himg90.github.io/omscs-notes/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://himg90.github.io/omscs-notes/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -113,7 +115,7 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/ class=gdoc-nav__entry>
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/ class="gdoc-nav__entry is-active">
 05 Consensus in Distributed Systems
 </a>
 </span>
@@ -127,7 +129,7 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class="gdoc-nav__entry is-active">
+<a href=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
 07 Fault Tolerance
 </a>
 </span>
@@ -148,120 +150,113 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://himg90.github.io/omscs-notes/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>07 Fault Tolerance</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://himg90.github.io/omscs-notes/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://himg90.github.io/omscs-notes/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://himg90.github.io/omscs-notes/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>05 Consensus in Distributed Systems</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>07 Fault Tolerance</h1>
+<h1>05 Consensus in Distributed Systems</h1>
+<p><a class=gdoc-markdown__link href="https://gatech.instructure.com/courses/220502/files/24077401/download?download_frd=1">Link to Lecture Slides</a></p>
+<p><a class=gdoc-markdown__link href=https://www.the-paper-trail.org/post/2008-08-13-a-brief-tour-of-flp-impossibility/>Paper Trail: A Brief Tour of FLP Impossibility</a></p>
 <div class=gdoc-page__anchorwrap>
-<h1 id=fault-tolerance>
-Fault Tolerance
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/#fault-tolerance class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Fault Tolerance" href=#fault-tolerance><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=consensus>
+Consensus
+<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/#consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consensus" href=#consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>What is Consensus?
+<ul>
+<li>Ability of processes in a distributed processes to agree on something like
+<ul>
+<li>the value of a variable</li>
+<li>current timestamp or point of computation</li>
+<li>taking an action etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Why is it important?
+<ul>
+<li>Important to make forward progress in distributed system.</li>
+<li>Reaching a consensus makes it possible for the system to be correct.</li>
+</ul>
+</li>
+<li>Why is it hard?
+<ul>
+<li>lack of global clock, network delays, faulty or malicious nodes etc.</li>
+</ul>
+</li>
+<li>Key Properties
+<ul>
+<li><strong>Liveness/Termination:</strong> All non-faulty processes <strong>eventually</strong> decide on a value</li>
+<li><strong>Validity/Safety:</strong> The decided value must be <strong>proposed by</strong> one of the processes</li>
+<li><strong>Agreement/Safety:</strong> All processes must decide on the <strong>same (single) value</strong></li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=system-model>
+System Model
+<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Asynchronous Model
+<ul>
+<li>Channel: Unpredictable delays and message reordering but message are not corrupted</li>
+</ul>
+</li>
+<li>Failure Model
+<ul>
+<li>At most one faulty processor</li>
+<li>Fail-stop failure model: Faulty process stops/dies. No malicious/random behaviour</li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h1 id=definitions>
+Definitions
+<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/#definitions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definitions" href=#definitions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
-</div><div class=gdoc-page__anchorwrap>
-<h2 id=some-taxonomy>
-Some Taxonomy
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/#some-taxonomy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Some Taxonomy" href=#some-taxonomy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</div><ul>
+<li><strong>Admissible run:</strong> Run with 1 faulty processor and all messages eventually delivered (matches system model)</li>
+<li><strong>Deciding run:</strong> Admissible run where <em><strong>some</strong></em> non-faulty processes reach a decision</li>
+<li><strong>Totally Correct Consensus Protocol:</strong> If all admissible runs are also deciding runs</li>
+<li><strong>Univalent configuration:</strong> Configuration of the system in which the system can reach a single value</li>
+<li><strong>Bivalent Configuration:</strong> Configuration of the system in which it can reach more than one decisions</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=flp-theorem>
+FLP Theorem
+<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/#flp-theorem class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor FLP Theorem" href=#flp-theorem><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>Fault-Error-Failure
+<li>Paper: Impossibility of Distributed Consensus with One Faulty Process</li>
+<li>In a system with one faulty process, no consensus protocol can be totally correct.</li>
+<li>System Model: Asynchronous Model, One fail-stop faulty process</li>
+<li>Intuition of the Proof:
 <ul>
-<li>Fault is the problem (software bug, hardware failure)</li>
-<li>When fault is activated (because buggy part of code is executed), it causes errors</li>
-<li>Failure is the resulting behaviour</li>
+<li>Consider a simple system model with just 1 faulty process which fail-stops.</li>
+<li>Is it possible to identify a starting configuration and legitimate admissible run such that system does not reach a deciding state</li>
 </ul>
 </li>
-<li>Faults: Transient / Intermittent / Permanent</li>
-<li>Failures: Fail-stop / Timing / Omission / Byzantine
-<ul>
-<li>Timing: System becomes &ldquo;slow&rdquo;</li>
-<li>Omission: some actions are missing like msg drops due to memory constraints</li>
 </ul>
-</li>
-<li>Managing Failures: Avoidance / Detection / Recovery / Removal
+<blockquote>
+<p>OR</p>
+</blockquote>
 <ul>
-<li>Detected failues are either <em>removed</em> by rollback or <em>recovered</em> from.</li>
-</ul>
-</li>
+<li>Whether is it always possible to identify one admission schedule in the system with one faulty process where all messages are delivered and the system remains in bivalent configuration.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=rollback-recovery>
-Rollback-Recovery
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/#rollback-recovery class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Rollback-Recovery" href=#rollback-recovery><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=proof-in-a-nutshell>
+Proof in a Nutshell
+<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture05/#proof-in-a-nutshell class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Proof in a Nutshell" href=#proof-in-a-nutshell><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div><ul>
-<li>Rollback the system to a state before the failure</li>
-<li>Rolledback state may not be a real past state. It just needs to be consistent.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=basic-mechanisms>
-Basic Mechanisms
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/#basic-mechanisms class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Basic Mechanisms" href=#basic-mechanisms><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Checkpointing: Save the (full or incremental) state periodically</li>
-<li>Logging: Log individual write operations.
-<ul>
-<li>Undo Log: Log includes original values of variables. This makes it possible to undo an operation. System state can move backward.</li>
-<li>Redo Log: Log includes new values. To obtain a state, start from beginning and keep applying operations. System state can move forward.</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=checkpointing-approaches>
-Checkpointing Approaches
-<a data-clipboard-text=https://himg90.github.io/omscs-notes/cs7210/lectures/lecture07/#checkpointing-approaches class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Checkpointing Approaches" href=#checkpointing-approaches><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><p><strong>System Model</strong></p>
-<ul>
-<li>Network is non-partitionable. <strong>Why ??</strong></li>
-<li>FIFO / communication channel reliability and num of failures will vary with protocol.</li>
-</ul>
-<p><strong>Uncoordinated Approach</strong></p>
-<ul>
-<li>Processes take checkpoints independently.</li>
-<li>Problems
-<ul>
-<li>The failed node rollbacks to previous checkpoint. If the state of the whole system becomes inconsistent, more rollbacks may have to be performed at several nodes => Domino effect.</li>
-<li>Leads to multiple useless checkpoints.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Coordinated Checkpoint</strong></p>
-<ul>
-<li>Processes coordinate to take a consistent snapshot.</li>
-<li>Problems
-<ul>
-<li>How to coordinate?</li>
-<li>No synchronous clock guarantee ie no global clock. (Everybody take snapshot at 5pm)</li>
-<li>If msg delivery was reliable with bounded delay, some approach could be created.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Communication induced Checkpoint</strong></p>
-<ul>
-<li>Use a consensus protocol: All nodes should reach a consensus that a snapshot will be taken and that they will not send any msg till it&rsquo;s complete. In a way, it&rsquo;s a blocking protocol.</li>
-<li>A non-blocking algo will be similar to Global Snapshot algo but it requires FIFO communication channel.</li>
-</ul>
-<p><strong>Logging</strong></p>
-<ul>
-<li>When reconstructing state we must ensure that it&rsquo;s not a inconsistent state. A crashed process might not log the last event it sent. We might apply events in wrong order.</li>
-<li>Pessimistic: First log the event then send it.</li>
-<li>Optimistic: Assume log will be persisted but make it possible to remove it&rsquo;s effect if aborted</li>
-<li>Causalty-tracking: ensure causality related events are deterministically recorded</li>
-</ul>
-<p><strong>Which Method to Use?</strong></p>
-<ul>
-<li>Workload characteristics: Frequency of updatss, size of updates,</li>
-<li>Failures characteristics:</li>
-<li>System Characteristics: cost of communication/stoage, system scale,</li>
-</ul>
+</div>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
