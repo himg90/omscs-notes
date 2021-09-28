@@ -1,4 +1,4 @@
-baseURL = 'https://himg90.github.io/omscs-notes'
+baseURL = 'https://www.digestnotes.com/'
 canonifyurls = true
 languageCode = 'en-us'
 title = 'CS7210 - Distributed Computing'
