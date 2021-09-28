@@ -4,6 +4,8 @@ languageCode = 'en-us'
 title = 'CS7210 - Distributed Computing'
 theme = "hugo-geekdoc"
 
+googleAnalytics: G-DB5RVVDF7S
+
 pluralizeListTitles = false
 
 # Geekdoc required configuration
