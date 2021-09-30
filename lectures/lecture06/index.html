@@ -3,8 +3,9 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="    03 Time in Distributed Systems     04 State in Distributed Systems     05 Consensus in Distributed Systems     06 Replication     07 Fault Tolerance     ">
-<title>Lectures | CS7210 - Distributed Computing</title>
+<meta name=description content="Goals of Replication     State available at more than one node => Fault-tolerance, Availability Service can be provided from more than one node => Scalability  Replication Modes     Active Replication (all replicas read, write and update each other) Stand-by (Primary-backup) Replication (Only one replica reads and writes, rest just follow updates from primary)  Replication Techniques       State Replication Replicated State Machine     Change in state is sent to other replicas The operation (event) is executed(applied) to every replica   + No need to execute operation again + No need to transmit large state delta   - Determining change in state can be complex and large - Operation needs to be executed and must be deterministic    Replication and Consensus    &mldr;">
+<meta name=keywords content="replication,distributed system,consistency,omscs">
+<title>06 Replication | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -17,7 +18,6 @@
 <link rel=stylesheet href=https://digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://digestnotes.com/custom.css media=all>
-<link rel=alternate type=application/rss+xml href=https://digestnotes.com/cs7210/lectures/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 </head>
@@ -54,35 +54,28 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/ class=gdoc-nav__entry>
-CS7210 - Distributed Computing
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/02_packets/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
 Message Wrappers
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
 WIP
 </a>
 </span>
@@ -91,47 +84,45 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/ class="gdoc-nav__entry is-active">
+<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
 Lectures
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture03/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
 03 Time in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture04/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
 04 State in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture05/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
 05 Consensus in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture06/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture06/ class="gdoc-nav__entry is-active">
 06 Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
 07 Fault Tolerance
 </a>
 </span>
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -147,41 +138,77 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://digestnotes.com/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Lectures</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>06 Replication</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Lectures</h1>
-<div class="gdoc-toc gdoc-toc__level--6">
-<ul>
-<li>
-<span>
-<a href=https://digestnotes.com/cs7210/lectures/lecture03/ class=gdoc-toc__entry>03 Time in Distributed Systems</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://digestnotes.com/cs7210/lectures/lecture04/ class=gdoc-toc__entry>04 State in Distributed Systems</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://digestnotes.com/cs7210/lectures/lecture05/ class=gdoc-toc__entry>05 Consensus in Distributed Systems</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://digestnotes.com/cs7210/lectures/lecture06/ class=gdoc-toc__entry>06 Replication</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://digestnotes.com/cs7210/lectures/lecture07/ class=gdoc-toc__entry>07 Fault Tolerance</a>
-</span>
-</li>
+<h1>06 Replication</h1>
+<div class=gdoc-page__anchorwrap>
+<h3 id=goals-of-replication>
+Goals of Replication
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture06/#goals-of-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Goals of Replication" href=#goals-of-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>State available at more than one node => Fault-tolerance, Availability</li>
+<li>Service can be provided from more than one node => Scalability</li>
 </ul>
-</div>
+<div class=gdoc-page__anchorwrap>
+<h3 id=replication-modes>
+Replication Modes
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture06/#replication-modes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Modes" href=#replication-modes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Active Replication (all replicas read, write and update each other)</li>
+<li>Stand-by (Primary-backup) Replication (Only one replica reads and writes, rest just follow updates from primary)</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=replication-techniques>
+Replication Techniques
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture06/#replication-techniques class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication Techniques" href=#replication-techniques><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><div class=table-wrap> <table>
+<thead>
+<tr>
+<th>State Replication</th>
+<th>Replicated State Machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Change in state is sent to other replicas</td>
+<td>The operation (event) is executed(applied) to every replica</td>
+</tr>
+<tr>
+<td>+ No need to execute operation again</td>
+<td>+ No need to transmit large state delta</td>
+</tr>
+<tr>
+<td>- Determining change in state can be complex and large</td>
+<td>- Operation needs to be executed and must be deterministic</td>
+</tr>
+</tbody>
+</table> </div>
+<div class=gdoc-page__anchorwrap>
+<h3 id=replication-and-consensus>
+Replication and Consensus
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture06/#replication-and-consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication and Consensus" href=#replication-and-consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>&mldr;</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=chain-replication>
+Chain Replication
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture06/#chain-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Chain Replication" href=#chain-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Lag in replication increases linearly with number of replicas</li>
+<li>Another option (van Renesse, Schneider, OSDI'14) is to do a synchronous replication.</li>
+</ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

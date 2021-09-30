@@ -3,9 +3,11 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Introduction     Study challenges in maintaining state in a distributed system. Study capturing of snapshot of the global state of the Distributed System. This helps to understand what&rsquo;s happening in the system and to calculate its properties Chandy - Lamport Algorithm  Global State, Snapshots and Other Terminology     Distributed system consists of a set of processes and communication channels between them. A Process has a series of events occurring.">
-<meta name=keywords content="distributed computing,omscs,distributed snapshot">
-<title>04 State in Distributed Systems | CS7210 - Distributed Computing</title>
+<meta name=description content="Link to Lecture Slides
+Paper Trail: A Brief Tour of FLP Impossibility
+Consensus     What is Consensus?  Ability of processes in a distributed processes to agree on something like  the value of a variable current timestamp or point of computation taking an action etc.     Why is it important?  Important to make forward progress in distributed system. Reaching a consensus makes it possible for the system to be correct.">
+<meta name=keywords content="distributed computing,omscs,consensus">
+<title>05 Consensus in Distributed Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -54,35 +56,28 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/ class=gdoc-nav__entry>
-CS7210 - Distributed Computing
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/02_packets/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
 Message Wrappers
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
 WIP
 </a>
 </span>
@@ -91,47 +86,45 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
 Lectures
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture03/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
 03 Time in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture04/ class="gdoc-nav__entry is-active">
+<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
 04 State in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture05/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture05/ class="gdoc-nav__entry is-active">
 05 Consensus in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture06/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
 06 Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
 07 Fault Tolerance
 </a>
 </span>
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -147,186 +140,113 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://digestnotes.com/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://digestnotes.com/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>04 State in Distributed Systems</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>05 Consensus in Distributed Systems</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>04 State in Distributed Systems</h1>
+<h1>05 Consensus in Distributed Systems</h1>
+<p><a class=gdoc-markdown__link href="https://gatech.instructure.com/courses/220502/files/24077401/download?download_frd=1">Link to Lecture Slides</a></p>
+<p><a class=gdoc-markdown__link href=https://www.the-paper-trail.org/post/2008-08-13-a-brief-tour-of-flp-impossibility/>Paper Trail: A Brief Tour of FLP Impossibility</a></p>
 <div class=gdoc-page__anchorwrap>
-<h2 id=introduction>
-Introduction
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=consensus>
+Consensus
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consensus" href=#consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>Study challenges in maintaining state in a distributed system.</li>
-<li>Study capturing of snapshot of the global state of the Distributed System.</li>
-<li>This helps to understand what&rsquo;s happening in the system and to calculate its properties</li>
-<li>Chandy - Lamport Algorithm</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=global-state-snapshots-and-other-terminology>
-Global State, Snapshots and Other Terminology
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#global-state-snapshots-and-other-terminology class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Global State, Snapshots and Other Terminology" href=#global-state-snapshots-and-other-terminology><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><p><img src=https://digestnotes.com/cs7210/lectures/lecture04/image2.png alt=Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image2.png></p>
+<li>What is Consensus?
 <ul>
-<li>Distributed system consists of a set of <strong>processes</strong> and communication <strong>channels</strong> between them.</li>
-<li>A <strong>Process</strong> has a series of events occurring. These events can be of three types:</li>
-</ul>
-<blockquote>
-<ol>
-<li>send(msg)2. recv(msg)3. internal event</li>
-</ol>
-</blockquote>
+<li>Ability of processes in a distributed processes to agree on something like
 <ul>
-<li><strong>Process State</strong> is defined by history of events on that process</li>
-<li><strong>Channel State</strong> is defined by inflight message</li>
-<li><strong>Global State</strong> ⇒ (all Process States + all Channel States)</li>
-<li><strong>Process History, h:</strong> [-∞, .., e]</li>
-<li><strong>Cut</strong> : h1 ⋃ h2 ⋃ &mldr; ⋃ hn</li>
-<li>Actual and Observed Run can be different</li>
-<li><strong>Run</strong>: Ordered sequence of events of a Cut</li>
-<li>Consistent Cut</li>
-<li>Snapshot</li>
-<li>Pre-Recording Event: Events occured before the time of snapshot.</li>
-<li>Post-Recording Event: Events occurred after the snapshot is recorded.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=challenges-about-state-in-distributed-systems>
-Challenges About State in Distributed Systems
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#challenges-about-state-in-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Challenges About State in Distributed Systems" href=#challenges-about-state-in-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Instantaneous recording not possible
-<ul>
-<li><strong>No Global Clock</strong>: As a result, processes cannot capture individual states at exact same time.</li>
-<li><strong>Unreliable Network</strong>: As a result, a node cannot invoke every other node to record state instantaneously</li>
+<li>the value of a variable</li>
+<li>current timestamp or point of computation</li>
+<li>taking an action etc.</li>
 </ul>
 </li>
-<li>Deterministic vs Non-Deterministic Computation
+</ul>
+</li>
+<li>Why is it important?
 <ul>
-<li>Distributed computation is non-deterministic unlike a single threaded stand alone program.</li>
+<li>Important to make forward progress in distributed system.</li>
+<li>Reaching a consensus makes it possible for the system to be correct.</li>
+</ul>
+</li>
+<li>Why is it hard?
+<ul>
+<li>lack of global clock, network delays, faulty or malicious nodes etc.</li>
+</ul>
+</li>
+<li>Key Properties
+<ul>
+<li><strong>Liveness/Termination:</strong> All non-faulty processes <strong>eventually</strong> decide on a value</li>
+<li><strong>Validity/Safety:</strong> The decided value must be <strong>proposed by</strong> one of the processes</li>
+<li><strong>Agreement/Safety:</strong> All processes must decide on the <strong>same (single) value</strong></li>
 </ul>
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=system-model>
 System Model
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>Processes</li>
-<li>Channels:
+<li>Asynchronous Model
 <ul>
-<li>Directed, process-to-process</li>
-<li>FIFO</li>
-<li>Error free (Messages are not corrupted)</li>
+<li>Channel: Unpredictable delays and message reordering but message are not corrupted</li>
 </ul>
 </li>
-<li>While normal channels are not FIFO and error free. It&rsquo;s possible to build one. For eg. TCP protocol.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=finding-a-consistent-cut-algorithm-in-action>
-Finding a Consistent Cut: Algorithm in Action
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#finding-a-consistent-cut-algorithm-in-action class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Finding a Consistent Cut: Algorithm in Action" href=#finding-a-consistent-cut-algorithm-in-action><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Goal: Capture a <strong>consistent</strong> global state (process states + channel states)</li>
-<li><strong>State of channel</strong>: Consider a scenario where we have a global clock. We are evaluating a system of two process : p and q. p sends msg to q at time t1. q receives msg from p at t3. We take the snapshot at time t2 such that t3 > t2 > t1. The state of channel from p to q will contain the inflight msg.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=snapshot-algorithm>
-Snapshot Algorithm
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#snapshot-algorithm class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Snapshot Algorithm" href=#snapshot-algorithm><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Initiator
+<li>Failure Model
 <ul>
-<li>Save it&rsquo;s local state</li>
-<li>Send marker tokens on all outgoing edges</li>
-</ul>
-</li>
-<li>All Other Processes: On receiving the first marker on any incoming edge
-<ul>
-<li>Save state, and propagate markers on all outgoing edges</li>
-<li>Resume Execution but also save incoming messages until a marker arrives through the channel</li>
-</ul>
-</li>
-</ul>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>handleMarker <span class=o>(</span>channel c, Marker m<span class=o>)</span> <span class=o>{</span>
-		<span class=k>if</span> local_state not recorded:
-				record local_state
-				state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> EMPTY
-				propage m
-		<span class=k>else</span>
-				state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> msg received on c since local_state was recorded
-<span class=o>}</span>
-</code></pre></div><p>Guarantees a consistent global state!</p>
-<ul>
-<li>Assumptions of the algorithm
-<ul>
-<li>Communication channel is FIFO</li>
-<li>There are no failures and all messages arrive intact and only once</li>
-<li>The snapshot algo doesn&rsquo;t interfere with the normal execution of the processes</li>
-<li>Each process in the system records its local state and the state of its incoming channels</li>
+<li>At most one faulty processor</li>
+<li>Fail-stop failure model: Faulty process stops/dies. No malicious/random behaviour</li>
 </ul>
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=global-state>
-Global State
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#global-state class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Global State" href=#global-state><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=definitions>
+Definitions
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#definitions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definitions" href=#definitions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
-</div><p>Features of <em>Chandy and Lamport Algorithm</em>:</p>
-<ul>
-<li>Does not promise to give us exactly what is there but it gives us a consistent state (<strong>Not Real-time snapshot</strong>)</li>
-<li>The recorded Global State <strong>may not correspond to a state that ever really happened</strong> at some global time</li>
-<li>The state, however, does <strong>represent a possible global state</strong> (a vertex in state lattice diagram from the paper)</li>
-<li>The observed state respects all the partial order of events imposed by causality.</li>
+</h1>
+</div><ul>
+<li><strong>Admissible run:</strong> Run with 1 faulty processor and all messages eventually delivered (matches system model)</li>
+<li><strong>Deciding run:</strong> Admissible run where <em><strong>some</strong></em> non-faulty processes reach a decision</li>
+<li><strong>Totally Correct Consensus Protocol:</strong> If all admissible runs are also deciding runs</li>
+<li><strong>Univalent configuration:</strong> Configuration of the system in which the system can reach a single value</li>
+<li><strong>Bivalent Configuration:</strong> Configuration of the system in which it can reach more than one decisions</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=properties-of-the-global-state>
-Properties of the Global State
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#properties-of-the-global-state class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Properties of the Global State" href=#properties-of-the-global-state><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><p><img src=https://digestnotes.com/cs7210/lectures/lecture04/image1.png alt=Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image1.png></p>
-<div class=gdoc-page__anchorwrap>
-<h2 id=benefits-of-global-state-evaluate-stable-properties>
-Benefits of Global State: Evaluate Stable Properties
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#benefits-of-global-state-evaluate-stable-properties class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Benefits of Global State: Evaluate Stable Properties" href=#benefits-of-global-state-evaluate-stable-properties><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=flp-theorem>
+FLP Theorem
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#flp-theorem class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor FLP Theorem" href=#flp-theorem><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>What good are &ldquo;recorded states&rdquo; if they never really occur?</li>
-<li>They can still be useful for measuring stable properties.</li>
-<li>A property is called a stable property iff once it becomes true in a state S, it remains true for all states S’ reachable from S. Note if stable property is false, we can&rsquo;t say anything about it in future states.</li>
-<li>For example:
+<li>Paper: Impossibility of Distributed Consensus with One Faulty Process</li>
+<li>In a system with one faulty process, no consensus protocol can be totally correct.</li>
+<li>System Model: Asynchronous Model, One fail-stop faulty process</li>
+<li>Intuition of the Proof:
 <ul>
-<li>Deadlock,</li>
-<li>If computation is complete in recorded state, then it&rsquo;s also complete in actual terminal state</li>
+<li>Consider a simple system model with just 1 faulty process which fail-stops.</li>
+<li>Is it possible to identify a starting configuration and legitimate admissible run such that system does not reach a deciding state</li>
 </ul>
 </li>
 </ul>
+<blockquote>
+<p>OR</p>
+</blockquote>
+<ul>
+<li>Whether is it always possible to identify one admission schedule in the system with one faulty process where all messages are delivered and the system remains in bivalent configuration.</li>
+</ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=definite-vs-possible-state>
-Definite vs Possible State
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture04/#definite-vs-possible-state class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definite vs Possible State" href=#definite-vs-possible-state><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=proof-in-a-nutshell>
+Proof in a Nutshell
+<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#proof-in-a-nutshell class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Proof in a Nutshell" href=#proof-in-a-nutshell><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div><ul>
-<li>Certain unstable properties may also be important. For an unstable prop, there is no guarantee that once it becomes true it remains true forever. eg. buffer overflow, race condition.</li>
-<li>Is evaluating unstable properties on &ldquo;recorded state&rdquo; useful?</li>
-<li>Yes. If a undesirable unstable property was true in &ldquo;recorded state&rdquo;, then we know that that property can be true under some conditions in the system. This is useful. We now need to either handle such cases or change system in a way that those conditions do not happen.</li>
-</ul>
+</div>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

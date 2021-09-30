@@ -3,9 +3,8 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
-<meta name=keywords content="distributed computing,omscs,logical time,vector clock">
-<title>03 Time in Distributed Systems | CS7210 - Distributed Computing</title>
+<meta name=description content="    DSLabs Abstract Interface     Message Wrappers     WIP     ">
+<title>Labs | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -18,6 +17,7 @@
 <link rel=stylesheet href=https://digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://digestnotes.com/custom.css media=all>
+<link rel=alternate type=application/rss+xml href=https://digestnotes.com/labs/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 </head>
@@ -54,35 +54,28 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/ class=gdoc-nav__entry>
-CS7210 - Distributed Computing
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/ class="gdoc-nav__entry is-active">
 Labs
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/02_packets/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
 Message Wrappers
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
 WIP
 </a>
 </span>
@@ -91,47 +84,45 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
 Lectures
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture03/ class="gdoc-nav__entry is-active">
+<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
 03 Time in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture04/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
 04 State in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture05/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
 05 Consensus in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture06/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
 06 Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/cs7210/lectures/lecture07/ class=gdoc-nav__entry>
+<a href=https://digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
 07 Fault Tolerance
 </a>
 </span>
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -147,178 +138,31 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/ href=https://digestnotes.com/cs7210/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/cs7210/lectures/ href=https://digestnotes.com/cs7210/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 Time in Distributed Systems</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Labs</span><meta itemprop=position content="2"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>03 Time in Distributed Systems</h1>
-<div class=gdoc-page__anchorwrap>
-<h2 id=introduction>
-Introduction
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=why-do-we-need-time>
-Why Do We Need Time
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#why-do-we-need-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Do We Need Time" href=#why-do-we-need-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different
+<h1>Labs</h1>
+<div class="gdoc-toc gdoc-toc__level--6">
 <ul>
-<li>Determining the order of operations executing in the system</li>
-<li>Checking correctness of the final state with the expected final state</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=why-is-measuring-time-hard-in-ds>
-Why Is Measuring Time Hard in DS?
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#why-is-measuring-time-hard-in-ds class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Is Measuring Time Hard in DS?" href=#why-is-measuring-time-hard-in-ds><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Option 1: Why can&rsquo;t we use local clock on each node to record the time
-<ul>
-<li>Good: Since each message is timestamped, there is a global order of all the events</li>
-<li>Bad: It&rsquo;s impossible to precisely synchronise all the local clocks</li>
-</ul>
-</li>
-<li>Option 2: Let there be a receiver/observer node. Every node in the system sends it a message when an event occurs on that node.
-<ul>
-<li>Due to unpredictable delays, message can arrive at the observer out of order</li>
-<li>Different Observers can report different order of events</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=logical-time>
-Logical Time
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#logical-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Time" href=#logical-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Logical clocks, unlike physical clocks, progress only when an event occurs and usually provides a distinct timestamp to each event.</li>
-<li>Types of clocks (details left out in lecture)
-<ul>
-<li>Scalar Clock / Lamport Clocks</li>
-<li>Vector Clocks</li>
-<li>Matrix Clocks</li>
-</ul>
-</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=common-notation>
-Common Notation
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#common-notation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Common Notation" href=#common-notation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>There are three type of events : send of a msg, recv of a msg and internal events in a node</li>
-<li>Note that when a msg is send from node n1 to node n2, two events occur : n1 registers send(msg) event while n2 registers recv(msg) event.</li>
-<li>e1 → e2 implies, e1 &ldquo;happened before&rdquo; e2</li>
-<li>All events on a single node are ordered</li>
-<li>If a node receives a msg (e1) and sends it (e2) , then e1 → e2</li>
-<li>If a node sends a msg (e1) and it is recvd by another node(e2), then e1 → e2</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=concurrent-events>
-Concurrent Events
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#concurrent-events class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Concurrent Events" href=#concurrent-events><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>If e1 and e2 are not related by &ldquo;happened before&rdquo; relationship, we call them concurrent. Is means that we cannot conclusively state the order in which those events occurred. e1 || e2</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=logical-clocks>
-Logical Clocks
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#logical-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Clocks" href=#logical-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Timestamps generated by logical clocks need to guarantee some properties to be useful</li>
-<li>Clock Consistency Condition
-<ul>
-<li>e1 → e2 then, C(e1) &lt; C(e2)</li>
-<li>Monotonicity property, logical clocks must always increase</li>
-<li>Note that C(e1) &lt; C(e2) does not imply e1 → e2</li>
-</ul>
-</li>
-<li>e1 || e2 then, C(e1) ?? C(e2)
-<ul>
-<li>For concurrent events, there are no guarantees, the logical timestamps can be in any order or they may simply be uncomparable</li>
-</ul>
-</li>
-<li>Strong Clock Consistency (not mandatory for all logical clocks)
-<ul>
-<li>e1 → e2 ⇔ C(e1) &lt; C(e2)</li>
-</ul>
-</li>
-<li>A logical clock defines a set of rules on how to advance it and how to compare two timestamps.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=lamports-scalar-clock>
-Lamport&rsquo;s Scalar Clock
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#lamports-scalar-clock class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Lamport&rsquo;s Scalar Clock" href=#lamports-scalar-clock><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Each process had it&rsquo;s own local logical clock</li>
-<li>Rules</li>
-</ul>
-<p><img src=https://digestnotes.com/cs7210/lectures/lecture03/image6.png alt="Lamport Scalar Clock"></p>
-<div class=gdoc-page__anchorwrap>
-<h2 id=vector-clocks-vt>
-Vector Clocks (vt)
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#vector-clocks-vt class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Vector Clocks (vt)" href=#vector-clocks-vt><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
 <li>
-<p>Lamport Clock does not satisfy the Strong Clock Consistency</p>
+<span>
+<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-toc__entry>DSLabs Abstract Interface</a>
+</span>
 </li>
 <li>
-<p>Size of clock is equal to number of processes in the system</p>
+<span>
+<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-toc__entry>Message Wrappers</a>
+</span>
 </li>
 <li>
-<p>If vt is the vector clock at a process, then vt[i] represents that process&rsquo;s view of time of ith process.</p>
-</li>
-<li>
-<p>Rules
-<img src=https://digestnotes.com/cs7210/lectures/lecture03/image5.png alt="Vector Clocks 1"></p>
-</li>
-<li>
-<p>Comparison Rules</p>
+<span>
+<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-toc__entry>WIP</a>
+</span>
 </li>
 </ul>
-<p><img src=https://digestnotes.com/cs7210/lectures/lecture03/image4.png alt="Vector Clocks 1"></p>
-<div class=gdoc-page__anchorwrap>
-<h2 id=matrix-clocks>
-Matrix Clocks
-<a data-clipboard-text=https://digestnotes.com/cs7210/lectures/lecture03/#matrix-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Matrix Clocks" href=#matrix-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><ul>
-<li>Each process maintain N x N matrix</li>
-<li>Consider process Pi,
-<ul>
-<li>i-th row of matrix corresponds to Pi&rsquo;s own vector clock</li>
-<li>j-th row (other than i) corresponds to Pi&rsquo;s view of Pj &rsquo;s vector clock</li>
-</ul>
-</li>
-<li>Benefits
-<ul>
-<li>A process can know if the vector clock of every other process has progressed past a certain time, t.</li>
-<li>This can be used to delete any data which is cached for processed which are falling behind.</li>
-</ul>
-</li>
-</ul>
+</div>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
