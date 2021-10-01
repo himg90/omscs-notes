@@ -1,7 +1,15 @@
 ---
 title: "CS7210 - Distributed Computing"
 ---
-## Useful Links
+## Sections
+
+* [Lectures]({{< ref "/lectures" >}} "Lecture Notes")
+* [Readings]({{< ref "/readings" >}} "Reading Notes")
+* [Labs]({{< ref "/labs" >}} "Understanding Framework")
+
+
+
+## External Links
 
 * [Course Website](https://omscs.gatech.edu/cs-7210-distributed-computing)
 * [Canvas](https://gatech.instructure.com/courses/220502)

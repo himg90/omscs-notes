@@ -1,5 +1,5 @@
 ---
-title: "04 State in Distributed Systems"
+title: "04 - State in Distributed Systems"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "distributed snapshot"]
 ---
@@ -19,7 +19,6 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 - A **Process** has a series of events occurring. These events can be of three types:
 
 > 1. send(msg)2. recv(msg)3. internal event
-> 
 - **Process State** is defined by history of events on that process
 - **Channel State** is defined by inflight message
 - **Global State** ⇒ (all Process States + all Channel States)

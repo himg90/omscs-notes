@@ -1,5 +1,5 @@
 ---
-title: "07 Fault Tolerance"
+title: "07 - Fault Tolerance"
 keywords: ["fault tolerance", "distributed system", "omscs"]
 ---
 

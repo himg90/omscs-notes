@@ -1,5 +1,5 @@
 ---
-title: "03 Time in Distributed Systems"
+title: "03 - Time in Distributed Systems"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "logical time", "vector clock"]
 ---

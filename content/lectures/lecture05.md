@@ -1,5 +1,5 @@
 ---
-title: "05 Consensus in Distributed Systems"
+title: "05 - Consensus in Distributed Systems"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "consensus"]
 ---
@@ -50,7 +50,6 @@ keywords: ["distributed computing", "omscs", "consensus"]
     - Is it possible to identify a starting configuration and legitimate admissible run such that system does not reach a deciding state
 
 > OR
-> 
 - Whether is it always possible to identify one admission schedule in the system with one faulty process where all messages are delivered and the system remains in bivalent configuration.
 
 ## Proof in a Nutshell

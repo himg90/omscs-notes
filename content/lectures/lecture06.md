@@ -1,5 +1,5 @@
 ---
-title: "06 Replication"
+title: "06 - Replication"
 geekdocDescription: ""
 keywords: ["replication", "distributed system", "consistency", "omscs"]
 ---
