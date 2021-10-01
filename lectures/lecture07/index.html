@@ -5,7 +5,7 @@
 <meta name=color-scheme content="light dark">
 <meta name=description content="Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
 <meta name=keywords content="fault tolerance,distributed system,omscs">
-<title>07 Fault Tolerance | CS7210 - Distributed Computing</title>
+<title>07 - Fault Tolerance | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -54,6 +54,50 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
+<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
+Lectures
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
+03 - Time in Distributed Systems
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
+04 - State in Distributed Systems
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
+05 - Consensus in Distributed Systems
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
+06 - Replication
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://digestnotes.com/lectures/lecture07/ class="gdoc-nav__entry is-active">
+07 - Fault Tolerance
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
 <a href=https://digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
@@ -84,47 +128,10 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
-Lectures
+<a href=https://digestnotes.com/readings/ class=gdoc-nav__entry>
+Readings
 </a>
 </span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
-03 Time in Distributed Systems
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
-04 State in Distributed Systems
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
-05 Consensus in Distributed Systems
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
-06 Replication
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://digestnotes.com/lectures/lecture07/ class="gdoc-nav__entry is-active">
-07 Fault Tolerance
-</a>
-</span>
-</li>
-</ul>
 </li>
 </ul>
 </section>
@@ -138,12 +145,12 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>07 Fault Tolerance</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>07 - Fault Tolerance</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>07 Fault Tolerance</h1>
+<h1>07 - Fault Tolerance</h1>
 <div class=gdoc-page__anchorwrap>
 <h2 id=some-taxonomy>
 Some Taxonomy
