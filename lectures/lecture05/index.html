@@ -8,18 +8,18 @@ Paper Trail: A Brief Tour of FLP Impossibility
 Consensus     What is Consensus?  Ability of processes in a distributed processes to agree on something like  the value of a variable current timestamp or point of computation taking an action etc.     Why is it important?  Important to make forward progress in distributed system. Reaching a consensus makes it possible for the system to be correct.">
 <meta name=keywords content="distributed computing,omscs,consensus">
 <title>05 - Consensus in Distributed Systems | CS7210 - Distributed Computing</title>
-<link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
-<script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
-<link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
-<link rel=preload as=font href=https://digestnotes.com/fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
-<link rel=preload href=https://digestnotes.com/main-d68a035c7b.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/main-d68a035c7b.min.css media=all>
-<link rel=preload href=https://digestnotes.com/mobile-3fc330242c.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/mobile-3fc330242c.min.css media="screen and (max-width: 45rem)">
-<link rel=preload href=https://digestnotes.com/print-f79fc3e5d7.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/print-f79fc3e5d7.min.css media=print>
-<link rel=preload href=https://digestnotes.com/custom.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/custom.css media=all>
+<link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
+<script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
+<link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload as=font href=https://www.digestnotes.com/fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload href=https://www.digestnotes.com/main-d68a035c7b.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/main-d68a035c7b.min.css media=all>
+<link rel=preload href=https://www.digestnotes.com/mobile-3fc330242c.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/mobile-3fc330242c.min.css media="screen and (max-width: 45rem)">
+<link rel=preload href=https://www.digestnotes.com/print-f79fc3e5d7.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
+<link rel=preload href=https://www.digestnotes.com/custom.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 </head>
@@ -31,9 +31,9 @@ Consensus     What is Consensus?  Ability of processes in a distributed processe
 <div class="container flex align-center justify-between">
 <label for=menu-control class=gdoc-nav__control><svg class="icon gdoc_menu"><title>Open Nav Menu</title><use xlink:href="#gdoc_menu"/></svg><svg class="icon gdoc_arrow_back"><title>Close Nav Menu</title><use xlink:href="#gdoc_arrow_back"/></svg>
 </label>
-<a class=gdoc-header__link href=https://digestnotes.com/>
+<a class=gdoc-header__link href=https://www.digestnotes.com/>
 <span class="gdoc-brand flex align-center">
-<img class=gdoc-brand__img src=https://digestnotes.com/brand.svg alt>
+<img class=gdoc-brand__img src=https://www.digestnotes.com/brand.svg alt>
 <span class=gdoc-brand__title>CS7210 - Distributed Computing</span>
 </span>
 </a>
@@ -56,42 +56,42 @@ Consensus     What is Consensus?  Ability of processes in a distributed processe
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/ class=gdoc-nav__entry>
 Lectures
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture03/ class=gdoc-nav__entry>
 03 - Time in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
 04 - State in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture05/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/lectures/lecture05/ class="gdoc-nav__entry is-active">
 05 - Consensus in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
 06 - Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
 07 - Fault Tolerance
 </a>
 </span>
@@ -100,28 +100,28 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
 Message Wrappers
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
 WIP
 </a>
 </span>
@@ -130,7 +130,7 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/readings/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/ class=gdoc-nav__entry>
 Readings
 </a>
 </span>
@@ -147,7 +147,7 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>05 - Consensus in Distributed Systems</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>05 - Consensus in Distributed Systems</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
@@ -158,7 +158,7 @@ hidden-mobile" itemprop=breadcrumb>
 <div class=gdoc-page__anchorwrap>
 <h2 id=consensus>
 Consensus
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consensus" href=#consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#consensus class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consensus" href=#consensus><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -195,7 +195,7 @@ Consensus
 <div class=gdoc-page__anchorwrap>
 <h2 id=system-model>
 System Model
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -214,7 +214,7 @@ System Model
 <div class=gdoc-page__anchorwrap>
 <h1 id=definitions>
 Definitions
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#definitions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definitions" href=#definitions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#definitions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definitions" href=#definitions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
 </div><ul>
@@ -227,7 +227,7 @@ Definitions
 <div class=gdoc-page__anchorwrap>
 <h2 id=flp-theorem>
 FLP Theorem
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#flp-theorem class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor FLP Theorem" href=#flp-theorem><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#flp-theorem class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor FLP Theorem" href=#flp-theorem><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -250,7 +250,7 @@ FLP Theorem
 <div class=gdoc-page__anchorwrap>
 <h2 id=proof-in-a-nutshell>
 Proof in a Nutshell
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture05/#proof-in-a-nutshell class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Proof in a Nutshell" href=#proof-in-a-nutshell><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#proof-in-a-nutshell class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Proof in a Nutshell" href=#proof-in-a-nutshell><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div>
@@ -275,8 +275,8 @@ Built with <a href=https://gohugo.io/ class=gdoc-footer__link>Hugo</a> and<svg c
 </div>
 </footer>
 </div>
-<script defer src=https://digestnotes.com/js/en.search.min.dd11fe9592abe2585c1fbd6e505e89a56e02137e8d9fa50a46a01083b7682837.js></script>
-<script defer src=https://digestnotes.com/js/clipboard-27784b7376.min.js></script>
-<script defer src=https://digestnotes.com/js/clipboard-loader-f0b5fbd5f6.min.js></script>
+<script defer src=https://www.digestnotes.com/js/en.search.min.dd11fe9592abe2585c1fbd6e505e89a56e02137e8d9fa50a46a01083b7682837.js></script>
+<script defer src=https://www.digestnotes.com/js/clipboard-27784b7376.min.js></script>
+<script defer src=https://www.digestnotes.com/js/clipboard-loader-f0b5fbd5f6.min.js></script>
 </body>
 </html>

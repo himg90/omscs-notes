@@ -6,18 +6,18 @@
 <meta name=description content="Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
 <meta name=keywords content="distributed computing,omscs,logical time,vector clock">
 <title>03 - Time in Distributed Systems | CS7210 - Distributed Computing</title>
-<link rel=icon href=https://digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
-<script src=https://digestnotes.com/js/darkmode-ce906ea916.min.js></script>
-<link rel=preload as=font href=https://digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
-<link rel=preload as=font href=https://digestnotes.com/fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
-<link rel=preload href=https://digestnotes.com/main-d68a035c7b.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/main-d68a035c7b.min.css media=all>
-<link rel=preload href=https://digestnotes.com/mobile-3fc330242c.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/mobile-3fc330242c.min.css media="screen and (max-width: 45rem)">
-<link rel=preload href=https://digestnotes.com/print-f79fc3e5d7.min.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/print-f79fc3e5d7.min.css media=print>
-<link rel=preload href=https://digestnotes.com/custom.css as=style>
-<link rel=stylesheet href=https://digestnotes.com/custom.css media=all>
+<link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
+<script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
+<link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload as=font href=https://www.digestnotes.com/fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload href=https://www.digestnotes.com/main-d68a035c7b.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/main-d68a035c7b.min.css media=all>
+<link rel=preload href=https://www.digestnotes.com/mobile-3fc330242c.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/mobile-3fc330242c.min.css media="screen and (max-width: 45rem)">
+<link rel=preload href=https://www.digestnotes.com/print-f79fc3e5d7.min.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
+<link rel=preload href=https://www.digestnotes.com/custom.css as=style>
+<link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 </head>
@@ -29,9 +29,9 @@
 <div class="container flex align-center justify-between">
 <label for=menu-control class=gdoc-nav__control><svg class="icon gdoc_menu"><title>Open Nav Menu</title><use xlink:href="#gdoc_menu"/></svg><svg class="icon gdoc_arrow_back"><title>Close Nav Menu</title><use xlink:href="#gdoc_arrow_back"/></svg>
 </label>
-<a class=gdoc-header__link href=https://digestnotes.com/>
+<a class=gdoc-header__link href=https://www.digestnotes.com/>
 <span class="gdoc-brand flex align-center">
-<img class=gdoc-brand__img src=https://digestnotes.com/brand.svg alt>
+<img class=gdoc-brand__img src=https://www.digestnotes.com/brand.svg alt>
 <span class=gdoc-brand__title>CS7210 - Distributed Computing</span>
 </span>
 </a>
@@ -54,42 +54,42 @@
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/ class=gdoc-nav__entry>
 Lectures
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture03/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/lectures/lecture03/ class="gdoc-nav__entry is-active">
 03 - Time in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
 04 - State in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
 05 - Consensus in Distributed Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture06/ class=gdoc-nav__entry>
 06 - Replication
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture07/ class=gdoc-nav__entry>
 07 - Fault Tolerance
 </a>
 </span>
@@ -98,28 +98,28 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/01_framework_abstraction/ class=gdoc-nav__entry>
 DSLabs Abstract Interface
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/02_packets/ class=gdoc-nav__entry>
 Message Wrappers
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
 WIP
 </a>
 </span>
@@ -128,7 +128,7 @@ WIP
 </li>
 <li>
 <span class=flex>
-<a href=https://digestnotes.com/readings/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/ class=gdoc-nav__entry>
 Readings
 </a>
 </span>
@@ -145,7 +145,7 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 - Time in Distributed Systems</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 - Time in Distributed Systems</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
@@ -154,7 +154,7 @@ hidden-mobile" itemprop=breadcrumb>
 <div class=gdoc-page__anchorwrap>
 <h2 id=introduction>
 Introduction
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -163,7 +163,7 @@ Introduction
 <div class=gdoc-page__anchorwrap>
 <h2 id=why-do-we-need-time>
 Why Do We Need Time
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#why-do-we-need-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Do We Need Time" href=#why-do-we-need-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#why-do-we-need-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Do We Need Time" href=#why-do-we-need-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -177,7 +177,7 @@ Why Do We Need Time
 <div class=gdoc-page__anchorwrap>
 <h2 id=why-is-measuring-time-hard-in-ds>
 Why Is Measuring Time Hard in DS?
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#why-is-measuring-time-hard-in-ds class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Is Measuring Time Hard in DS?" href=#why-is-measuring-time-hard-in-ds><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#why-is-measuring-time-hard-in-ds class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Why Is Measuring Time Hard in DS?" href=#why-is-measuring-time-hard-in-ds><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -197,7 +197,7 @@ Why Is Measuring Time Hard in DS?
 <div class=gdoc-page__anchorwrap>
 <h2 id=logical-time>
 Logical Time
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#logical-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Time" href=#logical-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#logical-time class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Time" href=#logical-time><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -213,7 +213,7 @@ Logical Time
 <div class=gdoc-page__anchorwrap>
 <h2 id=common-notation>
 Common Notation
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#common-notation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Common Notation" href=#common-notation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#common-notation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Common Notation" href=#common-notation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -227,7 +227,7 @@ Common Notation
 <div class=gdoc-page__anchorwrap>
 <h2 id=concurrent-events>
 Concurrent Events
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#concurrent-events class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Concurrent Events" href=#concurrent-events><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#concurrent-events class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Concurrent Events" href=#concurrent-events><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -236,7 +236,7 @@ Concurrent Events
 <div class=gdoc-page__anchorwrap>
 <h2 id=logical-clocks>
 Logical Clocks
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#logical-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Clocks" href=#logical-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#logical-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logical Clocks" href=#logical-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -263,18 +263,18 @@ Logical Clocks
 <div class=gdoc-page__anchorwrap>
 <h2 id=lamports-scalar-clock>
 Lamport&rsquo;s Scalar Clock
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#lamports-scalar-clock class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Lamport&rsquo;s Scalar Clock" href=#lamports-scalar-clock><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#lamports-scalar-clock class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Lamport&rsquo;s Scalar Clock" href=#lamports-scalar-clock><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
 <li>Each process had it&rsquo;s own local logical clock</li>
 <li>Rules</li>
 </ul>
-<p><img src=https://digestnotes.com/cs7210/lectures/lecture03/image6.png alt="Lamport Scalar Clock"></p>
+<p><img src=https://www.digestnotes.com/cs7210/lectures/lecture03/image6.png alt="Lamport Scalar Clock"></p>
 <div class=gdoc-page__anchorwrap>
 <h2 id=vector-clocks-vt>
 Vector Clocks (vt)
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#vector-clocks-vt class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Vector Clocks (vt)" href=#vector-clocks-vt><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#vector-clocks-vt class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Vector Clocks (vt)" href=#vector-clocks-vt><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -289,17 +289,17 @@ Vector Clocks (vt)
 </li>
 <li>
 <p>Rules
-<img src=https://digestnotes.com/cs7210/lectures/lecture03/image5.png alt="Vector Clocks 1"></p>
+<img src=https://www.digestnotes.com/cs7210/lectures/lecture03/image5.png alt="Vector Clocks 1"></p>
 </li>
 <li>
 <p>Comparison Rules</p>
 </li>
 </ul>
-<p><img src=https://digestnotes.com/cs7210/lectures/lecture03/image4.png alt="Vector Clocks 1"></p>
+<p><img src=https://www.digestnotes.com/cs7210/lectures/lecture03/image4.png alt="Vector Clocks 1"></p>
 <div class=gdoc-page__anchorwrap>
 <h2 id=matrix-clocks>
 Matrix Clocks
-<a data-clipboard-text=https://digestnotes.com/lectures/lecture03/#matrix-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Matrix Clocks" href=#matrix-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#matrix-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Matrix Clocks" href=#matrix-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
@@ -338,8 +338,8 @@ Built with <a href=https://gohugo.io/ class=gdoc-footer__link>Hugo</a> and<svg c
 </div>
 </footer>
 </div>
-<script defer src=https://digestnotes.com/js/en.search.min.dd11fe9592abe2585c1fbd6e505e89a56e02137e8d9fa50a46a01083b7682837.js></script>
-<script defer src=https://digestnotes.com/js/clipboard-27784b7376.min.js></script>
-<script defer src=https://digestnotes.com/js/clipboard-loader-f0b5fbd5f6.min.js></script>
+<script defer src=https://www.digestnotes.com/js/en.search.min.dd11fe9592abe2585c1fbd6e505e89a56e02137e8d9fa50a46a01083b7682837.js></script>
+<script defer src=https://www.digestnotes.com/js/clipboard-27784b7376.min.js></script>
+<script defer src=https://www.digestnotes.com/js/clipboard-loader-f0b5fbd5f6.min.js></script>
 </body>
 </html>
