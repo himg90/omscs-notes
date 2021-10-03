@@ -1,3 +1,11 @@
+---
+title: "Consistency Tradeoffs"
+geekdocDescription: "Consistency Tradeoffs in Modern Distributed Database System Design"
+keywords: ["distributed computing", "omscs", "consistency", "CAP theorem", "PACELC theorem"]
+---
+
+
+
 # Consistency Tradeoffs in Modern Distributed Database System Design
 
 #### By Daniel J. Abadi
