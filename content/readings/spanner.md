@@ -1,5 +1,5 @@
 ---
-title: "Spanner"
+title: "W07 - Spanner"
 geekdocDescription : "Google’s Globally-Distributed Database"
 ---
 
