@@ -5,7 +5,7 @@ geekdocDescription : "Google’s Globally-Distributed Database"
 
 ## Spanner FAQ
 
-[MIT 6.824 Distributed Systems](https://pdos.csail.mit.edu/6.824/papers/spanner-faq.txt)
+Source: <a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank">MIT 6.824 - Distributed Systems</a> > <a href="https://pdos.csail.mit.edu/6.824/papers/spanner-faq.txt" target="_blank">Spanner FAQs</a>
 
 ```
 Q: What is time?

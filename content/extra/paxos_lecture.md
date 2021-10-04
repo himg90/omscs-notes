@@ -3,8 +3,6 @@ title: "Paxos Simplified"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "pax's"]
 draft: true
-
 ---
 
-Soure: [Distributed Systems Course](http://www.distributedsystemscourse.com/) >  [Lecture 9: Paxos Simplified](https://youtu.be/SRsK-ZXTeZ0)
-
+Source: <a href="http://www.distributedsystemscourse.com/" target="_blank">Distributed Systems Course</a> > <a href="https://youtu.be/SRsK-ZXTeZ0" target="_blank">Lecture 9: Paxos Simplified</a>

@@ -4,12 +4,14 @@ geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "transactions"]
 draft: true
 ---
-
-Soure: [MIT 6.824 - Distributed Systems](https://pdos.csail.mit.edu/6.824/schedule.html) >  [Lecture 12: Distributed Transactions](https://pdos.csail.mit.edu/6.824/notes/l-2pc.txt)
-
+Source: <a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank">MIT 6.824 - Distributed Systems</a> > <a href="https://pdos.csail.mit.edu/6.824/notes/l-2pc.txt" target="_blank">Lecture 12: Distributed Transactions</a>
   
 
-> __Distributed transactions = Concurrency Control + Atomic Commit__
+__Distributed transactions = Concurrency Control + Atomic Commit__
+
+
+
+In this lecture, we talk about 2PL and 2PC. Although they sound similar, but they are very different things. 
 
 ## Example
 
@@ -54,7 +56,7 @@ Why serializability is popular
   It allows parallel execution of transactions on different records
 
 a transaction can "abort" if something goes wrong
- 
+
 
 
 
