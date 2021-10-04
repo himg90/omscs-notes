@@ -5,7 +5,7 @@
 <meta name=color-scheme content="light dark">
 <meta name=description content="Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
 <meta name=keywords content="distributed computing,omscs,logical time,vector clock">
-<title>03 - Time in Distributed Systems | CS7210 - Distributed Computing</title>
+<title>03 - Time in D. Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -62,21 +62,21 @@ Lectures
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/lectures/lecture03/ class="gdoc-nav__entry is-active">
-03 - Time in Distributed Systems
+03 - Time in D. Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/lectures/lecture04/ class=gdoc-nav__entry>
-04 - State in Distributed Systems
+04 - State in D. Systems
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/lectures/lecture05/ class=gdoc-nav__entry>
-05 - Consensus in Distributed Systems
+05 - Consensus
 </a>
 </span>
 </li>
@@ -135,6 +135,22 @@ Readings
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
+<a href=https://www.digestnotes.com/readings/week7/ class=gdoc-nav__entry>
+Week 7
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/readings/week7/spanner/ class=gdoc-nav__entry>
+Spanner
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
 <a href=https://www.digestnotes.com/readings/extra/ class=gdoc-nav__entry>
 Extra Readings
 </a>
@@ -151,6 +167,13 @@ Consistency Tradeoffs
 </li>
 </ul>
 </li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/extra/ class=gdoc-nav__entry>
+Extra
+</a>
+</span>
+</li>
 </ul>
 </section>
 <section class=gdoc-nav--more>
@@ -163,12 +186,12 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 - Time in Distributed Systems</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 - Time in D. Systems</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>03 - Time in Distributed Systems</h1>
+<h1>03 - Time in D. Systems</h1>
 <div class=gdoc-page__anchorwrap>
 <h2 id=introduction>
 Introduction
