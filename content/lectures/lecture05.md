@@ -1,5 +1,5 @@
 ---
-title: "05 - Consensus in Distributed Systems"
+title: "05 - Consensus"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "consensus"]
 ---

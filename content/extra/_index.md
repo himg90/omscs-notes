@@ -1,5 +1,5 @@
 ---
-title: "Extra Readings"
+title: "Extra"
 weight: 100
 ---
 {{< toc-tree >}}

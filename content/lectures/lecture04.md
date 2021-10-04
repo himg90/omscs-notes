@@ -1,5 +1,5 @@
 ---
-title: "04 - State in Distributed Systems"
+title: "04 - State in D. Systems"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "distributed snapshot"]
 ---
