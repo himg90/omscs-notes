@@ -3,7 +3,7 @@ title: "DSLabs Abstract Interface"
 draft: false
 ---
 
-![dslabs_abstract_interface](/cs7210/labs/dslabs_abstract_interface.png)
+![dslabs_abstract_interface](/images/cs7210/labs/dslabs_abstract_interface.png)
 
 * The system consists of a number of `node`s which have `addresse`s
 * A `Node` can `send()` a `message` to another `node`. The receiving `node` has to `handle()` the message. 

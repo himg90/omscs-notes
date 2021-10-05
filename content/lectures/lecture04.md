@@ -13,7 +13,7 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 
 ## Global State, Snapshots and Other Terminology
 
-![Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image2.png](/cs7210/lectures/lecture04/image2.png)
+![Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image2.png](/images/cs7210/lectures/lecture04/image2.png)
 
 - Distributed system consists of a set of **processes** and communication **channels** between them.
 - A **Process** has a series of events occurring. These events can be of three types:
@@ -92,7 +92,7 @@ Features of *Chandy and Lamport Algorithm*:
 
 ## Properties of the Global State
 
-![Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image1.png](/cs7210/lectures/lecture04/image1.png)
+![Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image1.png](/images/cs7210/lectures/lecture04/image1.png)
 
 ## Benefits of Global State: Evaluate Stable Properties
 

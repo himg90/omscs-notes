@@ -61,7 +61,7 @@ keywords: ["distributed computing", "omscs", "logical time", "vector clock"]
 - Each process had it's own local logical clock
 - Rules
 
-![Lamport Scalar Clock](/cs7210/lectures/lecture03/image6.png)
+![Lamport Scalar Clock](/images/cs7210/lectures/lecture03/image6.png)
 
 ## Vector Clocks (vt)
 
@@ -69,11 +69,11 @@ keywords: ["distributed computing", "omscs", "logical time", "vector clock"]
 - Size of clock is equal to number of processes in the system
 - If vt is the vector clock at a process, then vt[i] represents that process's view of time of ith process.
 - Rules
-    ![Vector Clocks 1](/cs7210/lectures/lecture03/image5.png)
+    ![Vector Clocks 1](/images/cs7210/lectures/lecture03/image5.png)
     
 - Comparison Rules
 
-![Vector Clocks 1](/cs7210/lectures/lecture03/image4.png)
+![Vector Clocks 1](/images/cs7210/lectures/lecture03/image4.png)
 
 ## Matrix Clocks
 
