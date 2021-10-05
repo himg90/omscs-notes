@@ -3,9 +3,12 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="    Lab02     DSLabs Abstract Interface     Message Wrappers     WIP     Some useful links about virtual box
- What is VirtualBox closed source and VirtualBox OSE? https://wiki.debian.org/VirtualBox https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#  ">
-<title>Labs | CS7210 - Distributed Computing</title>
+<meta name=description content="Consistent Global States of Distributed Systems Fundamental Concepts and Mechanisms    Link to Paper
+1 Introduction     What is global state of a distributed system?
+It is the union of the states of the individual processes.
+Why do we study construction of global state?
+A large class of problems in distributed computing can be cast as executing some action when the state of the system satisfies a particular condition.">
+<title>W03 - Consistent Global States | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -18,7 +21,6 @@
 <link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://www.digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
-<link rel=alternate type=application/rss+xml href=https://www.digestnotes.com/labs/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 <link rel=stylesheet href=https://www.digestnotes.com/css/custom.css>
@@ -100,7 +102,7 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
@@ -151,7 +153,7 @@ W02 - Logical Time
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/w03_consistent_global_states/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/w03_consistent_global_states/ class="gdoc-nav__entry is-active">
 W03 - Consistent Global States
 </a>
 </span>
@@ -200,42 +202,201 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Labs</span><meta itemprop=position content="2"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>W03 - Consistent Global States</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Labs</h1>
-<div class="gdoc-toc gdoc-toc__level--6">
+<h1>W03 - Consistent Global States</h1>
+<div class=gdoc-page__anchorwrap>
+<h1 id=consistent-global-states-of-distributed-systems-fundamental-concepts-and-mechanisms>
+Consistent Global States of Distributed Systems Fundamental Concepts and Mechanisms
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#consistent-global-states-of-distributed-systems-fundamental-concepts-and-mechanisms class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consistent Global States of Distributed Systems Fundamental Concepts and Mechanisms" href=#consistent-global-states-of-distributed-systems-fundamental-concepts-and-mechanisms><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><p><a class=gdoc-markdown__link href=http://www.cs.cornell.edu/courses/cs5414/2012fa/publications/BM93.pdf>Link to Paper</a></p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=1-introduction>
+1 Introduction
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#1-introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1 Introduction" href=#1-introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><blockquote>
+<p>What is global state of a distributed system?</p>
+<p>It is the union of the states of the individual processes.</p>
+<p><strong>Why do we study construction of global state?</strong></p>
+<p><em>A large class of problems in distributed computing can be cast as executing some action when the state of the system satisfies a particular condition. Thus, the ability to construct a global state and evaluate a predicate over such a state constitutes the core of solutions to many problems in distributed computing</em></p>
+<p><strong>Why is it a hard problem?</strong></p>
+<p><em>uncertainties due to message delays and relative computation speeds prevent a process from drawing conclusions about the instantaneous global state of the system to which it belongs.</em></p>
+<p>.separate process [can] construct [consistent] global states but still reach conflicting conclusions regarding some global property. This &ldquo;relativistic effect&rdquo; is inherent to all distributed computations and limits the class of system properties that can be effectively detected.</p>
+<p><strong>Contents of Paper</strong></p>
+</blockquote>
+<div class=gdoc-page__anchorwrap>
+<h2 id=2-asynchronous-model-of-distributed-system>
+2 Asynchronous Model of Distributed System:
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#2-asynchronous-model-of-distributed-system class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2 Asynchronous Model of Distributed System:" href=#2-asynchronous-model-of-distributed-system><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Collection of sequential processes with unbounded relative speeds of computation</li>
+<li>Network
 <ul>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/lab02/ class=gdoc-toc__entry>Lab02</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/01_framework_abstraction/ class=gdoc-toc__entry>DSLabs Abstract Interface</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/02_packets/ class=gdoc-toc__entry>Message Wrappers</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/dslabs_client_to_server_communication/ class=gdoc-toc__entry>WIP</a>
-</span>
+<li>every process can communicate with rest of the processes</li>
+<li>message delays are unbounded and unpredictable ⇒ out-of-order message</li>
+</ul>
 </li>
 </ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=3-distributed-computations>
+3 Distributed Computations
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#3-distributed-computations class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3 Distributed Computations" href=#3-distributed-computations><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>The activity of each sequential process is modeled as executing a sequence of events
+<ul>
+<li>Event can be either (1) internal event, (2) send(m) event or (3) receive(m) event</li>
+</ul>
+</li>
+<li>The <strong>local history</strong> of process Pi during the computation is a (possibly infinite) sequence of events hik = ei1 ei2&mldr;eik.
+<ul>
+<li>Note the local history has a <em><strong>total order</strong></em></li>
+</ul>
+</li>
+<li>The <strong>global history</strong> of the computation is a set H = h1 ∪ … ∪ hn containing all of it&rsquo;s events.
+<ul>
+<li>Note the global history does <strong>not</strong> have <em><strong>total order</strong></em></li>
+</ul>
+</li>
+<li>Formally, a distributed computation is a partially ordered set (poset) defined by the pair (H, →).</li>
+<li><strong>Space-time Diagram</strong>
+<ul>
+<li>Arrows represent message passing</li>
+<li>Horizontal axis is time</li>
+<li>Note there are three kinds of events: internal, send(m), receive(m)</li>
+<li>Some events are related by happened before (→)relationship, others are concurrent (||)</li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=heading>
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#heading class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor " href=#heading><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><div class=gdoc-page__anchorwrap>
+<h2 id=4-global-states-cuts-and-runs>
+4 Global States, Cuts and Runs
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#4-global-states-cuts-and-runs class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4 Global States, Cuts and Runs" href=#4-global-states-cuts-and-runs><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><blockquote>
+<p><img src=https://www.digestnotes.com/images/cs7210/readings/w03_consistent_global_states/image4.png alt=image4.png></p>
+<p><img src=https://www.digestnotes.com/images/cs7210/readings/w03_consistent_global_states/image2.png alt=Consistent%20Global%20States%20of%20Distributed%20Systems_%20F%2038e03beb575b41eab2d54316537f6a43/image2.png></p>
+</blockquote>
+<div class=gdoc-page__anchorwrap>
+<h2 id=5-monitoring-distributed-computation>
+5 Monitoring Distributed Computation
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#5-monitoring-distributed-computation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 5 Monitoring Distributed Computation" href=#5-monitoring-distributed-computation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>First strategy towards constructing global state</li>
+<li><strong>Active Monitor</strong>: A single process (called monitor/observer) periodically polls all the process of distributed system for their local states. Once it receives response from all processes, it constructs a global state.</li>
+<li>Problem with this approach:
+<ul>
+<li>Suppose some process P1 sends a message to another process P2. The local states obtained by the <em>monitor process</em> may be such that send(msg) on P1 is not captured by the monitor but recv(msg) on P2 is captured. But a send event always happens before the recv event.</li>
+<li>A global state constructed using this strategy may not be possible in reality under any circumstances.</li>
+<li>Thus, any property/predicate calculated from this global state will be incorrect.</li>
+</ul>
+</li>
+<li>Example showing effect of this problem: Detecting deadlock in a distributed system consisting of single threaded process communicating with each other.
+<ul>
+<li>We construct a dependency graph of processes waiting on each other.</li>
+<li>If a cycle exists in graph, then we have a deadlock</li>
+<li>Due to the problem discussed above, we may see a deadlock when it does not exist and vice versa</li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=6-consistency>
+6 Consistency
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#6-consistency class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 6 Consistency" href=#6-consistency><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Causal Precedence:
+<ul>
+<li>
+<p>A cut C is consistent if for any event e in C, C also contains any event e' which &ldquo;happened before&rdquo; e</p>
+<p><img src=https://www.digestnotes.com/images/cs7210/readings/w03_consistent_global_states/image3.png alt=image3.png></p>
+</li>
+<li>
+<p>In <strong>Space-Time Diagram</strong>: if all arrows that intersect the cut have their bases to the left and heads to the right of it, then the cut is consistent; otherwise it is inconsistent</p>
+</li>
+<li>
+<p>Just as a scalar time value denotes a particular instant during a sequential computation, the frontier of a consistent cut establishes an “instant” during a distributed computation.</p>
+</li>
+<li>
+<p>A run <em>R</em> is said to be consistent if for all events, e → e' implies that e appears before e' in <em>R</em></p>
+</li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=7-observing-distributed-computation>
+7 Observing Distributed Computation
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#7-observing-distributed-computation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 7 Observing Distributed Computation" href=#7-observing-distributed-computation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>In this section, we look at the second strategy to build distribute state: <strong>The Passive Observer</strong></li>
+<li>All processes in the system send <em>updates</em> about every local event to the passive observer. The passive observer constructs a global state from these events.</li>
+<li>This global state may be consistent, inconsistent or outright invalid since updates can arrive at the passive observer in any order. eg. recv(msg) may arrive before send(msg), two internal events on the same process may also arrive out of order.</li>
+<li>To ensure that this strategy produces only consistent global state, we need to ensure two conditions</li>
+</ul>
+<blockquote>
+<p>Condition 1: order of the events is correct i.e. if e → e', then e should appear before e' in observer&rsquo;s history</p>
+<p>Condition 2: completeness of events i.e. if e → e' and e' is observed then e must be observed as well.</p>
+</blockquote>
+<div class=gdoc-page__anchorwrap>
+<h2 id=8-logical-clocks>
+8 Logical Clocks
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#8-logical-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 8 Logical Clocks" href=#8-logical-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Continuing the discussion of previous section</li>
+<li>If every process maintains scalar logical clock and stamps <em>updates</em> to the observer with logical-event-timestamp, it is possible to meet condition 1 by sorting events based on this logical timestamp at the Observer.</li>
+<li>To meet condition 2, we need to impose a constraint on channel between pairs of processes. The channel needs to be FIFO. This ensures that <em>updates</em> from a process arrive in order and are not dropped. If we can say that latest event from each process has timestamp greater than T, then events up to T are complete on the Observer.</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=9-causal-delivery>
+9 Causal Delivery
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#9-causal-delivery class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 9 Causal Delivery" href=#9-causal-delivery><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>This extends the concept of FIFO channels between pairs of processes</li>
+<li>Events sent from all the processes to the observer are delivered to the observer in an order which respects partial ordering of events i.e. events of a single process are totally ordered + send() and corresponding recv() events are correct ordered.</li>
+<li>Delivering events to the observer while respecting above property is called Causal Delivery</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=10-constructing-the-causal-precedence-relation>
+10 Constructing the Causal Precedence Relation
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#10-constructing-the-causal-precedence-relation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 10 Constructing the Causal Precedence Relation" href=#10-constructing-the-causal-precedence-relation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Definition: Strong Clock Condition e → e' ⇔ T(e) &lt; T(e')</li>
+<li>Vector Clocks satisfy Strong Clock Condition</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=11-implementing-causal-delivery-with-vector-clocks>
+11 Implementing Causal Delivery with Vector Clocks
+<a data-clipboard-text=https://www.digestnotes.com/readings/w03_consistent_global_states/#11-implementing-causal-delivery-with-vector-clocks class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 11 Implementing Causal Delivery with Vector Clocks" href=#11-implementing-causal-delivery-with-vector-clocks><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
 </div>
-<p>Some useful links about virtual box</p>
-<ol>
-<li><a class=gdoc-markdown__link href=https://www.virtualbox.org/wiki/Editions>What is VirtualBox closed source and VirtualBox OSE?</a></li>
-<li><a class=gdoc-markdown__link href=https://wiki.debian.org/VirtualBox>https://wiki.debian.org/VirtualBox</a></li>
-<li><a class=gdoc-markdown__link href=https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#>https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#</a></li>
-</ol>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

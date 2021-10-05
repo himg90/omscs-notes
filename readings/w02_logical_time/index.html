@@ -3,9 +3,11 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="    Lab02     DSLabs Abstract Interface     Message Wrappers     WIP     Some useful links about virtual box
- What is VirtualBox closed source and VirtualBox OSE? https://wiki.debian.org/VirtualBox https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#  ">
-<title>Labs | CS7210 - Distributed Computing</title>
+<meta name=description content="A Way to Capture Causality in Distributed Systems    Link to Paper
+This paper is an easy read and not very long. Moreover, first few pages just repeat the same thing over and over. So, you can read through it in a couple of hours.
+Big Ideas
+ Global/physical clocks don’t work for distributed processes. So, we use a system of logical clocks where each process has its own clock.">
+<title>W02 - Logical Time | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -18,7 +20,6 @@
 <link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://www.digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
-<link rel=alternate type=application/rss+xml href=https://www.digestnotes.com/labs/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 <link rel=stylesheet href=https://www.digestnotes.com/css/custom.css>
@@ -100,7 +101,7 @@ Lectures
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/labs/ class=gdoc-nav__entry>
 Labs
 </a>
 </span>
@@ -144,7 +145,7 @@ Readings
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/w02_logical_time/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/w02_logical_time/ class="gdoc-nav__entry is-active">
 W02 - Logical Time
 </a>
 </span>
@@ -200,42 +201,87 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Labs</span><meta itemprop=position content="2"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>W02 - Logical Time</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Labs</h1>
-<div class="gdoc-toc gdoc-toc__level--6">
+<h1>W02 - Logical Time</h1>
+<div class=gdoc-page__anchorwrap>
+<h2 id=a-way-to-capture-causality-in-distributed-systems>
+A Way to Capture Causality in Distributed Systems
+<a data-clipboard-text=https://www.digestnotes.com/readings/w02_logical_time/#a-way-to-capture-causality-in-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor A Way to Capture Causality in Distributed Systems" href=#a-way-to-capture-causality-in-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p><a class=gdoc-markdown__link href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.35.6474&rep=rep1&type=pdf">Link to Paper</a></p>
+<p>This paper is an easy read and not very long. Moreover, first few pages just repeat the same thing over and over. So, you can read through it in a couple of hours.</p>
+<p>Big Ideas</p>
 <ul>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/lab02/ class=gdoc-toc__entry>Lab02</a>
-</span>
+<li>Global/physical clocks don’t work for distributed processes. So, we use a system of logical clocks where each process has its own clock.</li>
+<li>There is no way to determine a total order on the events, we work with partial ordering.</li>
+</ul>
+<p>Abstract</p>
+<ul>
+<li>Logical time is better suited for tracking causality in distributed systems than physical time</li>
+<li>Paper reviews three ways to define logical time (scalar, vector, matrix) in distributed systems</li>
+</ul>
+<p>1 Introduction</p>
+<ul>
+<li>Model: A group of distributed processes communicating by passing messages instead of sharing memory. Messages have finite but unpredictable delays</li>
+<li>Three types of events can occur at a process: internal events, msg send, and msg recv.</li>
+<li>“msg send” and “msg recv” events establish causality between the two processes ⇒ partial ordering</li>
+<li>Knowing causality helps to solve a number of problems which are listed in paper. I found the following one interesting
+<ul>
+<li>Concurrency measure: “&mldr;All events that are not causally related can be executed in parallel. Thus, an analysis of the causality in a computation gives an idea of the concurrency in the program”</li>
+</ul>
 </li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/01_framework_abstraction/ class=gdoc-toc__entry>DSLabs Abstract Interface</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/02_packets/ class=gdoc-toc__entry>Message Wrappers</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/dslabs_client_to_server_communication/ class=gdoc-toc__entry>WIP</a>
-</span>
+<li>Physical( or wall) clocks don’t work for distributed systems because they are loosely synchronized. So, we turn to logical clocks.</li>
+<li>What is a logical clock?</li>
+<li>Paper presents
+<ul>
+<li>a general framework of a system of logical clocks</li>
+<li>three popular systems of logical clocks - scalar, vector and matrix</li>
+<li>efficient implementations of logical clocks</li>
+</ul>
 </li>
 </ul>
-</div>
-<p>Some useful links about virtual box</p>
-<ol>
-<li><a class=gdoc-markdown__link href=https://www.virtualbox.org/wiki/Editions>What is VirtualBox closed source and VirtualBox OSE?</a></li>
-<li><a class=gdoc-markdown__link href=https://wiki.debian.org/VirtualBox>https://wiki.debian.org/VirtualBox</a></li>
-<li><a class=gdoc-markdown__link href=https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#>https://blogs.oracle.com/virtualization/friday-spotlight:-virtualbox-extension-pack-guest-additions#</a></li>
-</ol>
+<div class=gdoc-page__anchorwrap>
+<h2 id=a-model-of-distributed-execution>
+A Model of Distributed Execution
+<a data-clipboard-text=https://www.digestnotes.com/readings/w02_logical_time/#a-model-of-distributed-execution class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor A Model of Distributed Execution" href=#a-model-of-distributed-execution><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=21-general-context>
+2.1 General Context
+<a data-clipboard-text=https://www.digestnotes.com/readings/w02_logical_time/#21-general-context class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2.1 General Context" href=#21-general-context><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>A distributed program consists of n processes which communicate by passing messages. Communication delay is finite but unpredictable. There is no global clock. Communication is asynchronous i.e. processes do not wait for msg delivery.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=22-distributed-execution>
+2.2 Distributed Execution
+<a data-clipboard-text=https://www.digestnotes.com/readings/w02_logical_time/#22-distributed-execution class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2.2 Distributed Execution" href=#22-distributed-execution><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>All events occurring on a single process have a total order.</li>
+<li>P1 sends msg M (event e1s) and P2 receives this msg (event e2r), then ⇒ All events the occurred on P1 upto e1s “happened before” any event the occurred on P2 beyond e2r</li>
+<li>Two events can either be related by “happened before” relationship else they are concurrent ie we cant decide their order</li>
+<li>Notation
+<ul>
+<li>A → B A happened before B</li>
+<li>A || B A and B are concurrent</li>
+</ul>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=23-distributed-executions-at-an-observation-level>
+2.3 Distributed Executions at an Observation Level
+<a data-clipboard-text=https://www.digestnotes.com/readings/w02_logical_time/#23-distributed-executions-at-an-observation-level class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2.3 Distributed Executions at an Observation Level" href=#23-distributed-executions-at-an-observation-level><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>Consider a set of events, E and a bunch of “happened before” relationships among them. An observation level is a subset E’ of E and a subset of all “happened before” relationships which relate events within E’.</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
