@@ -3,6 +3,9 @@ title: "W02 - Logical Time"
 geekdocDescription : "A Way to Capture Causality in Distributed Systems"
 ---
 
+# Logical Time: A Way to Capture Causality in Distributed Systems
+\- M. Raynal, M. Singha
+
 ## A Way to Capture Causality in Distributed Systems
 
 [Link to Paper](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.35.6474&rep=rep1&type=pdf)

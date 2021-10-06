@@ -1,0 +1,7 @@
+{{ define "main" }}
+    {{ partial "page-header" . }}
+
+    <article class="gdoc-markdown gdoc-markdown__align--{{ default "left" (.Page.Params.GeekdocAlign | lower) }}">
+        {{ partial "content" . }}
+    </article>
+{{ end }}

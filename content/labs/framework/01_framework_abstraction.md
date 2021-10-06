@@ -1,7 +1,9 @@
 ---
-title: "DSLabs Abstract Interface"
-draft: false
+title: "01 DSLabs Abstract Interface"
+
 ---
+
+# Important DSLabs Interfaces
 
 ![dslabs_abstract_interface](/images/cs7210/labs/dslabs_abstract_interface.png)
 
