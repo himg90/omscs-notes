@@ -3,9 +3,8 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Spanner FAQ    Source: MIT 6.824 - Distributed Systems > Spanner FAQs
-Q: What is time? A: 13:00:00.000 April 7th 2020 UTC is a time. Time advances at a steady rate of one second per second. Q: What is a clock? A: A clock is an oscillator driving a counter. The oscillator should tick at a steady known rate (e.g. one tick per second). The counter must initially be synchronized to a source of the correct time; after that, the oscillator's ticks cause the counter to advance the time.">
-<title>W07 - Spanner | CS7210 - Distributed Computing</title>
+<meta name=description content="Workload    abstract class Workload { Pair<Command, Result> nextCommandAndResult() Command nextCommand() boolean hasNext() boolean hasResults() }  A workload is an ordered collection of commands and expected results. Results are optional but commands are must. The test framework initializes a Workload and maps it to a client node. The framework executes one command at a time from the Workload on the client. If results are present in the workload, after every command, the result received from the client is compared against the expected result stored in the Workload.">
+<title>02 Workload | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -127,7 +126,7 @@ DSLabs Framework
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/framework/02_workload/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/labs/framework/02_workload/ class="gdoc-nav__entry is-active">
 02 Workload
 </a>
 </span>
@@ -166,7 +165,7 @@ W03 - Consistent Global States
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/w07spanner/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/readings/w07spanner/ class=gdoc-nav__entry>
 W07 - Spanner
 </a>
 </span>
@@ -208,117 +207,66 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>W07 - Spanner</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/ href=https://www.digestnotes.com/labs/><span itemprop=name>Labs</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/framework/ href=https://www.digestnotes.com/labs/framework/><span itemprop=name>DSLabs Framework</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>02 Workload</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h2 id=spanner-faq>
-Spanner FAQ
-<a data-clipboard-text=https://www.digestnotes.com/readings/w07spanner/#spanner-faq class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Spanner FAQ" href=#spanner-faq><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=workload>
+Workload
+<a data-clipboard-text=https://www.digestnotes.com/labs/framework/02_workload/#workload class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Workload" href=#workload><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
-</div><p>Source: <a href=https://pdos.csail.mit.edu/6.824/schedule.html target=_blank>MIT 6.824 - Distributed Systems</a> > <a href=https://pdos.csail.mit.edu/6.824/papers/spanner-faq.txt target=_blank>Spanner FAQs</a></p>
-<pre tabindex=0><code>Q: What is time?
-
-A: 13:00:00.000 April 7th 2020 UTC is a time. Time advances at a
-steady rate of one second per second.
-
-Q: What is a clock?
-
-A: A clock is an oscillator driving a counter. The oscillator should
-tick at a steady known rate (e.g. one tick per second). The counter
-must initially be synchronized to a source of the correct time; after
-that, the oscillator's ticks cause the counter to advance the time. If
-the oscillator ticks at precisely the right rate, the counter will
-advance in precise synchrony with the correct time. In real life, the
-oscillator ticks at a varying and somewhat incorrect frequency, so the
-counter gradually drifts away from the correct time.
-
-Q: What time is it?
-
-A: In order to provide a notion of univeral time (UTC), a bunch of
-government laboratories individually maintain highly accurate clocks,
-and compare with each other to produce a consensus on what time it is.
-The current time is broadcast in a variety of ways, such as WWV, GPS,
-and NTP, so that ordinary people can know the official time. Those
-broadcasts take a varying and hard-to-predict amount of time to reach
-listeners, so you never know the exact time.
-
-Q: What is an atomic clock?
-
-A: A highly stable oscillator. There are two main technologies that go
-by the name &quot;atomic clock&quot;: rubidium clocks and cesium clocks. Both
-exploit changes in the state of the outer electron, which involve
-specific quanta of energy and thus wavelength. One can tune a signal
-generator to precisely that wavelength by watching how excited the
-electrons are. An atomic clock is just the oscillator part of a clock;
-on startup, it must be synchronized somehow to UTC, typically by radio
-broadcasts such as GPS.
-
-Q: What kind of atomic clock does Spanner use?
-
-A: Sadly the paper doesn't say. Rubidium clocks are typically a few
-thousand dollars (e.g. https://thinksrs.com/products/fs725.html).
-Rubidium clocks drift by perhaps a few microseconds per week, so they
-need to be re-synchronized to UTC (typically by GPS) every once in a
-while. Cesium clocks cost perhaps $50,000; the HP 5071A is a good
-example. A cesium clock doesn't drift. Of course, any one clock might
-fail or suffer a power failure, so even with perfect cesium clocks you
-still need more than one and the ability to synchronize to UTC. My
-guess, based on price, is that Spanner uses rubidium clocks that are
-synchronized with GPS receivers.
-
-Q: How does external consistency relate to linearizability and
-serializability?
-
-A: External consistency seems to be equivalent to linearizability, but
-applied to entire transactions rather than individual reads and
-writes. External consistency also seems equivalent to strict
-serializability, which is serializability with the added constraint
-that the equivalent serial order must obey real time order. The
-critical property is that if transaction T1 completes, and then
-(afterwards in real time) transaction T2 starts, T2 must see T1's
-writes.
-
-Q: Why is external consistency desirable?
-
-A: Suppose Hatshepsut changes the password on an account shared by her
-workgroup, via a web server in a datacenter in San Jose. She whispers
-the new password over the cubicle wall to her colleage Cassandra.
-Cassandra logs into the account via a web server in a different
-datacenter, in San Mateo. External consistency guarantees that
-Cassandra will observe the change to the password, and not, for
-example, see a stale replica.
-
-Q: Could Spanner use Raft rather than Paxos?
-
-A: Yes. At the level of this paper there is no difference. At the time
-Spanner was being built, Raft didn't exist, and Google already had a
-tuned and reliable Paxos implementation. Have a look at the paper
-Paxos Made Live by Chandra et al.
-
-Q: What is the purpose of Spanner's commit wait?
-
-A: Commit wait ensures that a read/write transaction does not complete
-until the time in its timestamp is guaranteed to have passed. That
-means that a read/only transaction that starts after the read/write
-transaction completes is guaranteed to have a higher timestamp, and
-thus to see the read/write transaction's writes. This helps fulfil the
-guarantee of external consistency: if T1 completes before T2 starts,
-T2 will come after T1 in the equivalent serial order (i.e. T2 will see
-T1's writes).
-
-Q: Does anyone use Spanner?
-
-A: It's said that hundreds of Google services depend on Spanner. The
-paper talks about its use by Google's advertising system. Google's
-Zanzibar Authorization system uses Spanner. It's offered as a service
-to Google's cloud customers in the form of Cloud Spanner. The
-CockroachDB open-source database is based on the Spanner design.
-</code></pre><p>Paper Question <a class=gdoc-markdown__link href="https://pdos.csail.mit.edu/6.824/questions.html?q=q-spanner&lec=14">Source: MIT 6.824</a></p>
-<p>Suppose a Spanner server&rsquo;s TT.now() returns correct information, but the uncertainty is large. For example, suppose the absolute time is 10:15:30, and TT.now() returns the interval [10:15:20,10:15:40]. That interval is correct in that it contains the absolute time, but the error bound is 10 seconds. See Section 3 for an explanation TT.now(). What bad effect will a large error bound have on Spanner&rsquo;s operation? Give a specific example.</p>
+</h1>
+</div><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>abstract</span> <span class=kd>class</span> <span class=nc>Workload</span> <span class=o>{</span>
+	<span class=n>Pair</span><span class=o>&lt;</span><span class=n>Command</span><span class=o>,</span> <span class=n>Result</span><span class=o>&gt;</span> <span class=nf>nextCommandAndResult</span><span class=o>()</span>
+	<span class=n>Command</span> <span class=nf>nextCommand</span><span class=o>()</span>
+	<span class=kt>boolean</span> <span class=nf>hasNext</span><span class=o>()</span>
+	<span class=kt>boolean</span> <span class=nf>hasResults</span><span class=o>()</span>
+<span class=o>}</span>
+</code></pre></div><ul>
+<li>A workload is an ordered collection of commands and expected results.</li>
+<li>Results are optional but commands are must.</li>
+<li>The test framework initializes a <code>Workload</code> and maps it to a client node.</li>
+<li>The framework executes one command at a time from the Workload on the client.</li>
+<li>If results are present in the workload, after every command, the result received from the client is compared against the <em>expected</em> result stored in the Workload.</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=standardworkload>
+StandardWorkload
+<a data-clipboard-text=https://www.digestnotes.com/labs/framework/02_workload/#standardworkload class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor StandardWorkload" href=#standardworkload><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>
+<p>It&rsquo;s a concrete implementation of Workload.</p>
+</li>
+<li>
+<p>It adds two capabilities to Workload</p>
+<ul>
+<li>
+<p><strong>Repetition</strong>: The workload ( i.e. the command in workload) can be executed specified number of times.</p>
+</li>
+<li>
+<p><strong>Patterns as Commands</strong>: Instead of providing exact list of command objects, it can be provided with a string patterns and it transforms them into strings. These strings are then converted to Command and Result objects by <strong>Parser</strong>. Parser is nothing but a function that takes strings as input and converts them to Command and Result Objects.</p>
+<pre tabindex=0><code>
+   String_Pattern                                                     
+   &quot;GET:foo_%i&quot;                                                       
+         |                                                            
+         v                                                            
++-------------------+                                                 
+| Standard Workload |                                                 
+|  doReplacements() |                                                 
++-------------------+                                                 
+         |                                                            
+         v                   +--------------+                         
+    String_Command  -------&gt; |Parser        |-------&gt;  GET{           
+    GET:foo_01               |KVStoreParser |          key : &quot;foo_01&quot;}
+                             +--------------+                         
+</code></pre></li>
+</ul>
+</li>
+</ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
