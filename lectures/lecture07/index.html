@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
+<meta name=description content="Fault Tolerance    Some Taxonomy     Fault-Error-Failure  Fault is the problem (software bug, hardware failure) When fault is activated (because buggy part of code is executed), it causes errors Failure is the resulting behaviour   Faults: Transient / Intermittent / Permanent Failures: Fail-stop / Timing / Omission / Byzantine  Timing: System becomes &ldquo;slow&rdquo; Omission: some actions are missing like msg drops due to memory constraints   Managing Failures: Avoidance / Detection / Recovery / Removal  Detected failues are either removed by rollback or recovered from.">
 <meta name=keywords content="fault tolerance,distributed system,omscs">
 <title>07 - Fault Tolerance | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -180,6 +180,13 @@ W03 - Consistent Global States
 </li>
 <li>
 <span class=flex>
+<a href=https://www.digestnotes.com/readings/07_amazon_aurora/ class=gdoc-nav__entry>
+W07 - Amazon Aurora
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
 <a href=https://www.digestnotes.com/readings/w07spanner/ class=gdoc-nav__entry>
 W07 - Spanner
 </a>
@@ -196,6 +203,13 @@ Extra Readings
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
 Consistency Tradeoffs
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/readings/extra/calm/ class=gdoc-nav__entry>
+Keeping CALM
 </a>
 </span>
 </li>
@@ -228,6 +242,12 @@ hidden-mobile" itemprop=breadcrumb>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
+<h1 id=fault-tolerance>
+Fault Tolerance
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture07/#fault-tolerance class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Fault Tolerance" href=#fault-tolerance><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><div class=gdoc-page__anchorwrap>
 <h2 id=some-taxonomy>
 Some Taxonomy
 <a data-clipboard-text=https://www.digestnotes.com/lectures/lecture07/#some-taxonomy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Some Taxonomy" href=#some-taxonomy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>

@@ -3,9 +3,11 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="State Predicate (Invariants)    When the framework is running tests, it needs to know whether a test passed or failed. It does so by verifying that certain conditions are met. StatePredicate are those conditions
-class StatePredicate extends java.util.Function.Predicate<AbstractState> { String name; Function<AbstractState, Pair<Boolean, String>> predicate; public boolean test(AbstractState state); public String detail(AbstractState state); public StatePredicate negate(); public StatePredicate and(StatePredicate other); public StatePredicate or(StatePredicate other); } java.util.Function.Predicate    interface Predicate<T> { boolean test(T t); //default methods  default Predicate<T> and(Predicate<?">
-<title>03 State Predicates | CS7210 - Distributed Computing</title>
+<meta name=description content="Keeping CALM: When Distributed Consistency is Easy    - Joseph M. Hellerstein, Peter Alvaro
+Links
+ Paper (Free) The Morning Paper   ">
+<meta name=keywords content="distributed computing,omscs">
+<title>Keeping CALM | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -141,7 +143,7 @@ DSLabs Framework
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/framework/03_state_predicates/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/labs/framework/03_state_predicates/ class=gdoc-nav__entry>
 03 State Predicates
 </a>
 </span>
@@ -208,7 +210,7 @@ Consistency Tradeoffs
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/calm/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/extra/calm/ class="gdoc-nav__entry is-active">
 Keeping CALM
 </a>
 </span>
@@ -236,66 +238,24 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/ href=https://www.digestnotes.com/labs/><span itemprop=name>Labs</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/framework/ href=https://www.digestnotes.com/labs/framework/><span itemprop=name>DSLabs Framework</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 State Predicates</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/extra/ href=https://www.digestnotes.com/readings/extra/><span itemprop=name>Extra Readings</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Keeping CALM</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h1 id=state-predicate-invariants>
-State Predicate (Invariants)
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#state-predicate-invariants class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor State Predicate (Invariants)" href=#state-predicate-invariants><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=keeping-calm-when-distributed-consistency-is-easy>
+Keeping CALM: When Distributed Consistency is Easy
+<a data-clipboard-text=https://www.digestnotes.com/readings/extra/calm/#keeping-calm-when-distributed-consistency-is-easy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Keeping CALM: When Distributed Consistency is Easy" href=#keeping-calm-when-distributed-consistency-is-easy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
-</div><p>When the framework is running tests, it needs to know whether a test passed or failed. It does so by verifying that certain conditions are met. <code>StatePredicate</code> are those conditions</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>class</span> <span class=nc>StatePredicate</span> <span class=kd>extends</span> <span class=n>java</span><span class=o>.</span><span class=na>util</span><span class=o>.</span><span class=na>Function</span><span class=o>.</span><span class=na>Predicate</span><span class=o>&lt;</span><span class=n>AbstractState</span><span class=o>&gt;</span> <span class=o>{</span>
-  <span class=n>String</span> <span class=n>name</span><span class=o>;</span>
-  <span class=n>Function</span><span class=o>&lt;</span><span class=n>AbstractState</span><span class=o>,</span> <span class=n>Pair</span><span class=o>&lt;</span><span class=n>Boolean</span><span class=o>,</span> <span class=n>String</span><span class=o>&gt;&gt;</span> <span class=n>predicate</span><span class=o>;</span>
-  
-  <span class=kd>public</span> <span class=kt>boolean</span> <span class=nf>test</span><span class=o>(</span><span class=n>AbstractState</span> <span class=n>state</span><span class=o>);</span>
-  <span class=kd>public</span> <span class=n>String</span> <span class=nf>detail</span><span class=o>(</span><span class=n>AbstractState</span> <span class=n>state</span><span class=o>);</span>
-    
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>negate</span><span class=o>();</span>
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>and</span><span class=o>(</span><span class=n>StatePredicate</span> <span class=n>other</span><span class=o>);</span>
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>or</span><span class=o>(</span><span class=n>StatePredicate</span> <span class=n>other</span><span class=o>);</span>
-    
-<span class=o>}</span>
-</code></pre></div><div class=gdoc-page__anchorwrap>
-<h3 id=javautilfunctionpredicate>
-java.util.Function.Predicate
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#javautilfunctionpredicate class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor java.util.Function.Predicate" href=#javautilfunctionpredicate><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h3>
-</div><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>interface</span> <span class=nc>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=o>{</span>
-  <span class=kt>boolean</span> <span class=nf>test</span><span class=o>(</span><span class=n>T</span> <span class=n>t</span><span class=o>);</span>
-  <span class=c1>//default methods
-</span><span class=c1></span>  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>and</span><span class=o>(</span><span class=n>Predicate</span><span class=o>&lt;?</span> <span class=kd>super</span> <span class=n>T</span><span class=o>&gt;</span> <span class=n>other</span><span class=o>);</span>
-  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>negate</span><span class=o>();</span>
-  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>or</span><span class=o>(</span><span class=n>Predicate</span><span class=o>&lt;?</span> <span class=kd>super</span> <span class=n>T</span><span class=o>&gt;</span> <span class=n>other</span><span class=o>);</span>
-<span class=o>}</span>
-</code></pre></div><ul>
-<li>Predicate is a standard java interface with just one abstract method signature. <code>bool test(T)</code> . It takes a generic <code>T</code> as input and produces bool as output.</li>
-<li>For any testing framework this can be a useful interface. The framework&rsquo;s &ldquo;conditions&rdquo; should implement this interface. They take state of the system as input to <code>test()</code>. Then <code>test()</code> executes some logic and produces the result indicating whether it was a pass or a fail.</li>
+</div><p>- Joseph M. Hellerstein, Peter Alvaro</p>
+<p>Links</p>
+<ul>
+<li><a class=gdoc-markdown__link href=https://arxiv.org/abs/1901.01930>Paper (Free)</a></li>
+<li><a class=gdoc-markdown__link href=https://blog.acolyer.org/2019/03/06/keeping-calm-when-distributed-consistency-is-easy/>The Morning Paper</a></li>
+<li></li>
 </ul>
-<div class=gdoc-page__anchorwrap>
-<h3 id=adding-names-and-messages>
-Adding Names and Messages
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#adding-names-and-messages class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Adding Names and Messages" href=#adding-names-and-messages><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h3>
-</div><p>StatePredicate class adds two more things</p>
-<ol>
-<li>It stores a human readable <code>name</code> for the &ldquo;condition&rdquo;</li>
-<li>Along with returning whether condition was met or not, it also returns a small message indicating success or why there was a failure.</li>
-</ol>
-<pre tabindex=0><code>                                                                      
-+--------------+                                       +-------------+
-|              |            +----------------+         |             |
-|AbstractState |----------&gt; | StatePredicate |-------&gt; |&lt;bool_result, 
-|(State of the |            |  predicate()   |         |string_msg&gt;  |
-|    System)   |            +----------------+         |             |
-+--------------+                                       +-------------+
-</code></pre>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

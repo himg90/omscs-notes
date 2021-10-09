@@ -3,9 +3,15 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="State Predicate (Invariants)    When the framework is running tests, it needs to know whether a test passed or failed. It does so by verifying that certain conditions are met. StatePredicate are those conditions
-class StatePredicate extends java.util.Function.Predicate<AbstractState> { String name; Function<AbstractState, Pair<Boolean, String>> predicate; public boolean test(AbstractState state); public String detail(AbstractState state); public StatePredicate negate(); public StatePredicate and(StatePredicate other); public StatePredicate or(StatePredicate other); } java.util.Function.Predicate    interface Predicate<T> { boolean test(T t); //default methods  default Predicate<T> and(Predicate<?">
-<title>03 State Predicates | CS7210 - Distributed Computing</title>
+<meta name=description content="Amazon Aurora: On Avoiding Distributed Consensus for I/Os, Commits, and Membership Changes    - Alexandre Verbitski, Anurag Gupta, Debanjan Saha, James Corey, Kamal Gupta Murali Brahmadesam, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice Tengiz Kharatishvilli, Xiaofeng Bao
+Links      The Morning Paper
+  Just How &ldquo;Global&rdquo; is Amazon Aurora? - CockroachLabs
+  Notes on Amazon Aurora
+  diegopacheco/notes
+  https://www.binwang.me/2020-09-16-Aurora-Database.html
+  ">
+<meta name=keywords content="distributed computing,Amazon Aurora">
+<title>W07 - Amazon Aurora | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -141,7 +147,7 @@ DSLabs Framework
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/framework/03_state_predicates/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/labs/framework/03_state_predicates/ class=gdoc-nav__entry>
 03 State Predicates
 </a>
 </span>
@@ -180,7 +186,7 @@ W03 - Consistent Global States
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/07_amazon_aurora/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/07_amazon_aurora/ class="gdoc-nav__entry is-active">
 W07 - Amazon Aurora
 </a>
 </span>
@@ -236,66 +242,41 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/ href=https://www.digestnotes.com/labs/><span itemprop=name>Labs</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/framework/ href=https://www.digestnotes.com/labs/framework/><span itemprop=name>DSLabs Framework</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>03 State Predicates</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>W07 - Amazon Aurora</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h1 id=state-predicate-invariants>
-State Predicate (Invariants)
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#state-predicate-invariants class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor State Predicate (Invariants)" href=#state-predicate-invariants><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=amazon-aurora-on-avoiding-distributed-consensus-for-ios-commits-and-membership-changes>
+Amazon Aurora: On Avoiding Distributed Consensus for I/Os, Commits, and Membership Changes
+<a data-clipboard-text=https://www.digestnotes.com/readings/07_amazon_aurora/#amazon-aurora-on-avoiding-distributed-consensus-for-ios-commits-and-membership-changes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Amazon Aurora: On Avoiding Distributed Consensus for I/Os, Commits, and Membership Changes" href=#amazon-aurora-on-avoiding-distributed-consensus-for-ios-commits-and-membership-changes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
-</div><p>When the framework is running tests, it needs to know whether a test passed or failed. It does so by verifying that certain conditions are met. <code>StatePredicate</code> are those conditions</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>class</span> <span class=nc>StatePredicate</span> <span class=kd>extends</span> <span class=n>java</span><span class=o>.</span><span class=na>util</span><span class=o>.</span><span class=na>Function</span><span class=o>.</span><span class=na>Predicate</span><span class=o>&lt;</span><span class=n>AbstractState</span><span class=o>&gt;</span> <span class=o>{</span>
-  <span class=n>String</span> <span class=n>name</span><span class=o>;</span>
-  <span class=n>Function</span><span class=o>&lt;</span><span class=n>AbstractState</span><span class=o>,</span> <span class=n>Pair</span><span class=o>&lt;</span><span class=n>Boolean</span><span class=o>,</span> <span class=n>String</span><span class=o>&gt;&gt;</span> <span class=n>predicate</span><span class=o>;</span>
-  
-  <span class=kd>public</span> <span class=kt>boolean</span> <span class=nf>test</span><span class=o>(</span><span class=n>AbstractState</span> <span class=n>state</span><span class=o>);</span>
-  <span class=kd>public</span> <span class=n>String</span> <span class=nf>detail</span><span class=o>(</span><span class=n>AbstractState</span> <span class=n>state</span><span class=o>);</span>
-    
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>negate</span><span class=o>();</span>
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>and</span><span class=o>(</span><span class=n>StatePredicate</span> <span class=n>other</span><span class=o>);</span>
-  <span class=kd>public</span> <span class=n>StatePredicate</span> <span class=nf>or</span><span class=o>(</span><span class=n>StatePredicate</span> <span class=n>other</span><span class=o>);</span>
-    
-<span class=o>}</span>
-</code></pre></div><div class=gdoc-page__anchorwrap>
-<h3 id=javautilfunctionpredicate>
-java.util.Function.Predicate
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#javautilfunctionpredicate class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor java.util.Function.Predicate" href=#javautilfunctionpredicate><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h3>
-</div><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=kd>interface</span> <span class=nc>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=o>{</span>
-  <span class=kt>boolean</span> <span class=nf>test</span><span class=o>(</span><span class=n>T</span> <span class=n>t</span><span class=o>);</span>
-  <span class=c1>//default methods
-</span><span class=c1></span>  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>and</span><span class=o>(</span><span class=n>Predicate</span><span class=o>&lt;?</span> <span class=kd>super</span> <span class=n>T</span><span class=o>&gt;</span> <span class=n>other</span><span class=o>);</span>
-  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>negate</span><span class=o>();</span>
-  <span class=k>default</span> <span class=n>Predicate</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=nf>or</span><span class=o>(</span><span class=n>Predicate</span><span class=o>&lt;?</span> <span class=kd>super</span> <span class=n>T</span><span class=o>&gt;</span> <span class=n>other</span><span class=o>);</span>
-<span class=o>}</span>
-</code></pre></div><ul>
-<li>Predicate is a standard java interface with just one abstract method signature. <code>bool test(T)</code> . It takes a generic <code>T</code> as input and produces bool as output.</li>
-<li>For any testing framework this can be a useful interface. The framework&rsquo;s &ldquo;conditions&rdquo; should implement this interface. They take state of the system as input to <code>test()</code>. Then <code>test()</code> executes some logic and produces the result indicating whether it was a pass or a fail.</li>
-</ul>
+</div><p>- Alexandre Verbitski, Anurag Gupta, Debanjan Saha, James Corey, Kamal Gupta Murali Brahmadesam, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice Tengiz Kharatishvilli, Xiaofeng Bao</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=adding-names-and-messages>
-Adding Names and Messages
-<a data-clipboard-text=https://www.digestnotes.com/labs/framework/03_state_predicates/#adding-names-and-messages class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Adding Names and Messages" href=#adding-names-and-messages><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h4 id=links>
+Links
+<a data-clipboard-text=https://www.digestnotes.com/readings/07_amazon_aurora/#links class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Links" href=#links><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h3>
-</div><p>StatePredicate class adds two more things</p>
-<ol>
-<li>It stores a human readable <code>name</code> for the &ldquo;condition&rdquo;</li>
-<li>Along with returning whether condition was met or not, it also returns a small message indicating success or why there was a failure.</li>
-</ol>
-<pre tabindex=0><code>                                                                      
-+--------------+                                       +-------------+
-|              |            +----------------+         |             |
-|AbstractState |----------&gt; | StatePredicate |-------&gt; |&lt;bool_result, 
-|(State of the |            |  predicate()   |         |string_msg&gt;  |
-|    System)   |            +----------------+         |             |
-+--------------+                                       +-------------+
-</code></pre>
+</h4>
+</div><ul>
+<li>
+<p><a class=gdoc-markdown__link href=https://blog.acolyer.org/2019/03/27/amazon-aurora-on-avoiding-distributed-consensus-for-i-os-commits-and-membership-changes/>The Morning Paper</a></p>
+</li>
+<li>
+<p><a class=gdoc-markdown__link href=https://www.cockroachlabs.com/blog/just-how-global-is-amazon-aurora/>Just How &ldquo;Global&rdquo; is Amazon Aurora? - CockroachLabs</a></p>
+</li>
+<li>
+<p><a class=gdoc-markdown__link href=https://lieuzhenghong.com/aurora_notes/>Notes on Amazon Aurora</a></p>
+</li>
+<li>
+<p><a class=gdoc-markdown__link href=https://github.com/diegopacheco/notes/blob/master/paper_reviews/aws_aurora/diegopacheco_paper_review_Amazon_Aurora_On_Avoiding_Distributed_Consensus_for_IOs_Commits_and_Membership_Changes.pdf>diegopacheco/notes</a></p>
+</li>
+<li>
+<p><a class=gdoc-markdown__link href=https://www.binwang.me/2020-09-16-Aurora-Database.html>https://www.binwang.me/2020-09-16-Aurora-Database.html</a></p>
+</li>
+</ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
+<meta name=description content="Time in Distributed Systems    Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
 <meta name=keywords content="distributed computing,omscs,logical time,vector clock">
 <title>03 - Time in D. Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -180,6 +180,13 @@ W03 - Consistent Global States
 </li>
 <li>
 <span class=flex>
+<a href=https://www.digestnotes.com/readings/07_amazon_aurora/ class=gdoc-nav__entry>
+W07 - Amazon Aurora
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
 <a href=https://www.digestnotes.com/readings/w07spanner/ class=gdoc-nav__entry>
 W07 - Spanner
 </a>
@@ -196,6 +203,13 @@ Extra Readings
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
 Consistency Tradeoffs
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/readings/extra/calm/ class=gdoc-nav__entry>
+Keeping CALM
 </a>
 </span>
 </li>
@@ -228,6 +242,12 @@ hidden-mobile" itemprop=breadcrumb>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
+<h1 id=time-in-distributed-systems>
+Time in Distributed Systems
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#time-in-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Time in Distributed Systems" href=#time-in-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><div class=gdoc-page__anchorwrap>
 <h2 id=introduction>
 Introduction
 <a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
