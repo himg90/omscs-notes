@@ -3,6 +3,8 @@ title: "03 - Time in D. Systems"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "logical time", "vector clock"]
 ---
+# Time in Distributed Systems
+
 ## Introduction
 
 - Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks

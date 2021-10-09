@@ -3,6 +3,8 @@ title: "05 - Consensus"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "consensus"]
 ---
+# Consensus
+
 [Link to Lecture Slides](https://gatech.instructure.com/courses/220502/files/24077401/download?download_frd=1)
 
 [Paper Trail: A Brief Tour of FLP Impossibility](https://www.the-paper-trail.org/post/2008-08-13-a-brief-tour-of-flp-impossibility/)

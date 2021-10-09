@@ -3,6 +3,11 @@ title: "W07 - Spanner"
 geekdocDescription : "Google’s Globally-Distributed Database"
 ---
 
+#### Links
+
+* [Spanner and Open Source Implementations](https://www.binwang.me/2018-07-29-A-Review-on-Spanner-and-Open-Source-Implementations.html)
+* [OSDI12 - Spanner: Google’s Globally-Distributed Database - Youtube](https://www.youtube.com/watch?v=C75kpQszAjs)
+
 ## Spanner FAQ
 
 Source: <a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank">MIT 6.824 - Distributed Systems</a> > <a href="https://pdos.csail.mit.edu/6.824/papers/spanner-faq.txt" target="_blank">Spanner FAQs</a>

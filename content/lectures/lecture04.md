@@ -4,6 +4,8 @@ geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "distributed snapshot"]
 ---
 
+# State in Distributed Systems
+
 ## Introduction
 
 - Study challenges in maintaining state in a distributed system.

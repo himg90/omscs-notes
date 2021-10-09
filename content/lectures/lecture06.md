@@ -4,6 +4,8 @@ geekdocDescription: ""
 keywords: ["replication", "distributed system", "consistency", "omscs"]
 ---
 
+# Replication
+
 ### Goals of Replication
 
 * State available at more than one node => Fault-tolerance, Availability

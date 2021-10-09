@@ -3,6 +3,8 @@ title: "07 - Fault Tolerance"
 keywords: ["fault tolerance", "distributed system", "omscs"]
 ---
 
+# Fault Tolerance
+
 ## Some Taxonomy
 
 * Fault-Error-Failure
