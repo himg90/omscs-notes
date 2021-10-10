@@ -3,8 +3,10 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="    Consistency Tradeoffs: Consistency Tradeoffs in Modern Distributed Database System Design     Keeping CALM: When Distributed Consistency is Easy     ">
-<title>Extra Readings | CS7210 - Distributed Computing</title>
+<meta name=description content="Consistency Tradeoffs in Modern Distributed Database System Design    By Daniel J. Abadi    The main point that paper tries to put across is this:
+ Modern DDBS do not provide strong consistency guarantees under normal operations (absense of any faults) not because of CAP theorem but because of consistency-vs-Latency tradeoff. Consistency-vs-Latency tradeoff is more fundamental than CAP theorem because faults like network partitions are usually rare.">
+<meta name=keywords content="distributed computing,omscs,consistency,CAP theorem,PACELC theorem">
+<title>Consistency Tradeoffs | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -17,7 +19,6 @@
 <link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://www.digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
-<link rel=alternate type=application/rss+xml href=https://www.digestnotes.com/readings/extra/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 <link rel=stylesheet href=https://www.digestnotes.com/css/custom.css>
@@ -96,6 +97,13 @@ Lectures
 </span>
 </li>
 </ul>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/exams/ class=gdoc-nav__entry>
+Exam
+</a>
+</span>
 </li>
 <li>
 <span class=flex>
@@ -192,29 +200,6 @@ W07 - Spanner
 </a>
 </span>
 </li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/ class="gdoc-nav__entry is-active">
-Extra Readings
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
-Consistency Tradeoffs
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/calm/ class=gdoc-nav__entry>
-Keeping CALM
-</a>
-</span>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>
@@ -223,6 +208,22 @@ Keeping CALM
 Extra
 </a>
 </span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/extra/consistency_tradeoffs/ class="gdoc-nav__entry is-active">
+Consistency Tradeoffs
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/extra/calm/ class=gdoc-nav__entry>
+Keeping CALM
+</a>
+</span>
+</li>
+</ul>
 </li>
 </ul>
 </section>
@@ -236,26 +237,70 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Extra Readings</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/extra/ href=https://www.digestnotes.com/extra/><span itemprop=name>Extra</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Consistency Tradeoffs</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Extra Readings</h1>
-<div class="gdoc-toc gdoc-toc__level--6">
+<div class=gdoc-page__anchorwrap>
+<h1 id=consistency-tradeoffs-in-modern-distributed-database-system-design>
+Consistency Tradeoffs in Modern Distributed Database System Design
+<a data-clipboard-text=https://www.digestnotes.com/extra/consistency_tradeoffs/#consistency-tradeoffs-in-modern-distributed-database-system-design class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consistency Tradeoffs in Modern Distributed Database System Design" href=#consistency-tradeoffs-in-modern-distributed-database-system-design><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><div class=gdoc-page__anchorwrap>
+<h4 id=by-daniel-j-abadi>
+By Daniel J. Abadi
+<a data-clipboard-text=https://www.digestnotes.com/extra/consistency_tradeoffs/#by-daniel-j-abadi class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor By Daniel J. Abadi" href=#by-daniel-j-abadi><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h4>
+</div><p>The main point that paper tries to put across is this:</p>
+<blockquote>
+<p>Modern DDBS do not provide strong consistency guarantees under normal operations (absense of any faults) not because of CAP theorem but because of consistency-vs-Latency tradeoff. Consistency-vs-Latency tradeoff is more fundamental than CAP theorem because faults like network partitions are usually rare.</p>
+</blockquote>
 <ul>
-<li>
-<span>
-<a href=https://www.digestnotes.com/readings/extra/consistency_tradeoffs/ class=gdoc-toc__entry>Consistency Tradeoffs:</a> Consistency Tradeoffs in Modern Distributed Database System Design
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/readings/extra/calm/ class=gdoc-toc__entry>Keeping CALM:</a> When Distributed Consistency is Easy
-</span>
-</li>
+<li>CAP only puts restrictions on DDBS under certain types of failures. During normal functioning, DDBS can work without constraints. In other words, until a partition occurs, the database can be both consistent and available.</li>
+<li>If a DDBS provides lower consistency under normal operation, it does so due to the tradeoff between Latency and Consistency instead of CAP theorem</li>
+<li>In CAP&rsquo;s proof, authors use &ldquo;Linearizability&rdquo; form of consistency</li>
 </ul>
-</div>
+<div class=gdoc-page__anchorwrap>
+<h2 id=data-replication>
+Data Replication
+<a data-clipboard-text=https://www.digestnotes.com/extra/consistency_tradeoffs/#data-replication class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Data Replication" href=#data-replication><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>It can be done by three means</p>
+<ol>
+<li>Leaderless Replication</li>
+<li>Single Leader Replication</li>
+<li>Multi-Leader Replication or Master-Master Replication</li>
+</ol>
+<p>In all forms of replication, there is tension between consistency and latency.</p>
+<ul>
+<li>If synchronous replication is used between nodes, consistency improves but cost is paid in latency</li>
+<li>Asynchronous replication is faster but replicas can diverge if different nodes apply changes in different orders</li>
+<li>In asynchronous replication, if nodes try to decide on a global order of events, latency increases.</li>
+</ul>
+<p>Example: Amazon&rsquo;s Dynamo</p>
+<ul>
+<li>A single key is stored at multiple nodes. One of these nodes becomes master for an operation and drives it. => Multi-Leader</li>
+<li>The leader propagates the operation to other owners of the key. First <code>W</code> writers are updated synchronously while the rest are updated asynchronously.</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=pacelc>
+PACELC
+<a data-clipboard-text=https://www.digestnotes.com/extra/consistency_tradeoffs/#pacelc class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor PACELC" href=#pacelc><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><pre tabindex=0><code>if (Partition)
+	Availability vs Consistency
+Else
+	Latency vs Consistency
+</code></pre><p>Example: MongoDB : PA/EC (Under <code>Partition</code>, it&rsquo;s <code>Available</code> <code>ELSE</code> it&rsquo;s <code>Consistent</code>)</p>
+<ul>
+<li>Under normal operation, single master and linearisable system</li>
+<li>Under partition, all nodes accept writes and thus system stays available but in consistent.</li>
+</ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>

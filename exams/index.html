@@ -3,11 +3,8 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Keeping CALM: When Distributed Consistency is Easy    - Joseph M. Hellerstein, Peter Alvaro
-Links
- Paper (Free) The Morning Paper   ">
-<meta name=keywords content="distributed computing,omscs">
-<title>Keeping CALM | CS7210 - Distributed Computing</title>
+<meta name=description content="    ">
+<title>Exam | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -20,6 +17,7 @@ Links
 <link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://www.digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
+<link rel=alternate type=application/rss+xml href=https://www.digestnotes.com/exams/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 <link rel=stylesheet href=https://www.digestnotes.com/css/custom.css>
@@ -98,6 +96,13 @@ Lectures
 </span>
 </li>
 </ul>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/exams/ class="gdoc-nav__entry is-active">
+Exam
+</a>
+</span>
 </li>
 <li>
 <span class=flex>
@@ -194,29 +199,6 @@ W07 - Spanner
 </a>
 </span>
 </li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/ class=gdoc-nav__entry>
-Extra Readings
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
-Consistency Tradeoffs
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/extra/calm/ class="gdoc-nav__entry is-active">
-Keeping CALM
-</a>
-</span>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>
@@ -225,6 +207,22 @@ Keeping CALM
 Extra
 </a>
 </span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
+Consistency Tradeoffs
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/extra/calm/ class=gdoc-nav__entry>
+Keeping CALM
+</a>
+</span>
+</li>
+</ul>
 </li>
 </ul>
 </section>
@@ -238,24 +236,16 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/extra/ href=https://www.digestnotes.com/readings/extra/><span itemprop=name>Extra Readings</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Keeping CALM</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Exam</span><meta itemprop=position content="2"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<div class=gdoc-page__anchorwrap>
-<h1 id=keeping-calm-when-distributed-consistency-is-easy>
-Keeping CALM: When Distributed Consistency is Easy
-<a data-clipboard-text=https://www.digestnotes.com/readings/extra/calm/#keeping-calm-when-distributed-consistency-is-easy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Keeping CALM: When Distributed Consistency is Easy" href=#keeping-calm-when-distributed-consistency-is-easy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h1>
-</div><p>- Joseph M. Hellerstein, Peter Alvaro</p>
-<p>Links</p>
+<h1>Exam</h1>
+<div class="gdoc-toc gdoc-toc__level--6">
 <ul>
-<li><a class=gdoc-markdown__link href=https://arxiv.org/abs/1901.01930>Paper (Free)</a></li>
-<li><a class=gdoc-markdown__link href=https://blog.acolyer.org/2019/03/06/keeping-calm-when-distributed-consistency-is-easy/>The Morning Paper</a></li>
-<li></li>
 </ul>
+</div>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
