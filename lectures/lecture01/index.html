@@ -3,11 +3,13 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Keeping CALM: When Distributed Consistency is Easy    - Joseph M. Hellerstein, Peter Alvaro
-Links
- Paper (Free) The Morning Paper  WIP    ">
-<meta name=keywords content="distributed computing,omscs">
-<title>Keeping CALM | CS7210 - Distributed Computing</title>
+<meta name=description content="Introduction to Distributed Systems    What is a Distributed System?
+A collection of independent and autonomous processes(nodes) that interact by exchanging messages via interconnection network and appear to external users as a single coherent computing facility.
+The phrase &ldquo;single coherent computing facility&rdquo; means that there is a common goal which the processes are trying to achieve together.
+Simple Model
+ There nodes which communicate by exchaning messages. Communication channels are unidirectional.">
+<meta name=keywords content="cs7210,distributed computing,omscs">
+<title>01 - Introduction | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -64,7 +66,7 @@ Lectures
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/lectures/lecture01/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/lectures/lecture01/ class="gdoc-nav__entry is-active">
 01 - Introduction
 </a>
 </span>
@@ -226,7 +228,7 @@ Consistency Tradeoffs
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/extra/calm/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/extra/calm/ class=gdoc-nav__entry>
 Keeping CALM
 </a>
 </span>
@@ -245,30 +247,78 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/extra/ href=https://www.digestnotes.com/extra/><span itemprop=name>Extra</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Keeping CALM</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>01 - Introduction</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h1 id=keeping-calm-when-distributed-consistency-is-easy>
-Keeping CALM: When Distributed Consistency is Easy
-<a data-clipboard-text=https://www.digestnotes.com/extra/calm/#keeping-calm-when-distributed-consistency-is-easy class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Keeping CALM: When Distributed Consistency is Easy" href=#keeping-calm-when-distributed-consistency-is-easy><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=introduction-to-distributed-systems>
+Introduction to Distributed Systems
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture01/#introduction-to-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction to Distributed Systems" href=#introduction-to-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
-</div><p>- Joseph M. Hellerstein, Peter Alvaro</p>
-<p>Links</p>
+</div><p><strong>What is a Distributed System?</strong></p>
+<p>A collection of independent and autonomous processes(nodes) that interact by exchanging messages via interconnection network and appear to external users as a single coherent computing facility.</p>
+<p>The phrase &ldquo;single coherent computing facility&rdquo; means that there is a common goal which the processes are trying to achieve together.</p>
+<p><strong>Simple Model</strong></p>
 <ul>
-<li><a class=gdoc-markdown__link href=https://arxiv.org/abs/1901.01930>Paper (Free)</a></li>
-<li><a class=gdoc-markdown__link href=https://blog.acolyer.org/2019/03/06/keeping-calm-when-distributed-consistency-is-easy/>The Morning Paper</a></li>
+<li>There nodes which communicate by exchaning messages.</li>
+<li>Communication channels are unidirectional.</li>
+<li>Channels are unreliable.</li>
 </ul>
-<div class=gdoc-page__anchorwrap>
-<h1 id=wip>
-WIP
-<a data-clipboard-text=https://www.digestnotes.com/extra/calm/#wip class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor WIP" href=#wip><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h1>
-</div>
+<p><strong>Complex Model</strong></p>
+<ul>
+<li>Nodes have state which may change in response to events received by the node</li>
+</ul>
+<p><strong>Importance of Models in Distributed Systems</strong></p>
+<ul>
+<li>Analyzing distributed systems based on models is more predictable.</li>
+<li>Other option would be to prototype ideas and run exhaustive tests. Testing all possible scenarios in a distributed system is quite difficult.</li>
+</ul>
+<p><strong>Components of a Model</strong></p>
+<ul>
+<li>System Elements i.e. nodes, network</li>
+<li>Rules eg. nodes communicate by sending msg</li>
+<li>Invariats/Assumptions: eg. network delivers msgs in FIFO</li>
+</ul>
+<p><strong>How Good is a Model?</strong></p>
+<ul>
+<li><em>Accurate</em> representation of problem</li>
+<li>Tractable: easy to prototype and analyze</li>
+</ul>
+<p><strong>Challenges in Distributed System</strong></p>
+<ul>
+<li>Asynchrony : Instant msg deliver vs bounded delay vs infinte delay</li>
+<li>Failures: Failstop vs transient vs byzantine failure</li>
+<li>Consistency: We want single up-to-date copy of data. This is complicated by concurrency, ordering, replication etc.</li>
+</ul>
+<p><strong>Fallacies of Distributed Computing</strong>
+The fallacies of distributed computing are a set of assertions made by L Peter Deutsch and others at Sun Microsystems describing false assumptions that programmers new to distributed applications invariably make.</p>
+<ul>
+<li>The network is reliable.</li>
+<li>Latency is zero.</li>
+<li>Bandwidth is infinite.</li>
+<li>The network is secure.</li>
+<li>Topology doesn&rsquo;t change.</li>
+<li>There is one administrator.</li>
+<li>Transport cost is zero.</li>
+<li>The network is homogeneous.</li>
+</ul>
+<p><strong>Properties of a Distributed System</strong></p>
+<ul>
+<li>Consistency: Provide correct answers</li>
+<li>High Availability</li>
+<li>Fault Tolerance</li>
+</ul>
+<p><strong>Correctness of Distributed System</strong></p>
+<ul>
+<li>If input to distributed system is equivalent to the input to a single system performing the same function, the output of the two should be equivalent.</li>
+<li>To comment on whether the inputs are equivalent, we need to talk about the event ordering in distributed system. This is complicated by the fact that there is no global time available. Thus, different interpretations of event ordering can be made. We have to answer the question if all the nodes will even see the same order of events?</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/lectures/lecture01/correctness.png alt=correctness></p>
+<p><strong>CAP Theorem</strong></p>
+<p>Under network partition, a distributed system can be either available or consistent.</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
