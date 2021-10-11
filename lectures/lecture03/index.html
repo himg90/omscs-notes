@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Time in Distributed Systems    Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program. Same operations executed in different  Determining the order of operations executing in the system Checking correctness of the final state with the expected final state    Why Is Measuring Time Hard in DS?">
+<meta name=description content="Time in Distributed Systems    Introduction     Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks Reason: Physical clocks of individual processes need to be synchronized but perfect synchronization is not possible.  Why Do We Need Time     There are many scenarios in which knowing the time can be helpful. For eg. checking the correctness of the program.">
 <meta name=keywords content="distributed computing,omscs,logical time,vector clock">
 <title>03 - Time in D. Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -181,7 +181,7 @@ Readings
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/w02_logical_time/ class=gdoc-nav__entry>
-W02 - Logical Time
+L03 - Logical Time
 </a>
 </span>
 </li>
@@ -262,6 +262,7 @@ Introduction
 </h2>
 </div><ul>
 <li>Distributed Systems cannot rely on Physical Clocks so they rely on Logical Clocks</li>
+<li>Reason: Physical clocks of individual processes need to be synchronized but perfect synchronization is not possible.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=why-do-we-need-time>
@@ -284,7 +285,7 @@ Why Is Measuring Time Hard in DS?
 </a>
 </h2>
 </div><ul>
-<li>Option 1: Why can&rsquo;t we use local clock on each node to record the time
+<li>Option 1: We can use the local clock on each node to record the time
 <ul>
 <li>Good: Since each message is timestamped, there is a global order of all the events</li>
 <li>Bad: It&rsquo;s impossible to precisely synchronise all the local clocks</li>
@@ -304,7 +305,7 @@ Logical Time
 </a>
 </h2>
 </div><ul>
-<li>Logical clocks, unlike physical clocks, progress only when an event occurs and usually provides a distinct timestamp to each event.</li>
+<li>Logical clocks, unlike physical clocks, progress only when an event occurs and provides a distinct timestamp to each event.</li>
 <li>Types of clocks (details left out in lecture)
 <ul>
 <li>Scalar Clock / Lamport Clocks</li>
@@ -314,16 +315,21 @@ Logical Time
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=common-notation>
-Common Notation
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#common-notation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Common Notation" href=#common-notation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=ordering-relationship-among-events>
+Ordering Relationship Among Events
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture03/#ordering-relationship-among-events class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Ordering Relationship Among Events" href=#ordering-relationship-among-events><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>There are three type of events : send of a msg, recv of a msg and internal events in a node</li>
-<li>Note that when a msg is send from node n1 to node n2, two events occur : n1 registers send(msg) event while n2 registers recv(msg) event.</li>
+<li>There are three type of events occur on a node: send(msg), recv(msg) and internal events.</li>
+<li>Note that when a msg is send from node n1 to node n2, two events occur
+<ol>
+<li>n1 registers send(msg) event</li>
+<li>n2 registers recv(msg) event.</li>
+</ol>
+</li>
 <li>e1 → e2 implies, e1 &ldquo;happened before&rdquo; e2</li>
-<li>All events on a single node are ordered</li>
+<li>All events that take place on a single node are totally ordered</li>
 <li>If a node receives a msg (e1) and sends it (e2) , then e1 → e2</li>
 <li>If a node sends a msg (e1) and it is recvd by another node(e2), then e1 → e2</li>
 </ul>
@@ -334,7 +340,8 @@ Concurrent Events
 </a>
 </h2>
 </div><ul>
-<li>If e1 and e2 are not related by &ldquo;happened before&rdquo; relationship, we call them concurrent. Is means that we cannot conclusively state the order in which those events occurred. e1 || e2</li>
+<li>If e1 and e2 are not related by &ldquo;happened before&rdquo; relationship, we call them concurrent. It means that we cannot conclusively state the order in which order those events occurred.</li>
+<li>Notation: e1 || e2</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=logical-clocks>
@@ -343,25 +350,23 @@ Logical Clocks
 </a>
 </h2>
 </div><ul>
-<li>Timestamps generated by logical clocks need to guarantee some properties to be useful</li>
-<li>Clock Consistency Condition
+<li>Logical clocks are used to assign timestamps to events.</li>
+<li>A logical clock defines a set of rules on how to advance it and how to compare two timestamps.</li>
+</ul>
 <ul>
-<li>e1 → e2 then, C(e1) &lt; C(e2)</li>
-<li>Monotonicity property, logical clocks must always increase</li>
-<li>Note that C(e1) &lt; C(e2) does not imply e1 → e2</li>
+<li><strong>Monotonicity property:</strong> A logical clock must always increase</li>
+<li><strong>Clock Consistency Condition</strong>
+<ul>
+<li>If e1 → e2 then, C(e1) &lt; C(e2)</li>
+<li>Note that converse is <strong>not</strong> true i.e. C(e1) &lt; C(e2) does <strong>not</strong> imply e1 → e2</li>
 </ul>
 </li>
-<li>e1 || e2 then, C(e1) ?? C(e2)
-<ul>
-<li>For concurrent events, there are no guarantees, the logical timestamps can be in any order or they may simply be uncomparable</li>
-</ul>
-</li>
-<li>Strong Clock Consistency (not mandatory for all logical clocks)
+<li>For concurrent events, there are no guarantees. The logical timestamps can be in any order or they simply may not be comparable.</li>
+<li><strong>Strong Clock Consistency</strong> (not mandatory for all logical clocks)
 <ul>
 <li>e1 → e2 ⇔ C(e1) &lt; C(e2)</li>
 </ul>
 </li>
-<li>A logical clock defines a set of rules on how to advance it and how to compare two timestamps.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=lamports-scalar-clock>
@@ -385,7 +390,7 @@ Vector Clocks (vt)
 <p>Lamport Clock does not satisfy the Strong Clock Consistency</p>
 </li>
 <li>
-<p>Size of clock is equal to number of processes in the system</p>
+<p>Length of vector clock is equal to number of processes in the system</p>
 </li>
 <li>
 <p>If vt is the vector clock at a process, then vt[i] represents that process&rsquo;s view of time of ith process.</p>

@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="State in Distributed Systems    Introduction     Study challenges in maintaining state in a distributed system. Study capturing of snapshot of the global state of the Distributed System. This helps to understand what&rsquo;s happening in the system and to calculate its properties Chandy - Lamport Algorithm  Global State, Snapshots and Other Terminology     Distributed system consists of a set of processes and communication channels between them.">
+<meta name=description content="State in Distributed Systems    Terminology     The Global State of the system is the union of Process States and Channel States Channel State: The State of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process. Process State: Context stored on a client for eg variables, data structures etc. Process History: Sequence of events that occured on a process in distributed system.">
 <meta name=keywords content="distributed computing,omscs,distributed snapshot">
 <title>04 - State in D. Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -181,7 +181,7 @@ Readings
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/w02_logical_time/ class=gdoc-nav__entry>
-W02 - Logical Time
+L03 - Logical Time
 </a>
 </span>
 </li>
@@ -255,52 +255,28 @@ State in Distributed Systems
 </a>
 </h1>
 </div><div class=gdoc-page__anchorwrap>
-<h2 id=introduction>
-Introduction
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#introduction class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction" href=#introduction><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=terminology>
+Terminology
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#terminology class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Terminology" href=#terminology><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
+</h3>
 </div><ul>
-<li>Study challenges in maintaining state in a distributed system.</li>
-<li>Study capturing of snapshot of the global state of the Distributed System.</li>
-<li>This helps to understand what&rsquo;s happening in the system and to calculate its properties</li>
-<li>Chandy - Lamport Algorithm</li>
+<li>The <strong>Global State</strong> of the system is the union of <code>Process States</code> and <code>Channel States</code></li>
+<li><strong>Channel State:</strong> The <strong>State</strong> of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process.</li>
+<li><strong>Process State:</strong> Context stored on a client for eg variables, data structures etc.</li>
+<li><strong>Process History:</strong> Sequence of events that occured on a process in distributed system.</li>
+<li><strong>Cut</strong> : Set of histories of all processes in distributed. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.</li>
+<li><strong>Run</strong>: A totally ordered sequence of all the events belonging to a cut. Multiple runs can correspond to same cut.</li>
+<li><strong>Consistent Cut:</strong> A cut is consistent if - &ldquo;For any event <code>e1</code> contained in that cut, all events that &ldquo;happened before&rdquo; <code>e1</code> are also present in the cut.&rdquo; Another way to say it, a consistent cut represents a <em>possible</em> global state. It respects the partial order of events.</li>
+<li><strong>Pre-Recording Event:</strong> Events occured before the time of snapshot.</li>
+<li><strong>Post-Recording Event:</strong> Events occurred after the snapshot is recorded.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=global-state-snapshots-and-other-terminology>
-Global State, Snapshots and Other Terminology
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#global-state-snapshots-and-other-terminology class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Global State, Snapshots and Other Terminology" href=#global-state-snapshots-and-other-terminology><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=challenges-in-capturing-global-state-of-a-distributed-systems>
+Challenges in capturing Global State of a Distributed Systems
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#challenges-in-capturing-global-state-of-a-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Challenges in capturing Global State of a Distributed Systems" href=#challenges-in-capturing-global-state-of-a-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
-</div><p><img src=https://www.digestnotes.com/images/cs7210/lectures/lecture04/image2.png alt=Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image2.png></p>
-<ul>
-<li>Distributed system consists of a set of <strong>processes</strong> and communication <strong>channels</strong> between them.</li>
-<li>A <strong>Process</strong> has a series of events occurring. These events can be of three types:</li>
-</ul>
-<blockquote>
-<ol>
-<li>send(msg)2. recv(msg)3. internal event</li>
-</ol>
-</blockquote>
-<ul>
-<li><strong>Process State</strong> is defined by history of events on that process</li>
-<li><strong>Channel State</strong> is defined by inflight message</li>
-<li><strong>Global State</strong> ⇒ (all Process States + all Channel States)</li>
-<li><strong>Process History, h:</strong> [-∞, .., e]</li>
-<li><strong>Cut</strong> : h1 ⋃ h2 ⋃ &mldr; ⋃ hn</li>
-<li>Actual and Observed Run can be different</li>
-<li><strong>Run</strong>: Ordered sequence of events of a Cut</li>
-<li>Consistent Cut</li>
-<li>Snapshot</li>
-<li>Pre-Recording Event: Events occured before the time of snapshot.</li>
-<li>Post-Recording Event: Events occurred after the snapshot is recorded.</li>
-</ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=challenges-about-state-in-distributed-systems>
-Challenges About State in Distributed Systems
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#challenges-about-state-in-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Challenges About State in Distributed Systems" href=#challenges-about-state-in-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
+</h3>
 </div><ul>
 <li>Instantaneous recording not possible
 <ul>
@@ -315,21 +291,13 @@ Challenges About State in Distributed Systems
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=system-model>
+<h3 id=system-model>
 System Model
 <a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#system-model class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Model" href=#system-model><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
+</h3>
 </div><ul>
-<li>Processes</li>
-<li>Channels:
-<ul>
-<li>Directed, process-to-process</li>
-<li>FIFO</li>
-<li>Error free (Messages are not corrupted)</li>
-</ul>
-</li>
-<li>While normal channels are not FIFO and error free. It&rsquo;s possible to build one. For eg. TCP protocol.</li>
+<li>Channels are FIFO. It&rsquo;s possible to build one. For eg. TCP protocol.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=finding-a-consistent-cut-algorithm-in-action>
@@ -342,19 +310,33 @@ Finding a Consistent Cut: Algorithm in Action
 <li><strong>State of channel</strong>: Consider a scenario where we have a global clock. We are evaluating a system of two process : p and q. p sends msg to q at time t1. q receives msg from p at t3. We take the snapshot at time t2 such that t3 > t2 > t1. The state of channel from p to q will contain the inflight msg.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=snapshot-algorithm>
-Snapshot Algorithm
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#snapshot-algorithm class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Snapshot Algorithm" href=#snapshot-algorithm><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=chandy-and-lamport-snapshot-algorithm>
+Chandy and Lamport Snapshot Algorithm
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#chandy-and-lamport-snapshot-algorithm class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Chandy and Lamport Snapshot Algorithm" href=#chandy-and-lamport-snapshot-algorithm><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><ul>
-<li>Initiator
+<li>
+<p>Snapshot (Global State) == State of Processes + State of Channels</p>
+</li>
+<li>
+<p>State of process is captured when it receives the marker token for the first time.</p>
+</li>
+<li>
+<p>Whenever a process captures it&rsquo;s state, it sends out marker tokens to all other processes. So that they can capture the state of channel from the process to them.</p>
+</li>
+<li>
+<p><strong>State of a channel</strong>, Ch(i to j), is consists of all events received by Pj which were sent by Pi from the time Pj captured it&rsquo;s local state till a marker token is received from Pi.</p>
+</li>
+<li>
+<p>Initiator</p>
 <ul>
 <li>Save it&rsquo;s local state</li>
 <li>Send marker tokens on all outgoing edges</li>
 </ul>
 </li>
-<li>All Other Processes: On receiving the first marker on any incoming edge
+<li>
+<p>All Other Processes: On receiving the first marker on any incoming edge</p>
 <ul>
 <li>Save state, and propagate markers on all outgoing edges</li>
 <li>Resume Execution but also save incoming messages until a marker arrives through the channel</li>
@@ -362,12 +344,12 @@ Snapshot Algorithm
 </li>
 </ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>handleMarker <span class=o>(</span>channel c, Marker m<span class=o>)</span> <span class=o>{</span>
-		<span class=k>if</span> local_state not recorded:
-				record local_state
-				state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> EMPTY
-				propage m
-		<span class=k>else</span>
-				state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> msg received on c since local_state was recorded
+	<span class=k>if</span> local_state not recorded:
+		record local_state
+		state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> EMPTY
+		propage m
+	<span class=k>else</span>
+		state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> msg received on c since local_state was recorded
 <span class=o>}</span>
 </code></pre></div><p>Guarantees a consistent global state!</p>
 <ul>
@@ -375,23 +357,25 @@ Snapshot Algorithm
 <ul>
 <li>Communication channel is FIFO</li>
 <li>There are no failures and all messages arrive intact and only once</li>
+</ul>
+</li>
+<li>Characteristics of the algorithm
+<ul>
 <li>The snapshot algo doesn&rsquo;t interfere with the normal execution of the processes</li>
 <li>Each process in the system records its local state and the state of its incoming channels</li>
 </ul>
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=global-state>
-Global State
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#global-state class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Global State" href=#global-state><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h4 id=features-of-chandy-and-lamport-algorithm>
+Features of <em>Chandy and Lamport Algorithm</em>:
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#features-of-chandy-and-lamport-algorithm class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Features of Chandy and Lamport Algorithm:" href=#features-of-chandy-and-lamport-algorithm><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h2>
-</div><p>Features of <em>Chandy and Lamport Algorithm</em>:</p>
-<ul>
-<li>Does not promise to give us exactly what is there but it gives us a consistent state (<strong>Not Real-time snapshot</strong>)</li>
-<li>The recorded Global State <strong>may not correspond to a state that ever really happened</strong> at some global time</li>
+</h4>
+</div><ul>
+<li>It gives us a <strong>consistent snapshot</strong></li>
+<li>The recorded Global State <strong>may not correspond to a state which actually existed</strong></li>
 <li>The state, however, does <strong>represent a possible global state</strong> (a vertex in state lattice diagram from the paper)</li>
-<li>The observed state respects all the partial order of events imposed by causality.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=properties-of-the-global-state>
