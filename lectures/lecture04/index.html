@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="State in Distributed Systems    Terminology     The Global State of the system is the union of Process States and Channel States Channel State: The State of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process. Process State: Context stored on a client for eg variables, data structures etc. Process History: Sequence of events that occured on a process in distributed system.">
+<meta name=description content="State in Distributed Systems    Terminology     The Global State of the system is the union of Process States and Channel States Channel State: The State of a channel between two processes is defined by the set of msgs sent from sender process but yet to be delivered to the receiver. Process State: Context stored on a client for eg variables, data structures etc. Process History: Sequence of events which occured on a process.">
 <meta name=keywords content="distributed computing,omscs,distributed snapshot">
 <title>04 - State in D. Systems | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -262,10 +262,10 @@ Terminology
 </h3>
 </div><ul>
 <li>The <strong>Global State</strong> of the system is the union of <code>Process States</code> and <code>Channel States</code></li>
-<li><strong>Channel State:</strong> The <strong>State</strong> of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process.</li>
+<li><strong>Channel State:</strong> The <strong>State</strong> of a channel between two processes is defined by the set of msgs sent from sender process but yet to be delivered to the receiver.</li>
 <li><strong>Process State:</strong> Context stored on a client for eg variables, data structures etc.</li>
-<li><strong>Process History:</strong> Sequence of events that occured on a process in distributed system.</li>
-<li><strong>Cut</strong> : Set of histories of all processes in distributed. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.</li>
+<li><strong>Process History:</strong> Sequence of events which occured on a process.</li>
+<li><strong>Cut</strong> : Set of histories of all processes. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.</li>
 <li><strong>Run</strong>: A totally ordered sequence of all the events belonging to a cut. Multiple runs can correspond to same cut.</li>
 <li><strong>Consistent Cut:</strong> A cut is consistent if - &ldquo;For any event <code>e1</code> contained in that cut, all events that &ldquo;happened before&rdquo; <code>e1</code> are also present in the cut.&rdquo; Another way to say it, a consistent cut represents a <em>possible</em> global state. It respects the partial order of events.</li>
 <li><strong>Pre-Recording Event:</strong> Events occured before the time of snapshot.</li>
@@ -351,8 +351,7 @@ Chandy and Lamport Snapshot Algorithm
 	<span class=k>else</span>
 		state<span class=o>(</span>c<span class=o>)</span> <span class=o>=</span> msg received on c since local_state was recorded
 <span class=o>}</span>
-</code></pre></div><p>Guarantees a consistent global state!</p>
-<ul>
+</code></pre></div><ul>
 <li>Assumptions of the algorithm
 <ul>
 <li>Communication channel is FIFO</li>
@@ -368,7 +367,7 @@ Chandy and Lamport Snapshot Algorithm
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h4 id=features-of-chandy-and-lamport-algorithm>
-Features of <em>Chandy and Lamport Algorithm</em>:
+Features of Chandy and Lamport Algorithm:
 <a data-clipboard-text=https://www.digestnotes.com/lectures/lecture04/#features-of-chandy-and-lamport-algorithm class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Features of Chandy and Lamport Algorithm:" href=#features-of-chandy-and-lamport-algorithm><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h4>
