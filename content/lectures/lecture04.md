@@ -6,34 +6,23 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 
 # State in Distributed Systems
 
-## Introduction
 
-- Study challenges in maintaining state in a distributed system.
-- Study capturing of snapshot of the global state of the Distributed System.
-- This helps to understand what's happening in the system and to calculate its properties
-- Chandy - Lamport Algorithm
 
-## Global State, Snapshots and Other Terminology
+### Terminology
 
-![Lecture%204_%20State%20in%20Distributed%20Systems%2098b0ec24143549b0bb67a869a2ae1c7c/image2.png](/images/cs7210/lectures/lecture04/image2.png)
+- The **Global State** of the system is the union of `Process States` and `Channel States` 
+- __Channel State:__ The **State** of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process.
+- __Process State:__ Context stored on a client for eg variables, data structures etc.
+- __Process History:__ Sequence of events that occured on a process in distributed system.
+- **Cut** : Set of histories of all processes in distributed. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.
+- **Run**: A totally ordered sequence of all the events belonging to a cut. Multiple runs can correspond to same cut.
+- __Consistent Cut:__ A cut is consistent if - "For any event `e1` contained in that cut, all events that "happened before" `e1` are also present in the cut." Another way to say it, a consistent cut represents a _possible_ global state. It respects the partial order of events.
+- __Pre-Recording Event:__ Events occured before the time of snapshot.
+- __Post-Recording Event:__ Events occurred after the snapshot is recorded.
 
-- Distributed system consists of a set of **processes** and communication **channels** between them.
-- A **Process** has a series of events occurring. These events can be of three types:
 
-> 1. send(msg)2. recv(msg)3. internal event
-- **Process State** is defined by history of events on that process
-- **Channel State** is defined by inflight message
-- **Global State** ⇒ (all Process States + all Channel States)
-- **Process History, h:** [-∞, .., e]
-- **Cut** : h1 ⋃ h2 ⋃ ... ⋃ hn
-- Actual and Observed Run can be different
-- **Run**: Ordered sequence of events of a Cut
-- Consistent Cut
-- Snapshot
-- Pre-Recording Event: Events occured before the time of snapshot.
-- Post-Recording Event: Events occurred after the snapshot is recorded.
 
-## Challenges About State in Distributed Systems
+### Challenges in capturing Global State of a Distributed Systems
 
 - Instantaneous recording not possible
     - **No Global Clock**: As a result, processes cannot capture individual states at exact same time.
@@ -41,37 +30,44 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 - Deterministic vs Non-Deterministic Computation
     - Distributed computation is non-deterministic unlike a single threaded stand alone program.
 
-## System Model
+### System Model
 
-- Processes
-- Channels:
-    - Directed, process-to-process
-    - FIFO
-    - Error free (Messages are not corrupted)
-- While normal channels are not FIFO and error free. It's possible to build one. For eg. TCP protocol.
+- Channels are FIFO. It's possible to build one. For eg. TCP protocol.
 
 ## Finding a Consistent Cut: Algorithm in Action
 
 - Goal: Capture a **consistent** global state (process states + channel states)
 - **State of channel**: Consider a scenario where we have a global clock. We are evaluating a system of two process : p and q. p sends msg to q at time t1. q receives msg from p at t3. We take the snapshot at time t2 such that t3 > t2 > t1. The state of channel from p to q will contain the inflight msg.
 
-## Snapshot Algorithm
+## Chandy and Lamport Snapshot Algorithm
+
+- Snapshot (Global State) == State of Processes + State of Channels
+
+- State of process is captured when it receives the marker token for the first time.
+
+- Whenever a process captures it's state, it sends out marker tokens to all other processes. So that they can capture the state of channel from the process to them.
+
+- __State of a channel__, Ch(i to j), is consists of all events received by Pj which were sent by Pi from the time Pj captured it's local state till a marker token is received from Pi.
+
+    
 
 - Initiator
+    
     - Save it's local state
     - Send marker tokens on all outgoing edges
+    
 - All Other Processes: On receiving the first marker on any incoming edge
     - Save state, and propagate markers on all outgoing edges
     - Resume Execution but also save incoming messages until a marker arrives through the channel
 
 ```bash
 handleMarker (channel c, Marker m) {
-		if local_state not recorded:
-				record local_state
-				state(c) = EMPTY
-				propage m
-		else
-				state(c) = msg received on c since local_state was recorded
+	if local_state not recorded:
+		record local_state
+		state(c) = EMPTY
+		propage m
+	else
+		state(c) = msg received on c since local_state was recorded
 }
 ```
 
@@ -80,17 +76,15 @@ Guarantees a consistent global state!
 - Assumptions of the algorithm
     - Communication channel is FIFO
     - There are no failures and all messages arrive intact and only once
+- Characteristics of the algorithm
     - The snapshot algo doesn't interfere with the normal execution of the processes
     - Each process in the system records its local state and the state of its incoming channels
 
-## Global State
+#### Features of *Chandy and Lamport Algorithm*:
 
-Features of *Chandy and Lamport Algorithm*:
-
-- Does not promise to give us exactly what is there but it gives us a consistent state (**Not Real-time snapshot**)
-- The recorded Global State **may not correspond to a state that ever really happened** at some global time
+- It gives us a __consistent snapshot__
+- The recorded Global State **may not correspond to a state which actually existed**  
 - The state, however, does **represent a possible global state** (a vertex in state lattice diagram from the paper)
-- The observed state respects all the partial order of events imposed by causality.
 
 ## Properties of the Global State
 

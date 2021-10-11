@@ -1,5 +1,5 @@
 ---
-title: "W02 - Logical Time"
+title: "L03 - Logical Time"
 geekdocDescription : "A Way to Capture Causality in Distributed Systems"
 ---
 
