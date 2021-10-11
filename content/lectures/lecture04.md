@@ -11,10 +11,10 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 ### Terminology
 
 - The **Global State** of the system is the union of `Process States` and `Channel States` 
-- __Channel State:__ The **State** of a channel between two processes is defined by the set of msgs sent from sender process but not delivered to receiver process.
+- __Channel State:__ The **State** of a channel between two processes is defined by the set of msgs sent from sender process but yet to be delivered to the receiver.
 - __Process State:__ Context stored on a client for eg variables, data structures etc.
-- __Process History:__ Sequence of events that occured on a process in distributed system.
-- **Cut** : Set of histories of all processes in distributed. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.
+- __Process History:__ Sequence of events which occured on a process.
+- **Cut** : Set of histories of all processes. The history of all processes may not be taken at the same exact time instant. Note, cut is a set of histories, it does not say anything about order of events on two different processes.
 - **Run**: A totally ordered sequence of all the events belonging to a cut. Multiple runs can correspond to same cut.
 - __Consistent Cut:__ A cut is consistent if - "For any event `e1` contained in that cut, all events that "happened before" `e1` are also present in the cut." Another way to say it, a consistent cut represents a _possible_ global state. It respects the partial order of events.
 - __Pre-Recording Event:__ Events occured before the time of snapshot.
@@ -49,10 +49,7 @@ keywords: ["distributed computing", "omscs", "distributed snapshot"]
 
 - __State of a channel__, Ch(i to j), is consists of all events received by Pj which were sent by Pi from the time Pj captured it's local state till a marker token is received from Pi.
 
-    
-
 - Initiator
-    
     - Save it's local state
     - Send marker tokens on all outgoing edges
     
@@ -71,8 +68,6 @@ handleMarker (channel c, Marker m) {
 }
 ```
 
-Guarantees a consistent global state!
-
 - Assumptions of the algorithm
     - Communication channel is FIFO
     - There are no failures and all messages arrive intact and only once
@@ -80,8 +75,7 @@ Guarantees a consistent global state!
     - The snapshot algo doesn't interfere with the normal execution of the processes
     - Each process in the system records its local state and the state of its incoming channels
 
-#### Features of *Chandy and Lamport Algorithm*:
-
+#### Features of Chandy and Lamport Algorithm:
 - It gives us a __consistent snapshot__
 - The recorded Global State **may not correspond to a state which actually existed**  
 - The state, however, does **represent a possible global state** (a vertex in state lattice diagram from the paper)
