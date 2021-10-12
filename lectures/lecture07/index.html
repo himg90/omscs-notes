@@ -107,7 +107,7 @@ Lectures
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/exams/ class=gdoc-nav__entry>
-Exam
+Exams
 </a>
 </span>
 </li>
@@ -188,7 +188,7 @@ L03 - Logical Time
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/w03_consistent_global_states/ class=gdoc-nav__entry>
-W03 - Consistent Global States
+L04 - Consistent Global States
 </a>
 </span>
 </li>
@@ -219,13 +219,6 @@ Extra
 <span class=flex>
 <a href=https://www.digestnotes.com/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
 Consistency Tradeoffs
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/extra/calm/ class=gdoc-nav__entry>
-Keeping CALM
 </a>
 </span>
 </li>
@@ -288,8 +281,9 @@ Rollback-Recovery
 </a>
 </h2>
 </div><ul>
-<li>Rollback the system to a state before the failure</li>
+<li>When failure is detected, rollback the system to a <em>consistent</em> state before the failure</li>
 <li>Rolledback state may not be a real past state. It just needs to be consistent.</li>
+<li>Rollback can be done one operation at a time or in groups of operations called transactions.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
 <h2 id=basic-mechanisms>
@@ -319,21 +313,28 @@ Checkpointing Approaches
 </ul>
 <p><strong>Uncoordinated Approach</strong></p>
 <ul>
-<li>Processes take checkpoints independently.</li>
+<li>Each process takes checkpoints periodically independently .</li>
 <li>Problems
 <ul>
 <li>The failed node rollbacks to previous checkpoint. If the state of the whole system becomes inconsistent, more rollbacks may have to be performed at several nodes => Domino effect.</li>
-<li>Leads to multiple useless checkpoints.</li>
+<li>Leads to multiple useless checkpoints. So, multiple checkpoints per process need to be stored.</li>
+<li>Checkpoints need to maintain information about send and received msgs. This will be needed to check if a set checkpoints constitute a consistent global state.</li>
 </ul>
 </li>
 </ul>
 <p><strong>Coordinated Checkpoint</strong></p>
 <ul>
 <li>Processes coordinate to take a consistent snapshot.</li>
+<li>Benefits
+<ul>
+<li>Each snapshot is consistent, no need to check at the time of recovery</li>
+<li>Only the most recent checkpoint need to be stored. Previous checkpoints can be deleted.</li>
+</ul>
+</li>
 <li>Problems
 <ul>
 <li>How to coordinate?</li>
-<li>No synchronous clock guarantee ie no global clock. (Everybody take snapshot at 5pm)</li>
+<li>No global clock i.e. it&rsquo;s not possible to use &ldquo;Everybody take snapshot at 5pm&rdquo; approach</li>
 <li>If msg delivery was reliable with bounded delay, some approach could be created.</li>
 </ul>
 </li>
@@ -343,16 +344,21 @@ Checkpointing Approaches
 <li>Use a consensus protocol: All nodes should reach a consensus that a snapshot will be taken and that they will not send any msg till it&rsquo;s complete. In a way, it&rsquo;s a blocking protocol.</li>
 <li>A non-blocking algo will be similar to Global Snapshot algo but it requires FIFO communication channel.</li>
 </ul>
-<p><strong>Logging</strong></p>
-<ul>
-<li>When reconstructing state we must ensure that it&rsquo;s not a inconsistent state. A crashed process might not log the last event it sent. We might apply events in wrong order.</li>
+<div class=gdoc-page__anchorwrap>
+<h2 id=logging>
+Logging
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture07/#logging class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Logging" href=#logging><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>When reconstructing state we must ensure that it&rsquo;s not a inconsistent state. A crashed process might not log the last event it sent. We might apply events in wrong order. eg. P1 sends message to P2. P2 logs it but P1 crashes before loging the send event.</li>
 <li>Pessimistic: First log the event then send it.</li>
 <li>Optimistic: Assume log will be persisted but make it possible to remove it&rsquo;s effect if aborted</li>
 <li>Causalty-tracking: ensure causality related events are deterministically recorded</li>
 </ul>
 <p><strong>Which Method to Use?</strong></p>
 <ul>
-<li>Workload characteristics: Frequency of updatss, size of updates,</li>
+<li>Workload characteristics: Frequency of updates, size of updates,</li>
 <li>Failures characteristics:</li>
 <li>System Characteristics: cost of communication/stoage, system scale,</li>
 </ul>

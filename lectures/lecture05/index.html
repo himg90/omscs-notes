@@ -5,7 +5,7 @@
 <meta name=color-scheme content="light dark">
 <meta name=description content="Consensus    Link to Lecture Slides
 Paper Trail: A Brief Tour of FLP Impossibility
-Consensus     What is Consensus?  Ability of processes in a distributed processes to agree on something like  the value of a variable current timestamp or point of computation taking an action etc.     Why is it important?  Important to make forward progress in distributed system. Reaching a consensus makes it possible for the system to be correct.">
+Consensus     What is Consensus?  Ability of processes in a distributed processes to agree on something like the value of a variable, taking an action etc.     The problem of consensus is genuinely fundamental to distributed systems research. Getting distributed processors to agree on a value has many, many applications.">
 <meta name=keywords content="distributed computing,omscs,consensus">
 <title>05 - Consensus | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
@@ -109,7 +109,7 @@ Lectures
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/exams/ class=gdoc-nav__entry>
-Exam
+Exams
 </a>
 </span>
 </li>
@@ -190,7 +190,7 @@ L03 - Logical Time
 <li>
 <span class=flex>
 <a href=https://www.digestnotes.com/readings/w03_consistent_global_states/ class=gdoc-nav__entry>
-W03 - Consistent Global States
+L04 - Consistent Global States
 </a>
 </span>
 </li>
@@ -221,13 +221,6 @@ Extra
 <span class=flex>
 <a href=https://www.digestnotes.com/extra/consistency_tradeoffs/ class=gdoc-nav__entry>
 Consistency Tradeoffs
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/extra/calm/ class=gdoc-nav__entry>
-Keeping CALM
 </a>
 </span>
 </li>
@@ -267,31 +260,20 @@ Consensus
 </div><ul>
 <li>What is Consensus?
 <ul>
-<li>Ability of processes in a distributed processes to agree on something like
+<li>Ability of processes in a distributed processes to agree on something like the value of a variable, taking an action etc.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The problem of consensus is genuinely fundamental to distributed systems research. Getting distributed processors to agree on a value has many, many applications. For example, the problem of deciding whether to commit a transaction to a database could be decided by a consensus algorithm between a majority of replicas. You can think of consensus as ‘voting’ for a value.</p>
+</blockquote>
+<p><a class=gdoc-markdown__link href=https://www.the-paper-trail.org/post/2008-08-13-a-brief-tour-of-flp-impossibility/>PaperTrail: A Brief Tour of FLP Impossibility</a></p>
 <ul>
-<li>the value of a variable</li>
-<li>current timestamp or point of computation</li>
-<li>taking an action etc.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Why is it important?
-<ul>
-<li>Important to make forward progress in distributed system.</li>
-<li>Reaching a consensus makes it possible for the system to be correct.</li>
-</ul>
-</li>
-<li>Why is it hard?
-<ul>
-<li>lack of global clock, network delays, faulty or malicious nodes etc.</li>
-</ul>
-</li>
 <li>Key Properties
 <ul>
-<li><strong>Liveness/Termination:</strong> All non-faulty processes <strong>eventually</strong> decide on a value</li>
-<li><strong>Validity/Safety:</strong> The decided value must be <strong>proposed by</strong> one of the processes</li>
-<li><strong>Agreement/Safety:</strong> All processes must decide on the <strong>same (single) value</strong></li>
+<li><strong>Liveness/Termination:</strong> All non-faulty processes eventually decide on a value</li>
+<li><strong>Validity/Safety:</strong> The decided value must be proposed by one of the processes</li>
+<li><strong>Agreement/Safety:</strong> All processes must decide on the same (single) value</li>
 </ul>
 </li>
 </ul>
@@ -304,6 +286,7 @@ System Model
 </div><ul>
 <li>Asynchronous Model
 <ul>
+<li>There is no upper bound on the amount of time processors may take to receive, process and respond to an incoming message.</li>
 <li>Channel: Unpredictable delays and message reordering but message are not corrupted</li>
 </ul>
 </li>
@@ -315,11 +298,11 @@ System Model
 </li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h1 id=definitions>
+<h2 id=definitions>
 Definitions
 <a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#definitions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definitions" href=#definitions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h1>
+</h2>
 </div><ul>
 <li><strong>Admissible run:</strong> Run with 1 faulty processor and all messages eventually delivered (matches system model)</li>
 <li><strong>Deciding run:</strong> Admissible run where <em><strong>some</strong></em> non-faulty processes reach a decision</li>
@@ -334,9 +317,13 @@ FLP Theorem
 </a>
 </h2>
 </div><ul>
-<li>Paper: Impossibility of Distributed Consensus with One Faulty Process</li>
+<li>System Model:
+<ul>
+<li>At most one fail-stop faulty process</li>
+<li></li>
+</ul>
+</li>
 <li>In a system with one faulty process, no consensus protocol can be totally correct.</li>
-<li>System Model: Asynchronous Model, One fail-stop faulty process</li>
 <li>Intuition of the Proof:
 <ul>
 <li>Consider a simple system model with just 1 faulty process which fail-stops.</li>
@@ -351,12 +338,23 @@ FLP Theorem
 <li>Whether is it always possible to identify one admission schedule in the system with one faulty process where all messages are delivered and the system remains in bivalent configuration.</li>
 </ul>
 <div class=gdoc-page__anchorwrap>
-<h2 id=proof-in-a-nutshell>
-Proof in a Nutshell
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#proof-in-a-nutshell class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Proof in a Nutshell" href=#proof-in-a-nutshell><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=is-consensus-really-impossible>
+Is Consensus Really Impossible?
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#is-consensus-really-impossible class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Is Consensus Really Impossible?" href=#is-consensus-really-impossible><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div>
+</div><ul>
+<li>Algorithms like 2PC, 3PC, Paxos, Raft etc. change some of the <strong>assumptions</strong> and <strong>system properties</strong></li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=excerpts>
+Excerpts
+<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture05/#excerpts class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Excerpts" href=#excerpts><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p><a class=gdoc-markdown__link href=https://www.the-paper-trail.org/post/2008-08-13-a-brief-tour-of-flp-impossibility/>PaperTrail: A Brief Tour of FLP Impossibility</a></p>
+<p>The ‘FLP result’ settled a dispute that had been ongoing in distributed systems for the previous five to ten years. The problem of consensus - that is, getting a distributed network of processors to agree on a common value - was known to be solvable in a synchronous setting, where processes could proceed in simultaneous steps. In particular, the synchronous solution was resilient to faults, where processors crash and take no further part in the computation. Informally, synchronous models allow failures to be detected by waiting one entire step length for a reply from a processor, and presuming that it has crashed if no reply is received.</p>
+<p>This kind of failure detection is impossible in an asynchronous setting, where there are no bounds on the amount of time a processor might take to complete its work and then respond with a message. Therefore it’s not possible to say whether a processor has crashed or is simply taking a long time to respond. The FLP result shows that in an asynchronous setting, where only one processor might crash, there is no distributed algorithm that solves the consensus problem.</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
