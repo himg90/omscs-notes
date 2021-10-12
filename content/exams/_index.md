@@ -1,4 +1,4 @@
 ---
-title: "Exam"
+title: "Exams"
 ---
 {{< toc-tree >}}

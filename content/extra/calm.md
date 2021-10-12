@@ -2,6 +2,7 @@
 title: "Keeping CALM"
 geekdocDescription: "When Distributed Consistency is Easy"
 keywords: ["distributed computing", "omscs"]
+draft: true
 ---
 # Keeping CALM: When Distributed Consistency is Easy
 
@@ -15,4 +16,3 @@ Links
 
 
 # WIP
-

@@ -1,5 +1,5 @@
 ---
-title: "W03 - Consistent Global States"
+title: "L04 - Consistent Global States"
 geekdocDescription : "Fundamental Concepts and Mechanisms"
 ---
 
