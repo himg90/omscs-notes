@@ -3,7 +3,7 @@ title: "Transaction Isolation"
 geekdocDescription: ""
 keywords: ["distributed computing", "omscs", "transaction", "ACID", "i"]
 
-draft: true
+draft: false
 ---
 
 # Transaction Isolation
@@ -14,9 +14,9 @@ __Links__
 * <a href="https://stackoverflow.com/questions/11043712/what-is-the-difference-between-non-repeatable-read-and-phantom-read" target="_blank">What is the difference between Non-Repeatable Read and Phantom Read? - StackOverflow</a>
 * Ch 7: Transactions, Designing Data-Intensive Applications (DDIA) by Martic Kleppmann
 
-## Transaction Basics: Excerpts from DDIA
+## Transaction Basics: Excerpt from DDIA
 
-> With the hype around this new crop of distributed databases(NoSQL databases), there emerged a popular belief that transactions were the antithesis of scalability, and that any large-scale system would have to abandon transactions in order to maintain good performance and high availability [5, 6]. On the other hand, transactional guarantees are some‐ times presented by database vendors as an essential requirement for “serious applica‐ tions” with “valuable data.” Both viewpoints are pure hyperbole.
+> With the hype around this new crop of distributed databases(NoSQL databases), there emerged a popular belief that transactions were the antithesis of scalability, and that any large-scale system would have to abandon transactions in order to maintain good performance and high availability. On the other hand, transactional guarantees are sometimes presented by database vendors as an essential requirement for “serious applications” with “valuable data.” Both viewpoints are pure hyperbole.
 
 > One database’s implementation of ACID does not equal another’s implementation. For example, ..., there is a lot of ambiguity around the meaning of isolation 
 
