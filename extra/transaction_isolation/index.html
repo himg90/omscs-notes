@@ -3,13 +3,10 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Introduction to Distributed Systems    What is a Distributed System?
-A collection of independent and autonomous processes(nodes) that interact by exchanging messages via interconnection network and appear to external users as a single coherent computing facility.
-The phrase &ldquo;single coherent computing facility&rdquo; means that there is a common goal which the processes are trying to achieve together.
-Simple Model
- There nodes which communicate by exchaning messages. Communication channels are unidirectional.">
-<meta name=keywords content="cs7210,distributed computing,omscs">
-<title>01 - Introduction | CS7210 - Distributed Computing</title>
+<meta name=description content="Transaction Isolation    Links
+ Source: FundamentalsPrinciples of Distributed Database Systems, Fourth Edition > Appendix C: Transaction Processing  What is the difference between Non-Repeatable Read and Phantom Read? - StackOverflow Ch 7: Transactions, Designing Data-Intensive Applications (DDIA) by Martic Kleppmann  Transaction Basics: Excerpt from DDIA     With the hype around this new crop of distributed databases(NoSQL databases), there emerged a popular belief that transactions were the antithesis of scalability, and that any large-scale system would have to abandon transactions in order to maintain good performance and high availability.">
+<meta name=keywords content="distributed computing,omscs,transaction,ACID,i">
+<title>Transaction Isolation | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -66,7 +63,7 @@ Lectures
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/lectures/lecture01/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/lectures/lecture01/ class=gdoc-nav__entry>
 01 - Introduction
 </a>
 </span>
@@ -228,7 +225,7 @@ Consistency Tradeoffs
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/extra/transaction_isolation/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/extra/transaction_isolation/ class="gdoc-nav__entry is-active">
 Transaction Isolation
 </a>
 </span>
@@ -247,78 +244,178 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/lectures/ href=https://www.digestnotes.com/lectures/><span itemprop=name>Lectures</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>01 - Introduction</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/extra/ href=https://www.digestnotes.com/extra/><span itemprop=name>Extra</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Transaction Isolation</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h1 id=introduction-to-distributed-systems>
-Introduction to Distributed Systems
-<a data-clipboard-text=https://www.digestnotes.com/lectures/lecture01/#introduction-to-distributed-systems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Introduction to Distributed Systems" href=#introduction-to-distributed-systems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=transaction-isolation>
+Transaction Isolation
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#transaction-isolation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Transaction Isolation" href=#transaction-isolation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h1>
-</div><p><strong>What is a Distributed System?</strong></p>
-<p>A collection of independent and autonomous processes(nodes) that interact by exchanging messages via interconnection network and appear to external users as a single coherent computing facility.</p>
-<p>The phrase &ldquo;single coherent computing facility&rdquo; means that there is a common goal which the processes are trying to achieve together.</p>
-<p><strong>Simple Model</strong></p>
+</div><p><strong>Links</strong></p>
 <ul>
-<li>There nodes which communicate by exchaning messages.</li>
-<li>Communication channels are unidirectional.</li>
-<li>Channels are unreliable.</li>
+<li>Source: <a href=https://cs.uwaterloo.ca/~ddbook target=_blank>FundamentalsPrinciples of Distributed Database Systems, Fourth Edition</a> > <a href=https://cs.uwaterloo.ca/~ddbook/downloads/appendix/Appendix-C target=_blank>Appendix C: Transaction Processing </a></li>
+<li><a href=https://stackoverflow.com/questions/11043712/what-is-the-difference-between-non-repeatable-read-and-phantom-read target=_blank>What is the difference between Non-Repeatable Read and Phantom Read? - StackOverflow</a></li>
+<li>Ch 7: Transactions, Designing Data-Intensive Applications (DDIA) by Martic Kleppmann</li>
 </ul>
-<p><strong>Complex Model</strong></p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=transaction-basics-excerpt-from-ddia>
+Transaction Basics: Excerpt from DDIA
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#transaction-basics-excerpt-from-ddia class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Transaction Basics: Excerpt from DDIA" href=#transaction-basics-excerpt-from-ddia><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><blockquote>
+<p>With the hype around this new crop of distributed databases(NoSQL databases), there emerged a popular belief that transactions were the antithesis of scalability, and that any large-scale system would have to abandon transactions in order to maintain good performance and high availability. On the other hand, transactional guarantees are sometimes presented by database vendors as an essential requirement for “serious applications” with “valuable data.” Both viewpoints are pure hyperbole.</p>
+</blockquote>
+<blockquote>
+<p>One database’s implementation of ACID does not equal another’s implementation. For example, &mldr;, there is a lot of ambiguity around the meaning of isolation</p>
+</blockquote>
+<blockquote>
+<p>Systems that do not meet the ACID criteria are sometimes called BASE, which stands for Basically Available, Soft state, and Eventual consistency. This is even more vague than the definition of ACID. It seems that the only sensible definition of BASE is “not ACID”; i.e., it can mean almost anything you want.</p>
+</blockquote>
+<div class=gdoc-page__anchorwrap>
+<h2 id=definition>
+Definition
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#definition class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Definition" href=#definition><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Isolation is the property of transactions that requires each transaction to see a consistent database at all times. In other words, an executing transaction cannot reveal its results to other concurrent transactions before its commitment.</p>
+<blockquote>
+<p><em>Isolation</em> in the sense of ACID means that concurrently executing transactions are isolated from each other: they cannot step on each other’s toes. The classic database textbooks formalize isolation as <em>serializability</em>, which means that each transaction can pretend that it is the only transaction running on the entire database. The database ensures that when the transactions have committed, the result is the same as if they had run <em>serially</em> (one after another), even though in reality they may have run con‐ currently.</p>
+</blockquote>
+<blockquote>
+<p>Atomicity and isolation also apply when a single object is being changed. For example, imagine you are writing a 20 KB JSON document to a database.</p>
+</blockquote>
+<div class=gdoc-page__anchorwrap>
+<h2 id=reasons-for-transaction-isolation>
+Reasons for Transaction Isolation
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#reasons-for-transaction-isolation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Reasons for Transaction Isolation" href=#reasons-for-transaction-isolation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ol>
+<li>Database Consistency (Constraints should hold in the face of concurrent writes)</li>
+<li>Performance: Prevent <em>cascading aborts</em>. If a transaction permits others to see its incomplete results before committing and then decides to abort, any transaction that has read its incomplete values will have to abort as well.</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h2 id=sql-phenomena>
+SQL Phenomena
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#sql-phenomena class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor SQL Phenomena" href=#sql-phenomena><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>SQL defines a number of isolation levels based on <em>phenomena</em> which are situations that can occur if proper isolation is not maintained</p>
 <ul>
-<li>Nodes have state which may change in response to events received by the node</li>
+<li><strong>Dirty Reads:</strong> read UNCOMMITED data from another transaction</li>
 </ul>
-<p><strong>Importance of Models in Distributed Systems</strong></p>
 <ul>
-<li>Analyzing distributed systems based on models is more predictable.</li>
-<li>Other option would be to prototype ideas and run exhaustive tests. Testing all possible scenarios in a distributed system is quite difficult.</li>
+<li>
+<p><strong>Non-repeatable Reads / Fuzzy Read / Read Skew:</strong> T1 executes a <code>Select</code> query twice but gets different values because T2 <code>committed</code> between two executions and <code>Updated</code> the queried row.</p>
+</li>
+<li>
+<p><strong>Phantom Reads:</strong> T1 executes a predicate query twice but they return different results. This happened because T2 <code>committed</code> between two executions and <code>Inserted/Deleted</code> rows satisfying the predicate.</p>
+</li>
 </ul>
-<p><strong>Components of a Model</strong></p>
+<p><strong>Note:</strong> The Non-Repeatable Read applies to a single row, the Phantom Read is about a range of records which satisfy a given query filtering criteria. Non-repeatable-reads read COMMITTED data from an UPDATE query from another transaction. Phantom-reads read COMMITTED data from an INSERT or DELETE query from another transaction</p>
+<div class=gdoc-page__anchorwrap>
+<h4 id=more-phenomena>
+More Phenomena
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#more-phenomena class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor More Phenomena" href=#more-phenomena><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h4>
+</div><ul>
+<li>
+<p><strong>Dirty Writes</strong></p>
+</li>
+<li>
+<p><strong>Lost Update</strong>:</p>
 <ul>
-<li>System Elements i.e. nodes, network</li>
-<li>Rules eg. nodes communicate by sending msg</li>
-<li>Invariats/Assumptions: eg. network delivers msgs in FIFO</li>
-</ul>
-<p><strong>How Good is a Model?</strong></p>
+<li>Two transactions execute <em>read-modify-write</em> cycles. One update gets lost.</li>
+<li>Solution:
 <ul>
-<li><em>Accurate</em> representation of problem</li>
-<li>Tractable: easy to prototype and analyze</li>
+<li>Atomic update queries: <code>UPDATE inventory SET qty = qty-1 where item_id = 1 </code></li>
+<li>Locking : <code>txn_begin; Lock(x); read-modify-write(x); unlock(x); ...; txn_end</code></li>
 </ul>
-<p><strong>Challenges in Distributed System</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Write Skew</strong></p>
 <ul>
-<li>Asynchrony : Instant msg deliver vs bounded delay vs infinte delay</li>
-<li>Failures: Failstop vs transient vs byzantine failure</li>
-<li>Consistency: We want single up-to-date copy of data. This is complicated by concurrency, ordering, replication etc.</li>
+<li>Generalization of list update</li>
+<li>T1: read(x)-modify-write(y) ; T1: read(x)-modify-write(z)</li>
+<li>eg. if (oncall_doctors() > 1), remove_from_oncall(me);</li>
 </ul>
-<p><strong>Fallacies of Distributed Computing</strong>
-The fallacies of distributed computing are a set of assertions made by L Peter Deutsch and others at Sun Microsystems describing false assumptions that programmers new to distributed applications invariably make.</p>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h2 id=isolation-levels>
+Isolation Levels
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#isolation-levels class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Isolation Levels" href=#isolation-levels><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=read-uncommitted>
+Read uncommitted
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#read-uncommitted class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Read uncommitted" href=#read-uncommitted><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>For transactions operating at this level all three phenomena are possible.</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=read-committed>
+Read committed
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#read-committed class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Read committed" href=#read-committed><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>
+<p>No dirty reads, No dirty writes</p>
+</li>
+<li>
+<p>But Fuzzy reads and phantoms are possible</p>
+<p><strong>Implementation</strong></p>
 <ul>
-<li>The network is reliable.</li>
-<li>Latency is zero.</li>
-<li>Bandwidth is infinite.</li>
-<li>The network is secure.</li>
-<li>Topology doesn&rsquo;t change.</li>
-<li>There is one administrator.</li>
-<li>Transport cost is zero.</li>
-<li>The network is homogeneous.</li>
+<li>Avoid Dirty Writes: using row-level locks</li>
+<li>Avoid Dirty Reads: Lock-Read-Unlock OR Maintain two versions of data (committed and uncommitted)</li>
 </ul>
-<p><strong>Properties of a Distributed System</strong></p>
+</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=repeatable-read>
+Repeatable read:
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#repeatable-read class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Repeatable read:" href=#repeatable-read><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>
+<p>Only phantoms are possible.</p>
+<p><strong>Snapshot Isolation</strong></p>
+</li>
+<li>
+<p>Non-serializable isolation level</p>
+</li>
+<li>
+<p>Commonly implemented in commercial products to provides repeatable reads</p>
+<p><strong>Implementation</strong></p>
 <ul>
-<li>Consistency: Provide correct answers</li>
-<li>High Availability</li>
-<li>Fault Tolerance</li>
+<li>Avoid Dirty Writes: using row-level locks</li>
+<li>Avoid Dirty Reads: Multi-Version Concurrency-Control (MVCC)</li>
 </ul>
-<p><strong>Correctness of Distributed System</strong></p>
-<ul>
-<li>If input to distributed system is equivalent to the input to a single system performing the same function, the output of the two should be equivalent.</li>
-<li>To comment on whether the inputs are equivalent, we need to talk about the event ordering in distributed system. This is complicated by the fact that there is no global time available. Thus, different interpretations of event ordering can be made. We have to answer the question if all the nodes will even see the same order of events?</li>
+</li>
 </ul>
-<p><img src=https://www.digestnotes.com/images/cs7210/lectures/lecture01/correctness.png alt=correctness></p>
-<p><strong>CAP Theorem</strong></p>
-<p>Under network partition, a distributed system can be either available or consistent.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=anomaly-serializable>
+Anomaly serializable:
+<a data-clipboard-text=https://www.digestnotes.com/extra/transaction_isolation/#anomaly-serializable class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Anomaly serializable:" href=#anomaly-serializable><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>None of the phenomena are possible.</li>
+</ul>
+<p>SQL standard uses the term <code>serializable</code> rather than <code>anomaly serializable</code>. However, a serializable isolation level cannot be defined solely in terms of the three phenomena identified above; thus this isolation level is called “anomaly serializable” [Berenson et al., 1995]. The relationship between SQL isolation levels and the four levels of consistency defined in the previous section are also discussed in [Berenson et al., 1995].</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
