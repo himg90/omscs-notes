@@ -3,8 +3,10 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="    01 DSLabs Abstract Interface     02 Workload     03 State Predicates     WIP     ">
-<title>DSLabs Framework | CS7210 - Distributed Computing</title>
+<meta name=description content="Scaling Memcache at Facebook    Content taken from paper and presentation at Scaling Memcache at Facebook NSDI &lsquo;13
+Basics    Writes     Memcache needs to be invalidated after DB write Up to web application to specify which keys to invalidate after database update  Reads     Two orders of magnitude more reads than writes Common case is data is available in the cache Demand-filled look-aside cache  Challenges     Keeping database and cache in sync Protected database from cache failure.">
+<meta name=keywords content="cs7210,distributed computing,omscs,memcache">
+<title>Memcache | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -17,7 +19,6 @@
 <link rel=stylesheet href=https://www.digestnotes.com/print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=https://www.digestnotes.com/custom.css as=style>
 <link rel=stylesheet href=https://www.digestnotes.com/custom.css media=all>
-<link rel=alternate type=application/rss+xml href=https://www.digestnotes.com/labs/framework/index.xml title="CS7210 - Distributed Computing">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DB5RVVDF7S"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-DB5RVVDF7S',{anonymize_ip:!1})}</script>
 <link rel=stylesheet href=https://www.digestnotes.com/css/custom.css>
@@ -134,7 +135,7 @@ Lab03
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/framework/ class="gdoc-nav__entry is-active">
+<a href=https://www.digestnotes.com/labs/framework/ class=gdoc-nav__entry>
 DSLabs Framework
 </a>
 </span>
@@ -224,7 +225,7 @@ Consistency and Geo-Distributed Data Stores
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/ class="gdoc-nav__entry is-active">
 Memcache
 </a>
 </span>
@@ -268,36 +269,248 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/labs/ href=https://www.digestnotes.com/labs/><span itemprop=name>Labs</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>DSLabs Framework</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/topics/ href=https://www.digestnotes.com/topics/><span itemprop=name>Topics</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/topics/geo_distributed_data_stores/ href=https://www.digestnotes.com/topics/geo_distributed_data_stores/><span itemprop=name>Consistency and Geo-Distributed Data Stores</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Memcache</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>DSLabs Framework</h1>
-<div class="gdoc-toc gdoc-toc__level--6">
+<div class=gdoc-page__anchorwrap>
+<h1 id=scaling-memcache-at-facebook>
+Scaling Memcache at Facebook
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#scaling-memcache-at-facebook class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scaling Memcache at Facebook" href=#scaling-memcache-at-facebook><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><p>Content taken from paper and presentation at <a href=https://www.usenix.org/conference/nsdi13/technical-sessions/presentation/nishtala target=_blank>Scaling Memcache at Facebook</a> NSDI &lsquo;13</p>
+<div class=gdoc-page__anchorwrap>
+<h1 id=basics>
+Basics
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#basics class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Basics" href=#basics><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=writes>
+Writes
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#writes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Writes" href=#writes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Memcache needs to be invalidated after DB write</li>
+<li>Up to web application to specify which keys to invalidate after database update</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015080454176.png alt=image-20211015080454176></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=reads>
+Reads
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#reads class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Reads" href=#reads><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Two orders of magnitude more reads than writes</li>
+<li>Common case is data is available in the cache</li>
+<li>Demand-filled look-aside cache</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015080639164.png alt=image-20211015080639164></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=challenges>
+Challenges
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#challenges class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Challenges" href=#challenges><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ol>
+<li>Keeping database and cache in sync</li>
+<li>Protected database from cache failure. If for some reason, cache fails and the entire read traffic falls on the database, it will not be able to keep up.</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h1 id=questions>
+Questions
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#questions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Questions" href=#questions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><p><strong>Why writers invalidate the cache instead of setting a new value?</strong></p>
 <ul>
+<li>Deletes are idempotent and commutative</li>
+<li>Allows cache to be filled based on demand</li>
+</ul>
+<p><strong>Why do writers delete at all?</strong></p>
+<p>To support read-your-own-writes semantics</p>
+<p><strong>What are the reasons that a key may not be present in cache?</strong></p>
+<ol>
+<li>Key was never queried since the memcache was started</li>
+<li>Key was evicted to make space for another key</li>
+<li>Key was invalidated upon update</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h1 id=summary-of-problems>
+Summary of Problems
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#summary-of-problems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Summary of Problems" href=#summary-of-problems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h1>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=scale-single-memcache-server>
+Scale: Single Memcache Server
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#scale-single-memcache-server class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scale: Single Memcache Server" href=#scale-single-memcache-server><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ol>
+<li><strong>Stale Sets</strong>
+* Case 1: reader-reader: Assign &ldquo;Lease&rdquo; to a webserver which will own the update. Other webservers back-off from updating the cache.
+* Case 2: reader-writer: If a writer invalidates a key in memcache, it invalidates any active lease as well</li>
+<li><strong>Thundering Herd</strong> solved by making a webserver wait if lease is issued to another webserver</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h3 id=scale-multiple-memcache-servers-sharded>
+Scale: Multiple Memcache Servers (Sharded)
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#scale-multiple-memcache-servers-sharded class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scale: Multiple Memcache Servers (Sharded)" href=#scale-multiple-memcache-servers-sharded><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ol>
+<li><strong>Incast Congestion at Web Servers:</strong> Put an upper bound on sharding. Instead of adding more shards, replicate clusters.</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h3 id=scale-multiple-frontend-clustersfrontend-server--memcache-server>
+Scale: Multiple Frontend Clusters(Frontend Server + Memcache Server)
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#scale-multiple-frontend-clustersfrontend-server--memcache-server class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scale: Multiple Frontend Clusters(Frontend Server + Memcache Server)" href=#scale-multiple-frontend-clustersfrontend-server--memcache-server><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ol>
+<li><strong>Multiple Memcached to be invalidated:</strong> Setup a separate async invalidation pipeline</li>
+<li><strong>Too Many Invalidation Packets</strong>: Make invalidation pipeline hierarchical</li>
+<li><strong>Individual Memcache Failing</strong>: Have a backup memcache (gutter deployment) which acts as backup for all clusters</li>
+<li><strong>High Load on Cold Start:</strong> Warm up the cache from other caches.</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h3 id=scale-geographically-distributed-datacenters>
+Scale: Geographically Distributed Datacenters
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#scale-geographically-distributed-datacenters class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scale: Geographically Distributed Datacenters" href=#scale-geographically-distributed-datacenters><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ol>
+<li><strong>Race between DB replication and subsequent DB read:</strong> Remote Markers</li>
+</ol>
+<div class=gdoc-page__anchorwrap>
+<h2 id=problems>
+Problems
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#problems class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Problems" href=#problems><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=stale-sets>
+Stale Sets
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#stale-sets class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Stale Sets" href=#stale-sets><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
 <li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/01_framework_abstraction/ class=gdoc-toc__entry>01 DSLabs Abstract Interface</a>
-</span>
+<p>Reader-Writer Race</p>
+<ol>
+<li>Reader reads old value</li>
+<li>writer update db and deletes key from memcache</li>
+<li>Reader writes old value to cache</li>
+</ol>
 </li>
 <li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/02_workload/ class=gdoc-toc__entry>02 Workload</a>
-</span>
+<p>Reader-Reader Race</p>
+<ol>
+<li>Reader1 reads old</li>
+</ol>
 </li>
 <li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/03_state_predicates/ class=gdoc-toc__entry>03 State Predicates</a>
-</span>
-</li>
-<li>
-<span>
-<a href=https://www.digestnotes.com/labs/framework/dslabs_client_to_server_communication/ class=gdoc-toc__entry>WIP</a>
-</span>
+<p>Extend memcache protocol with “leases”
+*</p>
 </li>
 </ul>
-</div>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015070050888.png alt=image-20211015070050888></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=thundering-herds>
+Thundering Herds
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#thundering-herds class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Thundering Herds" href=#thundering-herds><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>If a hot key is invalidated from memcache, a lot of requests from webservers will go to database directly. This increases the load on database suddenly.</li>
+<li>Solution is extension of <strong>Lease</strong> mechanism. If a webserver is shouldering the responsibility to update the memcache (by holding the lease), other webservers wait instead of querying database.</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015070435807.png alt=image-20211015070435807></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=incast-congestion>
+Incast Congestion
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#incast-congestion class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Incast Congestion" href=#incast-congestion><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Many simultaneous responses overwhelm sharednetworking resources</li>
+<li>Solution: Limit the number of outstanding requests with a sliding window
+<ul>
+<li>Larger windows cause result in more congestion</li>
+<li>Smaller windows result in more round trips to the network</li>
+</ul>
+</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015071518959.png alt=image-20211015071518959></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=multiple-memcached-to-be-invalidated>
+Multiple Memcached to be invalidated
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#multiple-memcached-to-be-invalidated class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Multiple Memcached to be invalidated" href=#multiple-memcached-to-be-invalidated><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>Tail the mysql commit log and issue deletes based on transactions that have been committed</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015072233313.png alt=image-20211015072233313></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=too-many-invalidation-packets>
+Too Many Invalidation Packets
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#too-many-invalidation-packets class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Too Many Invalidation Packets" href=#too-many-invalidation-packets><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>If <code>McSqueal</code> has to update all the memcaches individually, it will lead to
+<ul>
+<li>too many packets across data centers.</li>
+<li>poor performance of McSqueal</li>
+</ul>
+</li>
+<li>Having a hierarchy of Memcache Routers solves this problem.</li>
+<li>For eg. only invalidation needs to be sent across datacenter.</li>
+</ul>
+<p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/invalidation_pipeline2.png alt=invalidation_pipeline2></p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=high-load-on-cold-start>
+High Load on Cold Start
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#high-load-on-cold-start class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor High Load on Cold Start" href=#high-load-on-cold-start><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>If a new cluster is starting</li>
+</ul>
+<div class=gdoc-page__anchorwrap>
+<h3 id=race-between-db-replication-and-subsequent-db-read>
+Race between DB replication and subsequent DB read
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#race-between-db-replication-and-subsequent-db-read class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Race between DB replication and subsequent DB read" href=#race-between-db-replication-and-subsequent-db-read><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><ul>
+<li>When we have multiple datacenters, writes in non-primary datacenter can lead to reace between db replication and subsequent db read.</li>
+<li>Remote markers: a special flag that indicates whether a race is likely</li>
+<li>When a webserver updates a key-value, it sets <em>Remote Marker</em> on that key in memcache.</li>
+<li>Any reading webserver follows following logic</li>
+</ul>
+<pre tabindex=0><code>If miss
+	If marker set
+ 		read from master DB
+	else
+ 		read from replica DB
+</code></pre><p><img src=https://www.digestnotes.com/images/cs7210/geo_distributed_datastores/image-20211015073829549.png alt=image-20211015073829549></p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=lesson-learnt>
+Lesson Learnt
+<a data-clipboard-text=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/#lesson-learnt class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Lesson Learnt" href=#lesson-learnt><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><ul>
+<li>Push complexity into the client whenever possible</li>
+<li>Separating cache and persistent store allows them to be scaled independently</li>
+</ul>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
