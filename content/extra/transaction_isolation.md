@@ -10,7 +10,7 @@ draft: false
 
 __Links__
 
-* Source: <a href="https://cs.uwaterloo.ca/~ddbook" target="_blank">FundamentalsPrinciples of Distributed Database Systems, Fourth Edition</a> > <a href="https://cs.uwaterloo.ca/~ddbook/downloads/appendix/Appendix-C" target="_blank">Appendix C: Transaction Processing </a>
+* <a href="https://cs.uwaterloo.ca/~ddbook" target="_blank">FundamentalsPrinciples of Distributed Database Systems, Fourth Edition</a> > <a href="https://cs.uwaterloo.ca/~ddbook/downloads/appendix/Appendix-C" target="_blank">Appendix C: Transaction Processing </a>
 * <a href="https://stackoverflow.com/questions/11043712/what-is-the-difference-between-non-repeatable-read-and-phantom-read" target="_blank">What is the difference between Non-Repeatable Read and Phantom Read? - StackOverflow</a>
 * Ch 7: Transactions, Designing Data-Intensive Applications (DDIA) by Martic Kleppmann
 
@@ -28,7 +28,7 @@ __Links__
 
 Isolation is the property of transactions that requires each transaction to see a consistent database at all times. In other words, an executing transaction cannot reveal its results to other concurrent transactions before its commitment.
 
-> *Isolation* in the sense of ACID means that concurrently executing transactions are isolated from each other: they cannot step on each other’s toes. The classic database textbooks formalize isolation as *serializability*, which means that each transaction can pretend that it is the only transaction running on the entire database. The database ensures that when the transactions have committed, the result is the same as if they had run *serially* (one after another), even though in reality they may have run con‐ currently.
+> *Isolation* in the sense of ACID means that concurrently executing transactions are isolated from each other: they cannot step on each other’s toes. The classic database textbooks formalize isolation as *serializability*, which means that each transaction can pretend that it is the only transaction running on the entire database. The database ensures that when the transactions have committed, the result is the same as if they had run *serially* (one after another), even though in reality they may have run concurrently.
 
 > Atomicity and isolation also apply when a single object is being changed. For example, imagine you are writing a 20 KB JSON document to a database.
 
@@ -50,27 +50,13 @@ SQL defines a number of isolation levels based on _phenomena_ which are situatio
 
 __Note:__ The Non-Repeatable Read applies to a single row, the Phantom Read is about a range of records which satisfy a given query filtering criteria. Non-repeatable-reads read COMMITTED data from an UPDATE query from another transaction. Phantom-reads read COMMITTED data from an INSERT or DELETE query from another transaction
 
-#### More Phenomena
-
-* **Dirty Writes**
-* **Lost Update**: 
-  * Two transactions execute _read-modify-write_ cycles. One update gets lost.
-  * Solution: 
-    * Atomic update queries: `UPDATE inventory SET qty = qty-1 where item_id = 1  ` 
-    * Locking : `txn_begin; Lock(x); read-modify-write(x); unlock(x); ...; txn_end`
-
-* **Write Skew**
-  * Generalization of list update
-  * T1: read(x)-modify-write(y) ; T1: read(x)-modify-write(z)
-  * eg. if (oncall_doctors() > 1), remove_from_oncall(me); 
-
 ## Isolation Levels
 
-### Read uncommitted
+#### Read uncommitted
 
-*  For transactions operating at this level all three phenomena are possible.
+​	For transactions operating at this level all three phenomena are possible.
 
-### Read committed
+#### Read committed
 
 * No dirty reads, No dirty writes
 
@@ -81,7 +67,7 @@ __Note:__ The Non-Repeatable Read applies to a single row, the Phantom Read is a
   * Avoid Dirty Writes: using row-level locks
   * Avoid Dirty Reads: Lock-Read-Unlock  OR Maintain two versions of data (committed and uncommitted)
 
-### Repeatable read:
+#### Repeatable read
 
 * Only phantoms are possible.
 
@@ -94,12 +80,24 @@ __Note:__ The Non-Repeatable Read applies to a single row, the Phantom Read is a
   * Avoid Dirty Writes: using row-level locks
   * Avoid Dirty Reads: Multi-Version Concurrency-Control (MVCC)
 
-
-### Anomaly serializable: 
+#### Anomaly serializable
 
 * None of the phenomena are possible.
 
-SQL standard uses the term `serializable` rather than `anomaly serializable`. However, a serializable isolation level cannot be defined solely in terms of the three phenomena identified above; thus this isolation level is called “anomaly serializable” [Berenson et al., 1995]. The relationship between SQL isolation levels and the four levels of consistency defined in the previous section are also discussed in [Berenson et al., 1995].
+> SQL standard uses the term `serializable` rather than `anomaly serializable`. However, a serializable isolation level cannot be defined solely in terms of the three phenomena identified above; thus this isolation level is called “anomaly serializable” [Berenson et al., 1995]. 
 
+Source: <a href="https://cs.uwaterloo.ca/~ddbook" target="_blank">FundamentalsPrinciples of Distributed Database Systems, Fourth Edition</a>
 
+### More Phenomena
 
+* **Dirty Writes**
+* **Lost Update**: 
+  * Two transactions execute _read-modify-write_ cycles. One update gets lost.
+  * Solution: 
+    * Atomic update queries: `UPDATE inventory SET qty = qty-1 where item_id = 1  ` 
+    * Locking : `txn_begin; Lock(x); read-modify-write(x); unlock(x); ...; txn_end`
+
+* **Write Skew**
+  * Generalization of list update
+  * T1: read(x)-modify-write(y) ; T1: read(x)-modify-write(z)
+  * eg. if (oncall_doctors() > 1), remove_from_oncall(me); 
