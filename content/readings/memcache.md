@@ -27,7 +27,14 @@ Content taken from paper and presentation at <a href="https://www.usenix.org/con
 
 ![image-20211015080639164](/images/cs7210/geo_distributed_datastores/image-20211015080639164.png)
 
+### Characteristics of Cache
+
+1. LRU cache
+2. Non-authoritative. 
+3. Can crash and recover without affecting durability of data.
+
 ### Challenges
+
 1. Keeping database and cache in sync
 2. Protected database from cache failure. If for some reason, cache fails and the entire read traffic falls on the database, it will not be able to keep up.
 
@@ -48,22 +55,41 @@ To support read-your-own-writes semantics
 
 # Summary of Problems
 
+{{< hint info >}}
 ### Scale: Single Memcache Server
   1. **Stale Sets**
-    * Case 1: reader-reader: Assign "Lease" to a webserver which will own the update. Other webservers back-off from updating the cache.
-    * Case 2: reader-writer: If a writer invalidates a key in memcache, it invalidates any active lease as well
+
+      Case 1: reader-reader: Assign "Lease" to a webserver which will own the update. Other webservers back-off from updating the cache.
+
+      Case 2: reader-writer: If a writer invalidates a key in memcache, it invalidates any active lease as well.  
+      
+      <p/>
+      
   2. **Thundering Herd** solved by making a webserver wait if lease is issued to another webserver
+
+{{< /hint >}}
+
+{{< hint info >}}
 ### Scale: Multiple Memcache Servers (Sharded)
+
   1. **Incast Congestion at Web Servers:** Put an upper bound on sharding. Instead of adding more shards, replicate clusters.
+  2. **Hot Keys**: Sharding does not alleviate extra load caused by hot keys. Replication (next approach) of memcache fixes this problem.
+
+{{< /hint >}}
+
+{{< hint info >}}
 ### Scale: Multiple Frontend Clusters(Frontend Server + Memcache Server)
   1. **Multiple Memcached to be invalidated:** Setup a separate async invalidation pipeline
   2. **Too Many Invalidation Packets**: Make invalidation pipeline hierarchical
   3. **Individual Memcache Failing**: Have a backup memcache (gutter deployment) which acts as backup for all clusters
   4. **High Load on Cold Start:** Warm up the cache from other caches.
+{{< /hint >}}
+
+{{< hint info >}}
 ### Scale: Geographically Distributed Datacenters
+
   1. **Race between DB replication and subsequent DB read:** Remote Markers
-
-
+{{< /hint >}}
 
 ## Problems
 

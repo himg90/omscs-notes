@@ -9,9 +9,7 @@ draft: true
 
 # Default Title
 
-\- <Authors>
-
-__Links__
+__References__
 
 *  <a href="https://www.digestnotes.com" target="_blank">New Tab Link</a>
 * [Same Tab Link](https://www.digestnotes.com)

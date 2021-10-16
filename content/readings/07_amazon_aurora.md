@@ -2,6 +2,7 @@
 title: "W07 - Amazon Aurora"
 geekdocDescription: "On Avoiding Distributed Consensus for I/Os, Commits, and Membership Changes"
 keywords: ["distributed computing",  "Amazon Aurora"]
+draft: true
 ---
 # Amazon Aurora: On Avoiding Distributed Consensus for I/Os, Commits, and Membership Changes
 \- Alexandre Verbitski, Anurag Gupta, Debanjan Saha, James Corey, Kamal Gupta Murali Brahmadesam, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice Tengiz Kharatishvilli, Xiaofeng Bao
