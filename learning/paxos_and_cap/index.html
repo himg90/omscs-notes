@@ -3,10 +3,10 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Links     Spanner and Open Source Implementations http://muratbuffalo.blogspot.com/2013/07/spanner-googles-globally-distributed_4.html OSDI12 - Spanner: Google’s Globally-Distributed Database - Youtube  Spanner FAQ    Source: MIT 6.824 - Distributed Systems > Spanner FAQs
-Q: How does external consistency relate to linearizability and serializability?
-A: External consistency seems to be equivalent to linearizability, but applied to entire transactions rather than individual reads and writes. External consistency also seems equivalent to strict serializability, which is serializability with the added constraint that the equivalent serial order must obey real time order.">
-<title>W07 - Spanner | CS7210 - Distributed Computing</title>
+<meta name=description content="Paxos and CAP Theorem    CAP theorem seems to suggest that under network partition, both consistency and availability cannot be achieved simultaneously. However, Paxos can provide strong consistency even under a network partition. Does it mean that Paxos contradicts CAP theorem?
+CAP theorem is known to be misunderstood. There are three points to note. One is that the tradeoff between consistency and availablity only arises under network partition. It means that under normal operation (when there is no network partition) both consistency and availability are achievable.">
+<meta name=keywords content="cs7210,distributed computing,omscs,paxos,CAP theorem">
+<title>Paxos And CAP | CS7210 - Distributed Computing</title>
 <link rel=icon href=https://www.digestnotes.com/favicon/favicon-32x32.png type=image/x-icon>
 <script src=https://www.digestnotes.com/js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=https://www.digestnotes.com/fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -103,14 +103,14 @@ Lectures
 </a>
 </span>
 </li>
-</ul>
-</li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/exams/ class=gdoc-nav__entry>
-Exams
+<a href=https://www.digestnotes.com/lectures/lecture10/ class=gdoc-nav__entry>
+10 - Consistency and Geo-Distributed Data Stores
 </a>
 </span>
+</li>
+</ul>
 </li>
 <li>
 <span class=flex>
@@ -123,13 +123,6 @@ Labs
 <span class=flex>
 <a href=https://www.digestnotes.com/labs/lab02/ class=gdoc-nav__entry>
 Lab02
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/labs/lab03/ class=gdoc-nav__entry>
-Lab03
 </a>
 </span>
 </li>
@@ -161,14 +154,30 @@ DSLabs Framework
 </a>
 </span>
 </li>
+</ul>
+</li>
+</ul>
+</li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/labs/framework/dslabs_client_to_server_communication/ class=gdoc-nav__entry>
-WIP
+<a href=https://www.digestnotes.com/learning/ class=gdoc-nav__entry>
+Learnings
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/learning/high_avail_vs_fault_tolerance/ class=gdoc-nav__entry>
+High Availability vs. Fault Tolerance
 </a>
 </span>
 </li>
-</ul>
+<li>
+<span class=flex>
+<a href=https://www.digestnotes.com/learning/paxos_and_cap/ class="gdoc-nav__entry is-active">
+Paxos And CAP
+</a>
+</span>
 </li>
 </ul>
 </li>
@@ -195,42 +204,10 @@ L04 - Consistent Global States
 </li>
 <li>
 <span class=flex>
-<a href=https://www.digestnotes.com/readings/07_amazon_aurora/ class=gdoc-nav__entry>
-W07 - Amazon Aurora
-</a>
-</span>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/readings/w07spanner/ class="gdoc-nav__entry is-active">
-W07 - Spanner
-</a>
-</span>
-</li>
-</ul>
-</li>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/topics/ class=gdoc-nav__entry>
-Topics
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/topics/geo_distributed_data_stores/ class=gdoc-nav__entry>
-Consistency and Geo-Distributed Data Stores
-</a>
-</span>
-<ul class=gdoc-nav__list>
-<li>
-<span class=flex>
-<a href=https://www.digestnotes.com/topics/geo_distributed_data_stores/memcache/ class=gdoc-nav__entry>
+<a href=https://www.digestnotes.com/readings/memcache/ class=gdoc-nav__entry>
 Memcache
 </a>
 </span>
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -269,31 +246,30 @@ justify-between
 hidden-mobile" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/readings/ href=https://www.digestnotes.com/readings/><span itemprop=name>Readings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>W07 - Spanner</span><meta itemprop=position content="3"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=https://www.digestnotes.com/><span itemprop=name>CS7210 - Distributed Computing</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/learning/ href=https://www.digestnotes.com/learning/><span itemprop=name>Learnings</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Paxos And CAP</span><meta itemprop=position content="3"></li>
 </ol>
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <div class=gdoc-page__anchorwrap>
-<h4 id=links>
-Links
-<a data-clipboard-text=https://www.digestnotes.com/readings/w07spanner/#links class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Links" href=#links><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h1 id=paxos-and-cap-theorem>
+Paxos and CAP Theorem
+<a data-clipboard-text=https://www.digestnotes.com/learning/paxos_and_cap/#paxos-and-cap-theorem class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Paxos and CAP Theorem" href=#paxos-and-cap-theorem><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
-</h4>
-</div><ul>
-<li><a class=gdoc-markdown__link href=https://www.binwang.me/2018-07-29-A-Review-on-Spanner-and-Open-Source-Implementations.html>Spanner and Open Source Implementations</a></li>
-<li><a class=gdoc-markdown__link href=http://muratbuffalo.blogspot.com/2013/07/spanner-googles-globally-distributed_4.html>http://muratbuffalo.blogspot.com/2013/07/spanner-googles-globally-distributed_4.html</a></li>
-<li><a class=gdoc-markdown__link href="https://www.youtube.com/watch?v=C75kpQszAjs">OSDI12 - Spanner: Google’s Globally-Distributed Database - Youtube</a></li>
+</h1>
+</div><p>CAP theorem seems to suggest that under network partition, both consistency and availability cannot be achieved simultaneously. However, Paxos can provide strong consistency even under a network partition. Does it mean that Paxos contradicts CAP theorem?</p>
+<p>CAP theorem is known to be misunderstood. There are three points to note. One is that the tradeoff between consistency and availablity only arises under network partition. It means that under normal operation (when there is no network partition) both consistency and availability are achievable. Second is the definition of consistency. The CAP theorem is talking about strong consistency. The third point - and the focus of this discussion - is the definition of availability.</p>
+<p>In their paper, Gilber & Lynch define availability as:</p>
+<blockquote>
+<p>For a distributed system to be continuously available, every request received by a non-failing node in the system must result in a response.4 That is, any algorithm used by the service must eventually terminate. In some ways this is a weak definition of availability: it puts no bound on how long the algorithm may run before terminating, and therefore allows unbounded computation. On the other hand, when qualified by the need for partition tolerance, this can be seen as a strong definition of availability: even when severe network failures occur, every request must terminate.</p>
+</blockquote>
+<p>Based on the above definition, Paxos is not available under network partition. In other words, Paxos is CP. This is because under network partition, nodes belonging to the minority partition cannot reach and consensus and make progress. Since a request received by these nodes cannot be served, Paxos is not available under the <em>strong definition of availability</em>. In practice, Paxos &ldquo;maximizes the efficiency of availability&rdquo; while being consistent.</p>
+<p>PS - Perhaps calling Paxos as CP is also not correct since nodes of minor partition fall behind nodes of major partition.</p>
+<p><strong>References</strong></p>
+<ul>
+<li>Brewer&rsquo;s conjecture and the feasibility of consistent, available, partition-tolerant web services - Gilbert & Lynch</li>
+<li><a href=https://hackernoon.com/exploring-distributed-system-theory-availability-and-consistency-e8c59e0875cd target=_blank>Exploring Distributed System Theory: Availability and Consistency</a></li>
 </ul>
-<div class=gdoc-page__anchorwrap>
-<h2 id=spanner-faq>
-Spanner FAQ
-<a data-clipboard-text=https://www.digestnotes.com/readings/w07spanner/#spanner-faq class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Spanner FAQ" href=#spanner-faq><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
-</a>
-</h2>
-</div><p>Source: <a href=https://pdos.csail.mit.edu/6.824/schedule.html target=_blank>MIT 6.824 - Distributed Systems</a> > <a href=https://pdos.csail.mit.edu/6.824/papers/spanner-faq.txt target=_blank>Spanner FAQs</a></p>
-<p><strong>Q: How does external consistency relate to linearizability and serializability?</strong></p>
-<p>A: External consistency seems to be equivalent to linearizability, but applied to entire transactions rather than individual reads and writes. External consistency also seems equivalent to strict serializability, which is serializability with the added constraint that the equivalent serial order must obey real time order. The critical property is that if transaction T1 completes, and then (afterwards in real time) transaction T2 starts, T2 must see T1&rsquo;s writes.</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
